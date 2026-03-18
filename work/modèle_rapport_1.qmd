@@ -79,7 +79,12 @@ Les Jeux Olympiques de Paris 2024 ont connu un succès retentissant. Par conséq
 Ce rapport compile les différents diagrammes définissant le fonctionnement de notre application. Le premier diagramme que nous introduirons est celui des cas d'utilisation pour présenter les actions que peuvent réaliser les différents utilisateurs dans l'application. Nous parlerons ensuite du diagramme des classes qui définit les différents objets que nous implementerons. Par la suite, nous présenterons le diagramme d'activité qui décrit le déroulement d'une des actions présentes dans le diagramme des cas d'utilisation . Pour finir, nous fournissons le diagramme de Gantt pour permettre de présenter les prochaines étapes du projet et la répartition du travail au fil des semaines.
 
 
-# 1.
+# 1. Diagramme de cas d'utilisation
+
+![Diagramme de cas d'utilisation](~/work/Projet_traitement_donn-es_1A/work/images/diag_cas_utilisation.png){#fig-pib fig-align="center" width="100%"}
+
+
+
 
 ## 1.1
 
@@ -90,10 +95,21 @@ Ce rapport compile les différents diagrammes définissant le fonctionnement de 
 
 #  2. 
 
-## 2.1 
+![Diagramme de classe](~/work/Projet_traitement_donn-es_1A/work/images/diag_classe.png){#fig-pib fig-align="center" width="100%"}
 
-## 2.2  
 
-##  2.3 
+
+
+#  3. Diagramme d'activité
+
+![Diagramme d'activité](~/work/Projet_traitement_donn-es_1A/work/images/Diagramme_activite.png){#fig-pib fig-align="center" width="100%"}
+
+
+#  4.
+
+![Diagramme de Gantt](~/work/Projet_traitement_donn-es_1A/work/images/diag_gantt.png){#fig-pib fig-align="center" width="100%"}
+
+
+
 
 # Conclusion
