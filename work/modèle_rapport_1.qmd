@@ -65,6 +65,20 @@ Donatien Eneman\\
 
 # Introduction
 
+Les Jeux Olympiques de Paris 2024 ont connu un succès retentissant. Par conséquent l'Etat souhaite davantage investir dans le sport et aurait besoin notamment d'une application qui lui permette de gérer les résultats de compétitions sportives. L'objectif de ce projet est justement de développer cette application. Pour coller aux attentes, un certain nombre de fonctionnalités sont à intégrer à l'application. Ces fonctionnalités sont regroupées dans un cahier des charges présenté ci-après.
+
+
+## Cahier des charges
+
+- L'application doit créer des objets modélisant au minimum des matchs, des compétitions, des équipes ou des joueurs et joueuses; 
+- Il doit être possible d'ajouter les résultats d'une nouvelle compétition et de mettre à jour les résultats et caractéristiques des différentes classes;
+- L'application doit pouvoir fonctionner sur plusieurs jeux de données différents et doit donc être adaptable.
+
+## Plan du rapport
+
+Ce rapport compile les différents diagrammes définissant le fonctionnement de notre application. Le premier diagramme que nous introduirons est celui des cas d'utilisation pour présenter les actions que peuvent réaliser les différents utilisateurs dans l'application. Nous parlerons ensuite du diagramme des classes qui définit les différents objets que nous implementerons. Par la suite, nous présenterons le diagramme d'activité qui décrit le déroulement d'une des actions présentes dans le diagramme des cas d'utilisation . Pour finir, nous fournissons le diagramme de Gantt pour permettre de présenter les prochaines étapes du projet et la répartition du travail au fil des semaines.
+
+
 # 1.
 
 ## 1.1
