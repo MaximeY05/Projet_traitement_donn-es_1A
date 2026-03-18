@@ -102,7 +102,7 @@ Ce rapport compile les différents diagrammes définissant le fonctionnement de 
 
 #  3. Diagramme d'activité
 
-![Diagramme d'activité](~/work/Projet_traitement_donn-es_1A/work/images/Diag_activite.jpg){#fig-pib fig-align="center" width="100%"}
+![Diagramme d'activité](~/work/Projet_traitement_donn-es_1A/work/images/Diag_activite.pdf){#fig-pib fig-align="center" width="85%"}
 
 
 #  4.
