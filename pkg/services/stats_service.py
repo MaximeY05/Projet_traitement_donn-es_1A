@@ -12,3 +12,5 @@ class StatsService:
                 ranking[winner] = ranking.get(winner, 0) + 3
 
         return ranking
+
+
