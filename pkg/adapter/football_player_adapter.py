@@ -18,7 +18,7 @@ class FootballPlayerAdapter(BaseAdapter):
         Returns:
             Match: _description_
         """
-        nom_complet = row["name"].split()
+        nom_complet = row["player_name"].split()
         name = nom_complet[0]
         surname = nom_complet[1]
 
@@ -27,7 +27,7 @@ class FootballPlayerAdapter(BaseAdapter):
             prenom=surname,
             date_naissance=row["birth_date"],
             sexe="Homme",
-            id=None
+            id=row["player_api_id"]
             )
 
     def to_row(self, joueur) -> Dict[str, str]:
