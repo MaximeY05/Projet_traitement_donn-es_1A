@@ -9,21 +9,14 @@ class CompetitionService:
         self.repository = repository
         self.competitions = repository.load()
 
-    # 🔹 CREATE
-    def create_competition(self, nom, equipe, match, sport):
-        competition = Competition(
-            nom = nom
-            equipes = equipes
-            matchs = matchs
-        )
+    def create_competition(self, nom, equipes, matchs):
+        competition = Competition(nom, equipes, matchs)
     
-
-
-        self.matches.append(competition)
+        self.competitions.append(competition)
         self.repository.save(self.competitions)
 
         return competition
 
     def display_competition(self):
-        compeitions = self.repository.load()
+        competitions = self.repository.load()
         print(competitions)

@@ -4,9 +4,18 @@ import Match
 
 class Competition:
 
-    def __init__(self, id: int, nom: str, equipes: list[Equipe], matchs: list[Match]):
+    def __init__(
+        self,
+        id: int,
+        nom: str,
+        equipes: list[Equipe],
+        matchs: list[Match],
+        autres: list[str]
+            ):
         self.nom = nom
         self.equipes = equipes
         self.matchs = matchs
+        self.autres = autres
 
-        
+    def __str__(self) -> str:
+        return f"{self.nom}"

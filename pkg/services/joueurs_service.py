@@ -28,6 +28,6 @@ class JoueurService:
 
         return joueur
 
-    def display_matchs(self):
-        matchs = self.repository.load()
-        print(matchs)
+    def display_joueurs(self):
+        joueurs = self.repository.load()
+        print(joueurs)

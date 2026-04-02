@@ -26,13 +26,12 @@ class DatasetConfiguration:
         self.adapter_match = adapter
 
 
-<<<<<<< HEAD
 volleyball_configuration = DatasetConfiguration(
     dataset_path_match="resources/data/volleyball/match_men.csv",
     dataset_sep_match=",",
     adapter_match=VolleyMatchAdapter(),
 )
-=======
+
 volleyball_match_men_configuration = DatasetConfiguration(
     dataset_path="work/volleyball/match_men.csv",
     dataset_sep=",",
@@ -170,4 +169,3 @@ basket_team_configuration = DatasetConfiguration(
     dataset_sep=",",
     adapter=BasketTeamAdapter
 )
->>>>>>> a3d35420f0cc793cad0e3f2bf230a47d04d3f601
