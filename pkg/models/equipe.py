@@ -30,7 +30,10 @@ class Equipe:
     
     def __str__(self) -> str:
         """Renvoie le nom de l'équipe."""
-        return f"{self.__nom}"
+        return f"{self.nom}"
 
     def ajoute_joueur(self, joueur: Joueur):
         (self.joueurs).append(joueur)
+
+    def ajoute_palmares(self, recompense: str, nombre: int):
+        (self.palmares)[recompense] = nombre
