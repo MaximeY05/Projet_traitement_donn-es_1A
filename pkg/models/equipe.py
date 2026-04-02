@@ -1,6 +1,5 @@
 """Implémentation de la classe Equipe."""
 
-# from typing import Any
 
 from .joueur import Joueur
 
@@ -20,14 +19,12 @@ class Equipe:
         localisation: str,
         joueurs: list[Joueur],
         palmares: dict[str, int],
-        id: int
     ):
         self.nom = nom
         self.localisation = localisation
         self.joueurs = None
         self.palmares = None
-        self.id = id
-    
+
     def __str__(self) -> str:
         """Renvoie le nom de l'équipe."""
         return f"{self.nom}"
