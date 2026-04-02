@@ -7,23 +7,23 @@ class CompetitionService:
 
     def __init__(self, repository: DataRepository, adapter: BaseAdapter):
         self.repository = repository
-        self.matches = repository.load()
+        self.competitions = repository.load()
 
     # 🔹 CREATE
     def create_competition(self, nom, equipe, match, sport):
-        competition = Match(
-            date=date,
-            team1=team1,
-            team2=team2,
-            score1=score1,
-            score2=score2,
+        competition = Competition(
+            nom = nom
+            equipes = equipes
+            matchs = matchs
         )
+    
 
-        self.matches.append(match)
-        self.repository.save(self.matches)
 
-        return match
+        self.matches.append(competition)
+        self.repository.save(self.competitions)
 
-    def display_matchs(self):
-        matchs = self.repository.load()
-        print(matchs)
+        return competition
+
+    def display_competition(self):
+        compeitions = self.repository.load()
+        print(competitions)

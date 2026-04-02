@@ -1,4 +1,4 @@
-import Equipe 
+import Equipe
 import Match
 
 
@@ -8,5 +8,5 @@ class Competition:
         self.nom = nom
         self.equipes = equipes
         self.matchs = matchs
-    
 
+        

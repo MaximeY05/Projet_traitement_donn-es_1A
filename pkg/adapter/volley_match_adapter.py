@@ -38,3 +38,4 @@ class VolleyMatchAdapter(BaseAdapter):
             "set_country_1": match.score1,
             "set_country_2": match.score2,
         }
+

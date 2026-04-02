@@ -20,7 +20,7 @@ class Joueur:
     """
 
     def __init__(self):
-        self.__nom = None
+        self.nom = None
         self.prenom = None
         self.age = None
         self.sexe = None
@@ -42,12 +42,10 @@ class Joueur:
             id: int
     ) -> None:
         
-        self.__nom = nom
+        self.nom = nom
         self.prenom = prenom
         self.age = age
         self.sexe = sexe
-        self.stats = stats
-        # self.sport = sport
         self.id = id
 
     def afficher_stat(self) -> None:
@@ -56,10 +54,7 @@ class Joueur:
 
     def ajouter_stat(self, stat: str, nombre: int) -> None:
         (self.stats)[stat] = nombre
-   
-    # def ajouter_sport(self, sport : "Sport") -> None:
-    #    (self.sport).append(sport)
-   
+
     def suppr_joueur(self) -> None:
         pass
 
