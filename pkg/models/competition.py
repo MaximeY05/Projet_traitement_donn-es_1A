@@ -9,4 +9,9 @@ class Competition:
         self.equipes = equipes
         self.matchs = matchs
 
+    def __str__(self) -> str:
+        """Renvoie le nom de l'équipe"""
+        return f"{self.nom}"
+
         
+
