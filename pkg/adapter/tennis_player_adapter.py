@@ -26,8 +26,7 @@ class TennisPlayerMenAdapter(BaseAdapter):
             nom=name,
             prenom=surname,
             date_naissance=row["birth_date"],
-            sexe="Homme",
-            id=None
+            sexe="Homme"
             )
 
     def to_row(self, joueur) -> Dict[str, str]:
