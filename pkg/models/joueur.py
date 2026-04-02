@@ -22,12 +22,14 @@ class Joueur:
         nationalite: str,
         date_naissance: str,
         sexe: str,
+        autres: list[str],
             ):
         self.nom = nom
         self.prenom = prenom
         self.nationalite = prenom
         self.date_naissance = date_naissance
         self.sexe = sexe
+        self.autres = autres
 
     def __str__(self) -> str:
         return f"{self.prenom} {self.nom}"

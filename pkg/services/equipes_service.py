@@ -3,6 +3,8 @@ from pkg.models.match import Equipe
 from pkg.models.match import Joueur
 from pkg.repository.data_repository import DataRepository
 
+# A TESTER
+
 
 class EquipesService:
 
@@ -33,6 +35,6 @@ class EquipesService:
 
         return equipe
 
-    def display_matchs(self):
-        matchs = self.repository.load()
-        print(matchs)
+    def display_equipes(self):
+        equipes = self.repository.load()
+        print(equipes)

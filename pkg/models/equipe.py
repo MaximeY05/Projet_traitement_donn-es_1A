@@ -19,18 +19,14 @@ class Equipe:
         localisation: str,
         joueurs: list[Joueur],
         palmares: dict[str, int],
+        autres: list[str]
     ):
         self.nom = nom
         self.localisation = localisation
         self.joueurs = None
         self.palmares = None
+        self.autres = autres
 
     def __str__(self) -> str:
         """Renvoie le nom de l'équipe."""
         return f"{self.nom}"
-
-    def ajoute_joueur(self, joueur: Joueur):
-        (self.joueurs).append(joueur)
-
-    def ajoute_palmares(self, recompense: str, nombre: int):
-        (self.palmares)[recompense] = nombre
