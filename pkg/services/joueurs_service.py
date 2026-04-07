@@ -1,5 +1,5 @@
 from pkg.adapter.base_adapter import BaseAdapter
-from pkg.models.match import Joueur
+from pkg.models.joueur import Joueur
 from pkg.repository.data_repository import DataRepository
 
 
