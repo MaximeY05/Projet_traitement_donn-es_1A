@@ -29,6 +29,7 @@ class VolleyMatchMenAdapter(BaseAdapter):
             team2=row["country_code_2"],
             score1=score1,
             score2=score2,
+            autres = {idx: row[idx] for idx in row.index if idx not in ["date", "country_code_1", "country_code_2", "set_country_1", "set_country_2"]}
         )
 
     def to_row(self, match) -> Dict[str, str]:
