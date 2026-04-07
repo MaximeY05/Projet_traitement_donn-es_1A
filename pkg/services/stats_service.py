@@ -1,3 +1,4 @@
+import datetime
 class StatsService:
 
     def __init__(self, matches):
@@ -19,9 +20,9 @@ class StatsService:
         sorted_matches = sorted(self.matches, key=lambda m: m.date)
 
         for match in sorted_matches:
-            match.date = str(match.date).strip()
-            match.date = match.date.replace("--", "-")
-            date_key = match.date.strftime("%Y/%m/%d")
+            d= str(match.date).strip()
+            d = match.date.replace("--", "-")
+            date_key = d.strftime("%Y/%m/%d")
             if date_key not in calendrier:
                 calendrier[date_key] = []
             calendrier[date_key].append(match)
@@ -34,4 +35,6 @@ class StatsService:
             for m in calendrier[date]:
                 print("  - " + str(m.team1) + " contre " + str(m.team2))
 
+    def pays_joueur(self):
+        
 
