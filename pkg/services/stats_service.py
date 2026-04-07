@@ -50,6 +50,6 @@ class StatsService:
         return dic_stat
     
     def affiche_stat_1_joueur(self, Joueur):
-        print(f"Les statistiques du joueur {Joueur.nom} sont : {Joueurs.autres}")
+        print(f"Les statistiques du joueur {Joueur.nom} sont : {Joueur.autres}")
 
 
