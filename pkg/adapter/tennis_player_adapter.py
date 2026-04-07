@@ -26,11 +26,15 @@ class TennisPlayerMenAdapter(BaseAdapter):
             nom=name,
             prenom=surname,
             date_naissance=row["birth_date"],
-            sexe="Homme"
+            sexe="Homme",
+            autres={idx: row[idx] for idx in row.index if idx not in ["name", "birth_date"]}
             )
 
     def to_row(self, joueur) -> Dict[str, str]:
-        return {
+        dico = {
             "name": joueur.nom + joueur.prenom,
             "birth_date": joueur.date_naissance,
         }
+        for key, value in joueur.autres.items():
+            dico[key] = value
+        return dico
