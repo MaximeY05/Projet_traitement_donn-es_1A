@@ -23,6 +23,7 @@ class TennisPlayerMenAdapter(BaseAdapter):
         surname = nom_complet[1]
 
         return Joueur(
+            id=None,
             nom=name,
             prenom=surname,
             date_naissance=row["birth_date"],
