@@ -20,8 +20,8 @@ class StatsService:
         sorted_matches = sorted(self.matches, key=lambda m: m.date)
 
         for match in sorted_matches:
-            d= str(match.date).strip()
-            d = match.date.replace("--", "-")
+            d = str(match.date).strip()
+            d = d.replace("--", "-")
             date_key = d.strftime("%Y/%m/%d")
             if date_key not in calendrier:
                 calendrier[date_key] = []
