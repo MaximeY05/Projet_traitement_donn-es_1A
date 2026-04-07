@@ -3,14 +3,14 @@ from pkg.services.matchs_service import MatchsService
 from pkg.services.joueurs_service import JoueurService
 from pkg.config.dataset_configuration import (
     DatasetConfiguration,
-    # volleyball_match_women_configuration,
+    volleyball_match_women_configuration,
     volleyball_player_men_configuration
 )
 from pkg.services.stats_service import StatsService
 
 
 def main():
-    """
+    
     configuration: DatasetConfiguration = volleyball_match_women_configuration
 
     repository = DataRepository(
@@ -23,8 +23,6 @@ def main():
         adapter=configuration.adapter_match, repository=repository
     ).display_matchs()
 
-    """
-
     configuration: DatasetConfiguration = volleyball_player_men_configuration
     repository = DataRepository(
         file=configuration.dataset_path_match,
@@ -34,7 +32,7 @@ def main():
 
     JoueurService(
         adapter=configuration.adapter_match, repository=repository
-    ).display_matchs()
+    ).display_joueurs()
 
 
     print(StatsService(matches=repository.load()).display_stat_joueurs())
