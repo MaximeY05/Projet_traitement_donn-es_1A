@@ -22,6 +22,7 @@ class Joueur:
         nationalite: str,
         date_naissance: str,
         sexe: str,
+        id: int,
         autres: list[str],
             ):
         self.nom = nom
@@ -29,6 +30,7 @@ class Joueur:
         self.nationalite = prenom
         self.date_naissance = date_naissance
         self.sexe = sexe
+        self.id = id
         self.autres = autres
 
     def __str__(self) -> str:
