@@ -28,7 +28,7 @@ class VolleyMatchAdapter(BaseAdapter):
             team2=row["country_code_2"],
             score1=score1,
             score2=score2,
-            autre=None
+            autres=None
         )
 
     def to_row(self, match) -> Dict[str, str]:
