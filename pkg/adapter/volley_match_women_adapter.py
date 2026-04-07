@@ -24,7 +24,7 @@ class VolleyMatchWomenAdapter(BaseAdapter):
 
         return Match(
             id=None,  # ou généré si besoin
-            date=datetime.strptime(row["date"], "%Y-%m-%d"),
+            date=datetime.strptime(row["date"], "%Y-%m-%d").date(),
             team1=row["country_1"],
             team2=row["country_2"],
             score1=score1,
