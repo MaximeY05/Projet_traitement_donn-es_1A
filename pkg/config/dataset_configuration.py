@@ -1,7 +1,10 @@
-from pkg.adapter.volley_match_adapter import VolleyMatchAdapter
-from pkg.adapter.volley_coach_adapter import VolleyCoachAdapter
-from pkg.adapter.volley_country_adapter import VolleyCountryAdapter
-from pkg.adapter.volley_player_adapter import VolleyPlayerAdapter
+from pkg.adapter.volley_match_men_adapter import VolleyMatchMenAdapter
+from pkg.adapter.volley_match_women_adapter import VolleyMatchWomenAdapter
+# from pkg.adapter.volley_coach_adapter import VolleyCoachAdapter
+# from pkg.adapter.volley_country_adapter import VolleyCountryAdapter
+from pkg.adapter.volley_player_men_adapter import VolleyPlayerMenAdapter
+from pkg.adapter.volley_player_woman_adapter import VolleyPlayerWomanAdapter
+"""
 from pkg.adapter.tennis_match_adapter import TennisMatchAdapter
 from pkg.adapter.tennis_player_adapter import TennisPlayerAdapter
 from pkg.adapter.lol_coach_adapter import LolCoachAdapter
@@ -16,6 +19,7 @@ from pkg.adapter.foot_team_adapter import FootTeamAdapter
 from pkg.adapter.basket_game_adapter import BasketGameAdapter
 from pkg.adapter.basket_player_adapter import BasketPlayerAdapter
 from pkg.adapter.basket_team_adapter import BasketTeamAdapter
+"""
 
 
 class DatasetConfiguration:
@@ -25,25 +29,26 @@ class DatasetConfiguration:
         self.dataset_sep_match = dataset_sep
         self.adapter_match = adapter
 
-
+"""
 volleyball_configuration = DatasetConfiguration(
     dataset_path_match="resources/data/volleyball/match_men.csv",
     dataset_sep_match=",",
     adapter_match=VolleyMatchAdapter(),
 )
+"""
 
 volleyball_match_men_configuration = DatasetConfiguration(
     dataset_path="work/volleyball/match_men.csv",
     dataset_sep=",",
-    adapter=VolleyMatchAdapter(),
+    adapter=VolleyMatchMenAdapter(),
 )
 
 volleyball_match_women_configuration = DatasetConfiguration(
     dataset_path="work/volleyball/match_women.csv",
     dataset_sep=",",
-    adapter=VolleyMatchAdapter(),
+    adapter=VolleyMatchWomenAdapter(),
 )
-
+"""
 volleyball_coach_men_configuration = DatasetConfiguration(
     dataset_path="work/volleyball/coach_men.csv",
     dataset_sep=",",
@@ -56,24 +61,27 @@ volleyball_coach_women_configuration = DatasetConfiguration(
     adapter=VolleyCoachAdapter(),
 )
 
+
 volleyball_country_configuration = DatasetConfiguration(
     dataset_path="work/volleyball/country.csv",
     dataset_sep=",",
     adapter=VolleyCountryAdapter(),
 )
+"""
 
 volleyball_player_men_configuration = DatasetConfiguration(
     dataset_path="work/volleyball/player_men.csv",
     dataset_sep=",",
-    adapter=VolleyPlayerAdapter(),
+    adapter=VolleyPlayerMenAdapter(),
 )
 
 volleyball_player_women_configuration = DatasetConfiguration(
     dataset_path="work/volleyball/player_women.csv",
     dataset_sep=",",
-    adapter=VolleyPlayerAdapter(),
+    adapter=VolleyPlayerWomanAdapter(),
 )
 
+"""
 tennis_match_men_configuration = DatasetConfiguration(
     dataset_path="work/tennis/atp_matches_2024.csv",
     dataset_sep=",",
@@ -169,3 +177,4 @@ basket_team_configuration = DatasetConfiguration(
     dataset_sep=",",
     adapter=BasketTeamAdapter
 )
+"""
