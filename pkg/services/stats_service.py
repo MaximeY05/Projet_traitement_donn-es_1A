@@ -12,5 +12,26 @@ class StatsService:
                 ranking[winner] = ranking.get(winner, 0) + 3
 
         return ranking
+    
+    def calendrier(self):
+        calendrier = {}
+        
+        sorted_matches = sorted(self.matches, key=lambda m: m.date)
+
+        for match in sorted_matches:
+            match.date = str(match.date).strip()
+            match.date = match.date.replace("--", "-")
+            date_key = match.date.strftime("%Y/%m/%d")
+            if date_key not in calendrier:
+                calendrier[date_key] = []
+            calendrier[date_key].append(match)
+        return calendrier
+
+    def display_calendar(self):
+        calendrier = self.calendrier()
+        for date in calendrier:
+            print("Date : " + date)
+            for m in calendrier[date]:
+                print("  - " + str(m.team1) + " contre " + str(m.team2))
 
 
