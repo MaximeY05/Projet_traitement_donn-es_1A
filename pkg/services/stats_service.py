@@ -42,7 +42,14 @@ class StatsService:
         for joueur in self.joueurs:
             dic[joueur.nom] = joueur.date_naissance
         return dic
-            
 
-        
+    def affiche_stat_joueurs(self):
+        dic_stat = {}
+        for joueur in self.joueurs:
+            dic_stat[joueur.nom] = joueur.autres
+        return dic_stat
+    
+    def affiche_stat_1_joueur(self, Joueur):
+        print(f"Les statistiques du joueur {Joueur.nom} sont : {Joueur.autres}")
+
 
