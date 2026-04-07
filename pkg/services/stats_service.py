@@ -34,7 +34,5 @@ class StatsService:
             print("Date : " + date)
             for m in calendrier[date]:
                 print("  - " + str(m.team1) + " contre " + str(m.team2))
-
-    def pays_joueur(self):
         
 
