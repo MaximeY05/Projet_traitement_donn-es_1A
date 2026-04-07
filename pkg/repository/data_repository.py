@@ -7,7 +7,7 @@ from pkg.models.match import Match
 
 class DataRepository:
 
-    def __init__(self, file, adapter, sep=";"):
+    def __init__(self, file, adapter, sep=","):
         self.adapter = adapter
         self.file = file
         self.sep = sep

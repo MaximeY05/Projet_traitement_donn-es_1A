@@ -29,11 +29,8 @@ class TennisMatchAdapter(BaseAdapter):
             winner_name=row.get("winner_name", "Unknown"), # Si présent dans le CSV étendu
             loser_name=row.get("loser_name", "Unknown"),
             score_full=row["score"],
-            score1=score_1,
-            score2=score_2,
-            winner_aces=row["w_ace"],
-            loser_aces=row["l_ace"],
-            minutes=row["minutes"]
+            score1=score1,
+            score2=score2,
         )
 
     def to_row(self, match: TennisMatch) -> Dict[str, any]:
