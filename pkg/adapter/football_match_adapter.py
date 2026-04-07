@@ -5,7 +5,7 @@ from pkg.adapter.base_adapter import BaseAdapter
 from pkg.models.match import Match
 
 
-class BasketballMatchAdapter(BaseAdapter):
+class FootballballMatchAdapter(BaseAdapter):
 
     def __init__(self):
         super().__init__()
@@ -20,23 +20,24 @@ class BasketballMatchAdapter(BaseAdapter):
             Match: _description_
         """
         
-        date_vrai=datetime.strptime(row["game_date"], "%Y-%m-%d").date()
+        date_vrai = datetime.strptime(row["date"], "%Y-%m-%d").date()
 
         return Match(
             id=None,  # ou généré si besoin
             date=date_vrai,
-            team1=row["team_id_home"],
-            team2=row["team_id_away"],
-            score1=row["pts_home"],
-            score2=row["pts_away"],
+            team1=row["home_team_api_id"],
+            team2=row["away_team_api_id"],
+            score1=row["home_team_goal"],
+            score2=row["away_team_goal"],
+            autres=None
         )
 
-    def to_row(self, match) -> Dict[str, str]:
+    def to_row(self, match) -> Dict[str, str]: 
         return {
             "date": match.date,
-            "country_code_1": match.team1,
-            "country_code_2": match.team2,
-            "set_country_1": match.score1,
-            "set_country_2": match.score2,
+            "home_team_api_id": match.team1,
+            "away_team_api_id": match.team2,
+            "home_team_goal": match.score1,
+            "away_team_goal": match.score2,
         }
 
