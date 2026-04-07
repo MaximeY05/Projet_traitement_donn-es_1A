@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 class StatsService:
 
     def __init__(self, matches):
