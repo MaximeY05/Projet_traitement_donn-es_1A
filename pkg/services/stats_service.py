@@ -1,8 +1,9 @@
 from datetime import datetime
 class StatsService:
 
-    def __init__(self, matches):
+    def __init__(self, matches, joueurs):
         self.matches = matches
+        self.joueurs = joueurs
 
     def compute_ranking(self):
         ranking = {}
@@ -35,5 +36,13 @@ class StatsService:
             print("Date : " + date)
             for m in calendrier[date]:
                 print("  - " + str(m.team1) + " contre " + str(m.team2))
+            
+    def display_stat_joueurs(self):
+        dic = {}
+        for joueur in self.joueurs:
+            dic[joueur.nom] = joueur.date_naissance
+        return dic
+            
+
         
 
