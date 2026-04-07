@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Dict
 
 from pkg.adapter.base_adapter import BaseAdapter
@@ -23,7 +24,7 @@ class VolleyMatchWomenAdapter(BaseAdapter):
 
         return Match(
             id=None,  # ou généré si besoin
-            date=row["date"],
+            date=datetime.strptime(row["date"], "%Y-%m-%d"),
             team1=row["country_1"],
             team2=row["country_2"],
             score1=score1,
