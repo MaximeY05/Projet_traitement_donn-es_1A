@@ -1,4 +1,5 @@
 from typing import Dict
+from datetime import datetime
 
 from pkg.adapter.base_adapter import BaseAdapter
 from pkg.models.match import Match
@@ -18,10 +19,12 @@ class BasketballMatchAdapter(BaseAdapter):
         Returns:
             Match: _description_
         """
+        
+        date_vrai=datetime.strptime(row["game_date"], "%Y-%m-%d").date()
 
         return Match(
             id=None,  # ou généré si besoin
-            date=row["game_date"],
+            date=date_vrai,
             team1=row["team_id_home"],
             team2=row["team_id_away"],
             score1=row["pts_home"],
