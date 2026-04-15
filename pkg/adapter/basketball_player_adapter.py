@@ -18,17 +18,21 @@ class FBasketballPlayerAdapter(BaseAdapter):
         Returns:
             Match: _description_
         """
+        nom_complet = row["last_name"] + " " + row["first_name"]
 
         return Joueur(
-            nom=row["last_name"],
-            prenom=row["first_name"],
+            nom=nom_complet,
             date_naissance=row["birthdate"],
             sexe="Homme",
-            id=row["person_id"]
+            id=row["person_id"],
+            autres={idx: row[idx] for idx in row.index if idx not in ["person_id", "birthdate"]}
             )
 
     def to_row(self, joueur) -> Dict[str, str]:
-        return {
-            "name": joueur.nom + joueur.prenom,
+        dico = {
+            "person_id": joueur.id,
             "birth_date": joueur.date_naissance,
         }
+        for key, value in joueur.autres.items():
+            dico[key] = value
+        return dico

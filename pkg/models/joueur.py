@@ -8,7 +8,6 @@ class Joueur:
     Atributes
     ----------
     nom : str
-    prenom : str
     nationalite : str
     date_naissance : str
     sexe : str
@@ -18,18 +17,16 @@ class Joueur:
     def __init__(
         self,
         nom: str,
-        prenom: str,
         date_naissance: str,
         sexe: str,
         id: int,
         autres: list[str],
             ):
         self.nom = nom
-        self.prenom = prenom
         self.date_naissance = date_naissance
         self.sexe = sexe
         self.id = id
         self.autres = autres
 
     def __str__(self) -> str:
-        return f"{self.prenom} {self.nom}"
+        return f"{self.nom}"

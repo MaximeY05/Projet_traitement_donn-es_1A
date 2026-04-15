@@ -18,20 +18,21 @@ class FootballPlayerAdapter(BaseAdapter):
         Returns:
             Match: _description_
         """
-        nom_complet = row["player_name"].split()
-        name = nom_complet[0]
-        surname = nom_complet[1]
 
         return Joueur(
-            nom=name,
-            prenom=surname,
+            id=row["player_api_id"],
+            nom=row["player_name"],
             date_naissance=row["birth_date"],
             sexe="Homme",
-            id=row["player_api_id"]
+            autres={idx: row[idx] for idx in row.index if idx not in ["player_api_id", "player_name", "birth_date"]}
             )
 
     def to_row(self, joueur) -> Dict[str, str]:
-        return {
-            "name": joueur.nom + joueur.prenom,
-            "birth_date": joueur.date_naissance,
+        dico = {
+            "player_api_id": joueur.id,
+            "player_name": joueur.nom,
+            "birth_date": joueur.date_naissance
         }
+        for key, value in joueur.autres.items():
+            dico[key] = value
+        return dico

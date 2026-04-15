@@ -18,13 +18,9 @@ class VolleyPlayerWomanAdapter(BaseAdapter):
         Returns:
             Match: _description_
         """
-        nom_complet = row["name"].split()
-        name = nom_complet[0]
-        surname = nom_complet[1]
 
         return Joueur(
-            nom=name,
-            prenom=surname,
+            nom=row["name"],
             date_naissance=row["birth_date"],
             sexe="Femme",
             id=None,

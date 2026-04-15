@@ -18,22 +18,19 @@ class TennisPlayerMenAdapter(BaseAdapter):
         Returns:
             Match: _description_
         """
-        nom_complet = row["name"].split()
-        name = nom_complet[0]
-        surname = nom_complet[1]
+        nom_complet = row["name_first"] + " " + row["name_last"]
 
         return Joueur(
-            id=None,
-            nom=name,
-            prenom=surname,
+            id=row["player_id"],
+            nom=nom_complet,
             date_naissance=row["birth_date"],
             sexe="Homme",
-            autres={idx: row[idx] for idx in row.index if idx not in ["name", "birth_date"]}
+            autres={idx: row[idx] for idx in row.index if idx not in ["player_id", "birth_date"]}
             )
 
     def to_row(self, joueur) -> Dict[str, str]:
         dico = {
-            "name": joueur.nom + joueur.prenom,
+            "player_id": joueur.id,
             "birth_date": joueur.date_naissance,
         }
         for key, value in joueur.autres.items():
