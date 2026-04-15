@@ -35,6 +35,12 @@ class StatsService:
             for m in calendrier[date]:
                 print("  - " + str(m.team1) + " contre " + str(m.team2))
 
+    def affiche_stat_match(self):
+        dic = {}
+        for match in self.matches:
+            dic[f"{match.team1} vs {match.team2} du {match.date}"] = match.autres
+            return dic
+ 
     def display_stat_joueurs(self):
         dic = {}
         for joueur in self.joueurs:
