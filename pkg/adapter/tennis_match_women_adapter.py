@@ -6,11 +6,11 @@ from pkg.adapter.base_adapter import BaseAdapter
 from pkg.models.match import Match
 
 
-class TennisMatchAdapter(BaseAdapter):
+class TennisMatchWomenAdapter(BaseAdapter):
 
     def __init__(self):
         super().__init__()
-        self.joueurs = {row["player_id"]: row for _, row in read_csv(self.file, sep=self.sep).iterrows()}
+        self.joueurs = {row["player_id"]: row for _, row in read_csv("Projet_traitement_donn-es_1A/work/tennis/wta_players_2024.csv", sep=",").iterrows()}
 
     def adapt(self, row) -> Match:
         """
@@ -39,8 +39,8 @@ class TennisMatchAdapter(BaseAdapter):
         return Match(
             id=None,
             date=datetime.strptime(row["tourney_date"], "%Y-%m%d").date(),
-            team1=self.joueurs[row["winner_id"]]["name_first"] + self.joueurs[row["winner_id"]]["name_last"],
-            team2=self.joueurs[row["loser_id"]]["name_first"] + self.joueurs[row["loser_id"]]["name_last"],
+            team1=self.joueurs[row["winner_id"]]["name_first"] + " " + self.joueurs[row["winner_id"]]["name_last"],
+            team2=self.joueurs[row["loser_id"]]["name_first"] + " " + self.joueurs[row["loser_id"]]["name_last"],
             score1=scorewin,
             score2=scorelose,
             autres={idx: row[idx] for idx in row.index if idx not in ["tourney_date"]}
