@@ -29,7 +29,7 @@ class Counterstrike2PlayerAdapter(BaseAdapter):
 
     def to_row(self, joueur) -> Dict[str, str]:
         dico = {
-            "name": joueur.nom + joueur.prenom,
+            "name": joueur.nom,
             "birthdate": joueur.date_naissance,
         }
         for key, value in joueur.autres.items():

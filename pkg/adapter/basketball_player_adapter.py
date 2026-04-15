@@ -4,7 +4,7 @@ from pkg.adapter.base_adapter import BaseAdapter
 from pkg.models.joueur import Joueur
 
 
-class FBasketballPlayerAdapter(BaseAdapter):
+class BasketballPlayerAdapter(BaseAdapter):
 
     def __init__(self):
         super().__init__()

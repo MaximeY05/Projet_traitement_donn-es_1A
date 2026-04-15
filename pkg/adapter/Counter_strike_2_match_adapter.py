@@ -4,14 +4,13 @@ from pkg.adapter.base_adapter import BaseAdapter
 from pkg.models.match import Match
 
 
-class CounterStrikeMatchAdapter(BaseAdapter):
+class CounterStrike2MatchAdapter(BaseAdapter):
 
     def __init__(self):
         super().__init__()
 
     def adapt(self, row) -> Match:
-        """
-        Convertit une ligne de atp_matches_2024.csv en objet TennisMatch.
+        """.
         """
 
         return Match(
