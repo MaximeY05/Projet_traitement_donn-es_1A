@@ -1,6 +1,6 @@
 from typing import Dict
 from pkg.adapter.base_adapter import BaseAdapter
-from pkg.models.team import Team
+from pkg.models.equipe import Equipe
 
 
 class LolTeamAdapter(BaseAdapter):
@@ -8,24 +8,24 @@ class LolTeamAdapter(BaseAdapter):
     def __init__(self):
         super().__init__()
 
-    def adapt(self, row) -> Team:
+    def adapt(self, row) -> Equipe:
         """
-        Convertit une ligne de team.csv en objet Team.
+        Convertit une ligne de team.csv en objet Equipe.
         """
-        return Team(
-            name=row["team"],
-            abbreviation=row["team_abbreviation"],
-            location=row["location"],
-            region=row["region"]
+        return Equipe(
+            nom=row["team"],
+            localisation=row["location"],
+            autres={idx: row[idx] for idx in row.index if idx not in ["team", "location"]}
         )
 
-    def to_row(self, team: Team) -> Dict[str, str]:
+    def to_row(self, equipe: Equipe) -> Dict[str, str]:
         """
-        Convertit un objet Team en dictionnaire pour le CSV.
+        Convertit un objet Equipe en dictionnaire pour le CSV.
         """
-        return {
-            "team": team.name,
-            "team_abbreviation": team.abbreviation,
-            "location": team.location,
-            "region": team.region
+        dico = {
+            "team": equipe.nom,
+            "location": equipe.localisation
         }
+        for key, value in equipe.autres.items():
+            dico[key] = value
+        return dico
