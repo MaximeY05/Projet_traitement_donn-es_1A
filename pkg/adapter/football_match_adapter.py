@@ -24,23 +24,25 @@ class FootballMatchAdapter(BaseAdapter):
         date = row["date"].split(" ")[0]
         date_vrai = datetime.strptime(date, "%Y-%m-%d").date()
 
-        
+        id_home, id_away = row["home_team_api_id"], row["away_team_api_id"]
+        nom_home, nom_away = self.equipes_nom[id_home], self.equipes_nom[id_away]
 
         return Match(
             id=row["id"],
             date=date_vrai,
-            team1=row["home_team_api_id"],
-            team2=row["away_team_api_id"],
+            team1=nom_home,
+            team2=nom_away,
             score1=row["home_team_goal"],
             score2=row["away_team_goal"],
-            autres=None
+            autres={idx: row[idx] for idx in row.index if idx not in ["id", "home_team_goal", "away_team_goal"]}
         )
 
     def to_row(self, match) -> Dict[str, str]: 
         dico = {
-            "id": match.id
+            "id": match.id,
+            "home_team_goal": match.score1,
+            "away_team_goal": match.score2
         }
         for key, value in match.autres.items():
             dico[key] = value
         return dico
-
