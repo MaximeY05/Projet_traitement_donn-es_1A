@@ -10,7 +10,7 @@ from pkg.services.stats_service import StatsService
 
 
 def main():
-    
+    """
     configuration: DatasetConfiguration = volleyball_match_women_configuration
 
     repository = DataRepository(
@@ -22,7 +22,7 @@ def main():
     MatchsService(
         adapter=configuration.adapter_match, repository=repository
     ).display_matchs()
-
+    """
     configuration: DatasetConfiguration = volleyball_player_men_configuration
     repository = DataRepository(
         file=configuration.dataset_path_match,
@@ -34,9 +34,8 @@ def main():
         adapter=configuration.adapter_match, repository=repository
     ).display_joueurs()
 
-
     print(StatsService(matches=repository.load()).display_stat_joueurs())
-    #print(StatsService(matches=repository.load()).display_calendar())
+    # print(StatsService(matches=repository.load()).display_calendar())
 
 
 if __name__ == "__main__":
