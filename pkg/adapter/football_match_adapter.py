@@ -33,11 +33,14 @@ class FootballballMatchAdapter(BaseAdapter):
         )
 
     def to_row(self, match) -> Dict[str, str]: 
-        return {
+        dico = {
             "date": match.date,
             "home_team_api_id": match.team1,
             "away_team_api_id": match.team2,
             "home_team_goal": match.score1,
             "away_team_goal": match.score2,
         }
+        for key, value in match.autres.items():
+            dico[key] = value
+        return dico
 

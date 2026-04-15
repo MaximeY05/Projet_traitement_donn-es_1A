@@ -4,7 +4,7 @@ from pkg.adapter.base_adapter import BaseAdapter
 from pkg.models.equipe import Equipe
 
 
-class Champion_leagueEquipeAdapter(BaseAdapter):
+class ChampionleagueEquipeAdapter(BaseAdapter):
 
     def __init__(self):
         super().__init__()
@@ -20,16 +20,19 @@ class Champion_leagueEquipeAdapter(BaseAdapter):
         """
 
         return Equipe(
-            nom=row["full_name"],
-            localisation=row["state"],
+            nom=row["short_name"],
+            localisation=row["city"],
             joueurs=None,
             palmares=None,
+            autres={idx: row[idx] for idx in row.index if idx not in ["short_name", "city"]}
         )
 
     def to_row(self, equipe) -> Dict[str, str]:
-        return {
-            "full_name": equipe.nom,
-            "state": equipe.localisation,
-    
+        dico = {
+            "short_name": equipe.nom,
+            "city": equipe.localisation,
         }
+        for key, value in equipe.autres.items():
+            dico[key] = value
+        return dico
 

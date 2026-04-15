@@ -24,12 +24,15 @@ class FootballEquipeAdapter(BaseAdapter):
             localisation=row["state"],
             joueurs=None,
             palmares=None,
+            autres={idx: row[idx] for idx in row.index if idx not in ["full_name", "state"]}
         )
 
     def to_row(self, equipe) -> Dict[str, str]:
-        return {
+        dico = {
             "full_name": equipe.nom,
             "state": equipe.localisation,
-    
         }
+        for key, value in equipe.autres.items():
+            dico[key] = value
+        return dico
 
