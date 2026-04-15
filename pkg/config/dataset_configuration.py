@@ -4,9 +4,9 @@ from pkg.adapter.volley_match_women_adapter import VolleyMatchWomenAdapter
 # from pkg.adapter.volley_country_adapter import VolleyCountryAdapter
 from pkg.adapter.volley_player_men_adapter import VolleyPlayerMenAdapter
 from pkg.adapter.volley_player_woman_adapter import VolleyPlayerWomanAdapter
+from pkg.adapter.tennis_player_adapter import TennisPlayerMenAdapter
 """
 from pkg.adapter.tennis_match_adapter import TennisMatchAdapter
-from pkg.adapter.tennis_player_adapter import TennisPlayerAdapter
 from pkg.adapter.lol_coach_adapter import LolCoachAdapter
 from pkg.adapter.lol_match_adapter import LolMatchAdapter
 from pkg.adapter.lol_player_adapter import LolPlayerAdapter
@@ -93,13 +93,13 @@ tennis_match_women_configuration = DatasetConfiguration(
     dataset_sep=",",
     adapter=TennisMatchAdapter
 )
-
+"""
 tennis_player_men_configuration = DatasetConfiguration(
     dataset_path="work/tennis/atp_players_2024.csv",
     dataset_sep=",",
-    adapter=TennisPlayerAdapter
+    adapter=TennisPlayerMenAdapter()
 )
-
+"""
 tennis_player_women_configuration = DatasetConfiguration(
     dataset_path="work/tennis/wta_players_2024.csv",
     dataset_sep=",",

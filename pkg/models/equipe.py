@@ -1,9 +1,6 @@
 """Implémentation de la classe Equipe."""
 
 
-from .joueur import Joueur
-
-
 class Equipe:
     """
     La classe Equipe permet de modéliser une équipe.
