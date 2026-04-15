@@ -17,8 +17,6 @@ class Equipe:
         self,
         nom: str,
         localisation: str,
-        joueurs: list[Joueur],
-        palmares: dict[str, int],
         autres: list[str]
     ):
         self.nom = nom
