@@ -47,5 +47,41 @@ class StatsService:
             dic_stat[joueur.nom] = joueur.autres
         return dic_stat
 
-    def affiche_stat_1_joueur(self, Joueur):
-        print(f"Statistiques du joueur {Joueur.nom} : {Joueur.autres}")
+    def affiche_stat_1_joueur(self):
+        nom_joueur = input("Entrez le nom du joueur pour voir ses stats :")
+        for joueur in self.joueurs:
+            if joueur.nom == nom_joueur:
+                print(f"Les statistiques de {nom_joueur} sont : {joueur.autres}")
+                return
+            print("Joueur non trouvé")
+
+    def affiche_1_stat(self):
+        nom_joueur = input("Entrez le nom du joueur pour voir ses stats : ")
+        for joueur in self.joueurs:
+            if joueur.nom == nom_joueur:
+                dico_stats = joueur.autres
+        nb_stats = 0
+        for cle in dico_stats:
+            nb_stats = nb_stats + 1
+        if nb_stats == 0:
+            print("Pas de statistiques pour ce joueur.")
+            return
+        print("Voici les stats disponibles :")
+        noms_des_stats = []
+        numero = 1
+        for nom_de_la_stat in dico_stats:
+            print(numero, ":", nom_de_la_stat)
+            noms_des_stats.append(nom_de_la_stat)
+            numero = numero + 1
+        choix_str = input("Entrez le numéro de la statistique : ")
+        choix_int = int(choix_str)
+        if choix_int > 0:
+            if choix_int <= nb_stats:
+                indice = choix_int - 1
+                nom_choisi = noms_des_stats[indice]
+                valeur_stat = dico_stats[nom_choisi]
+                print(f"La statistique {nom_choisi} du joueur {nom_joueur} est : {valeur_stat}")
+            else:
+                print("Erreur : Ce numéro est trop grand.")
+        else:
+            print("Erreur : Veuillez choisir un nombre positif.")
