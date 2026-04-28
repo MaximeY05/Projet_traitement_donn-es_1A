@@ -10,7 +10,7 @@ class FootballMatchAdapter(BaseAdapter):
     """Classe implémentant l'adapter pour les matchs de football"""
     def __init__(self):
         self.equipes_nom = {row["team_api_id"]: row["team_long_name"] for _, row in
-                            read_csv("Projet_traitement_donn-es_1A/work/football/team.csv",
+                            read_csv("work/football/team.csv",
                             sep=",").iterrows()}
 
     def adapt(self, row) -> Match:

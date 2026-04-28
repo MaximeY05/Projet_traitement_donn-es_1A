@@ -21,10 +21,10 @@ class FootballPlayerAdapter(BaseAdapter):
         return Joueur(
             id=row["player_api_id"],
             nom=row["player_name"],
-            date_naissance=row["birth_date"],
+            date_naissance=row["birthday"],
             sexe="Homme",
             autres={idx: row[idx] for idx in row.index if idx not in
-                    ["player_api_id", "player_name", "birth_date"]}
+                    ["player_api_id", "player_name", "birthday"]}
             )
 
     def to_row(self, joueur) -> Dict[str, str]:

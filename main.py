@@ -6,17 +6,25 @@ from pkg.config.dataset_configuration import (
     DatasetConfiguration,
     volleyball_player_men_configuration,
     tennis_player_men_configuration,
+    tennis_player_women_configuration,
     tennis_match_men_configuration,
     tennis_match_women_configuration,
     basket_match_configuration,
     basket_player_configuration,
-    basket_team_configuration
+    basket_team_configuration,
+    lol_match_configuration,
+    lol_player_configuration,
+    lol_team_configuration,
+    football_match_configuration,
+    football_equipe_configuration,
+    football_player_configuration,
+    champion_league_match_configuration
     )
 from pkg.services.stats_service import StatsService
 
 def main():
-    """
-    configuration: DatasetConfiguration = basket_match_configuration
+    
+    configuration: DatasetConfiguration = champion_league_match_configuration
 
     repository = DataRepository(
         file=configuration.dataset_path_match,
@@ -27,21 +35,20 @@ def main():
     MatchsService(
         adapter=configuration.adapter_match, repository=repository
     ).display_matchs()
+    """
     
-    
-    configuration: DatasetConfiguration = basket_player_configuration
+    configuration: DatasetConfiguration = football_player_configuration
     repository = DataRepository(
         file=configuration.dataset_path_match,
         adapter=configuration.adapter_match,
         sep=configuration.dataset_sep_match,
     )
-    
     JoueurService(
         adapter=configuration.adapter_match, repository=repository
     ).display_joueurs()
-    """
 
-    configuration: DatasetConfiguration = basket_team_configuration
+    
+    configuration: DatasetConfiguration = football_equipe_configuration
     repository = DataRepository(
         file=configuration.dataset_path_match,
         adapter=configuration.adapter_match,
@@ -51,15 +58,14 @@ def main():
     EquipesService(
         adapter=configuration.adapter_match, repository=repository
     ).display_equipes()
-
-
+    """
 
     print()
     #j = repository.load()[0]
     #dico = configuration.adapter_match.to_row(j)
     #print(dico)
-    #print((configuration.adapter_match).to_row(m))
-    print(StatsService(matches=None, joueurs=repository.load()).affiche_stat_joueurs())
+    #print((configuration.adapter_match).to_row(j))
+    #print(StatsService(matches=None, joueurs=repository.load()).affiche_stat_joueurs())
     #print(StatsService(matches=None, joueurs=repository.load()).affiche_stat_1_joueur(j[0]))
     # print(StatsService(matches=repository.load()).display_calendar())
     #print(StatsService(matches=repository.load(), joueurs=None).affiche_stat_match())
