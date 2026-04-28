@@ -10,7 +10,8 @@ class BasketballMatchAdapter(BaseAdapter):
 
     def __init__(self):
         super().__init__()
-        self.equipes_nom = {row["id"]: row["full_name"] for _, row in read_csv("work/basketball/team.csv", sep=",").iterrows()}
+        self.equipes_nom = {row["id"]: row["full_name"] for _, row in
+                            read_csv("work/basketball/team.csv", sep=",").iterrows()}
 
     def adapt(self, row) -> Match:
         """Converti une ligne provenant d'un fichier csv lu par pandas en objet python
@@ -22,19 +23,18 @@ class BasketballMatchAdapter(BaseAdapter):
             Match: _description_
         """
 
-        date_vrai = datetime.strptime(row["game_date"], "%Y-%m-%d").date()
-
         id_home, id_away = row["team_id_home"], row["team_id_away"]
         nom_home, nom_away = self.equipes_nom[id_home], self.equipes_nome[id_away]
 
         return Match(
             id=row["game_id"],
-            date=date_vrai,
+            date=datetime.strptime(row["game_date"], "%Y-%m-%d").date(),
             team1=nom_home,
             team2=nom_away,
             score1=row["pts_home"],
             score2=row["pts_away"],
-            autres={idx: row[idx] for idx in row.index if idx not in ["game_id", "pts_home", "pts_away"]}
+            autres={idx: row[idx] for idx in row.index if idx not in ["game_id", "game_date",
+                                                                      "pts_home", "pts_away"]}
         )
 
     def to_row(self, match) -> Dict[str, str]:

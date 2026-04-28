@@ -1,5 +1,3 @@
-from pandas import read_csv
-
 from typing import Dict
 from datetime import datetime
 from pkg.adapter.base_adapter import BaseAdapter
@@ -15,23 +13,22 @@ class BadmintonMatchAdapter(BaseAdapter):
         """
         Convertit une ligne de atp_matches_2024.csv en objet TennisMatch.
         """
-        date_vrai = datetime.strptime(row["date"], "%Y-%m-%d").date()
 
         score1 = 0
         score2 = 0
-        
+
         game1 = row["game_1_score"].split("-")
         if int(game1[0][0]) > int(game1[1][0]):
             score1 += 1
         else:
             score2 += 1
-        
+
         game2 = row["game_2_score"].split("-")
         if int(game2[0][0]) > int(game2[1][0]):
             score1 += 1
         else:
             score2 += 1
-        
+
         game3 = row["game_3_score"].split("-")
         if int(game3[0][0]) > int(game3[1][0]):
             score1 += 1
@@ -40,14 +37,14 @@ class BadmintonMatchAdapter(BaseAdapter):
 
         return Match(
             id=None,
-            date=date_vrai,
+            date=datetime.strptime(row["date"], "%Y-%m-%d").date(),
             team1=row["player_1"],
             team2=row["player_2"],
-            score1=row["score1"],
-            score2=row["score2"],
+            score1=score1,
+            score2=score2,
             autres={
-                  idx: row[idx] for idx in row.index 
-                  if idx not in ["player_1", "player_2", "game_1_score", "game_2_score"]
+                  idx: row[idx] for idx in row.index
+                  if idx not in ["player_1", "player_2"]
                 }
             )
 

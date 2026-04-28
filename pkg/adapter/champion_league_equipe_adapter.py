@@ -35,4 +35,3 @@ class ChampionleagueEquipeAdapter(BaseAdapter):
         for key, value in equipe.autres.items():
             dico[key] = value
         return dico
-
