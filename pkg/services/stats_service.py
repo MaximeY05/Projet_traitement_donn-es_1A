@@ -93,3 +93,4 @@ class StatsService:
                 print("Erreur : Ce numéro est trop grand.")
         else:
             print("Erreur : Veuillez choisir un nombre positif.")
+
