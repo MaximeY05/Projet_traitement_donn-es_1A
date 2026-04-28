@@ -86,6 +86,13 @@ de donnée indépendamment de leurs formes.
 
 ## caractéristiques techniques
 
+Nous allons expliquer en détails les caractéristiques techniques de notre projet permettant l'obtenir les caractéristiques fonctionnelles mentionnées dans la partie précédente. Nous commencerons par présenter l'architecture de notre code, avant d'expliquer les différentes parties de celui-ci. Nous nous aiderons du diagramme de classes de notre projet pour expliquer nos différents choix.
+
+# Architecture du code
+Notre code est découpé en plusieurs parties qui communiquent entre elles.Nous disposons de 5 dossiers différents ainsi que d'un fichier "main" qui regroupe ces parties. Ces parties sont : 
+- "config" : dossier contenant les classes générales. Nous précisons générales car elles ne sont pas définies pour une certaine base de données.
+
+
 # difficultés rencontrées
 
 # assurance qualité
