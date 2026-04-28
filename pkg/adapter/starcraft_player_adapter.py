@@ -35,5 +35,3 @@ class StarcraftPlayerAdapter(BaseAdapter):
         for key, value in joueur.autres.items():
             dico[key] = value
         return dico
-
-

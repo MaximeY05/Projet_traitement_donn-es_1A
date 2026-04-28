@@ -24,7 +24,8 @@ class FootballPlayerAdapter(BaseAdapter):
             nom=row["player_name"],
             date_naissance=row["birth_date"],
             sexe="Homme",
-            autres={idx: row[idx] for idx in row.index if idx not in ["player_api_id", "player_name", "birth_date"]}
+            autres={idx: row[idx] for idx in row.index if idx not in
+                    ["player_api_id", "player_name", "birth_date"]}
             )
 
     def to_row(self, joueur) -> Dict[str, str]:

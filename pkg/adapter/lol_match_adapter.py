@@ -25,7 +25,8 @@ class LolMatchAdapter(BaseAdapter):
             team2=row["team_red"],
             score1=score1,
             score2=score2,
-            autres={idx: row[idx] for idx in row.index if idx not in ["date", "team_blue", "team_red"]}
+            autres={idx: row[idx] for idx in row.index if idx not in ["date", "team_blue",
+                                                                      "team_red"]}
         )
 
     def to_row(self, match: Match) -> Dict[str, any]:
