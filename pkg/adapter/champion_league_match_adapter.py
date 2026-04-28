@@ -1,15 +1,12 @@
+"Adapter pour les matchs de Champions League"
 from typing import Dict
 from datetime import datetime
-
 from pkg.adapter.base_adapter import BaseAdapter
 from pkg.models.match import Match
 
 
 class ChampionleagueMatchAdapter(BaseAdapter):
-
-    def __init__(self):
-        super().__init__()
-
+    """Classe implémentant l'adapter pour les matchs de Champions League"""
     def adapt(self, row) -> Match:
         """Convertit une ligne provenant d'un fichier csv lu par pandas en objet python
 
@@ -38,6 +35,17 @@ class ChampionleagueMatchAdapter(BaseAdapter):
         )
 
     def to_row(self, match) -> Dict[str, str]:
+        """Reconvertit l'objet en dictionnaire pour l'export CSV.
+
+        Parameters
+        ----------
+        match : Match
+            objet à renvoyer
+
+        Returns
+        --------
+        dict : dictionnaire prêt pour la transition en csv
+        """
         dico = {
             "date": match.date,
             "team_home": match.team1,

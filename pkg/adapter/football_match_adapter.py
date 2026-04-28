@@ -1,15 +1,14 @@
-from pandas import read_csv
+"Adapter pour les matchs de football"
 from typing import Dict
 from datetime import datetime
-
+from pandas import read_csv
 from pkg.adapter.base_adapter import BaseAdapter
 from pkg.models.match import Match
 
 
 class FootballMatchAdapter(BaseAdapter):
-
+    """Classe implémentant l'adapter pour les matchs de football"""
     def __init__(self):
-        super().__init__()
         self.equipes_nom = {row["team_api_id"]: row["team_long_name"] for _, row in
                             read_csv("Projet_traitement_donn-es_1A/work/football/team.csv",
                             sep=",").iterrows()}
@@ -42,6 +41,17 @@ class FootballMatchAdapter(BaseAdapter):
         )
 
     def to_row(self, match) -> Dict[str, str]:
+        """Reconvertit l'objet en dictionnaire pour l'export CSV.
+
+        Parameters
+        ----------
+        match : Match
+            objet à renvoyer
+
+        Returns
+        --------
+        dict : dictionnaire prêt pour la transition en csv
+        """
         dico = {
             "id": match.id,
             "home_team_goal": match.score1,

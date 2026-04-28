@@ -1,3 +1,4 @@
+"Adapter pour les matchs de badminton"
 from typing import Dict
 from datetime import datetime
 from pkg.adapter.base_adapter import BaseAdapter
@@ -5,10 +6,7 @@ from pkg.models.match import Match
 
 
 class BadmintonMatchAdapter(BaseAdapter):
-
-    def __init__(self):
-        super().__init__()
-
+    """Classe implémentant l'adapter pour les matchs de badminton"""
     def adapt(self, row) -> Match:
         """Convertit une ligne provenant d'un fichier csv lu par pandas en objet python
 
@@ -57,8 +55,16 @@ class BadmintonMatchAdapter(BaseAdapter):
             )
 
     def to_row(self, match: Match) -> Dict[str, any]:
-        """
-        Reconvertit l'objet en dictionnaire pour l'export CSV.
+        """Reconvertit l'objet en dictionnaire pour l'export CSV.
+
+        Parameters
+        ----------
+        match : Match
+            objet à renvoyer
+
+        Returns
+        --------
+        dict : dictionnaire prêt pour la transition en csv
         """
         dico = {
                 "player_1": match.team1,

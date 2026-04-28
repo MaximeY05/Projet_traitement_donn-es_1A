@@ -1,15 +1,14 @@
-from pandas import read_csv
-
+"Adapter pour les matchs de tennis féminins"
 from typing import Dict
 from datetime import datetime
+from pandas import read_csv
 from pkg.adapter.base_adapter import BaseAdapter
 from pkg.models.match import Match
 
 
 class TennisMatchWomenAdapter(BaseAdapter):
-
+    """Classe implémentant l'adapter pour les matchs de tennis féminin"""
     def __init__(self):
-        super().__init__()
         self.joueurs = {row["player_id"]: row for _, row in
                         read_csv("work/tennis/wta_players_2024.csv", sep=",").iterrows()}
 
@@ -71,8 +70,16 @@ class TennisMatchWomenAdapter(BaseAdapter):
         )
 
     def to_row(self, match: Match) -> Dict[str, any]:
-        """
-        Reconvertit l'objet en dictionnaire pour l'export CSV.
+        """Reconvertit l'objet en dictionnaire pour l'export CSV.
+
+        Parameters
+        ----------
+        match : Match
+            objet à renvoyer
+
+        Returns
+        --------
+        dict : dictionnaire prêt pour la transition en csv
         """
         dico = {"tourney_date": match.date}
         for key, value in match.autres.items():

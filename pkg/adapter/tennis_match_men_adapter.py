@@ -1,15 +1,14 @@
-from pandas import read_csv
-
+"Adapter pour les matchs de tennis masculins"
 from typing import Dict
 from datetime import datetime
+from pandas import read_csv
 from pkg.adapter.base_adapter import BaseAdapter
 from pkg.models.match import Match
 
 
 class TennisMatchMenAdapter(BaseAdapter):
-
+    """Classe implémentant l'adapter pour les matchs de tennis masculin"""
     def __init__(self):
-        super().__init__()
         self.joueurs = {row["player_id"]: row for _, row in
                         read_csv("work/tennis/atp_players_2024.csv", sep=",").iterrows()}
 
@@ -58,27 +57,7 @@ class TennisMatchMenAdapter(BaseAdapter):
                         continue  # Si un set est mal formé, on passe au suivant
 
             scorewin, scorelose = (score1, score2) if score1 >= score2 else (score2, score1)
-        """
-        if row["score"][:len(row["score"]) - 3] in ["W/O", "RET", "DEF"]:
-            scorewin = 0
-            scorelose = -1
-        else:
-            score1 = 0
-            score2 = 0
-            sets = row["score"].split(" ")
-            for set in sets:
-                scores = set.split("-")
-                if int(scores[0][0]) > int(scores[1][0]):
-                    score1 += 1
-                else:
-                    score2 += 1
-            if score1 > score2:
-                scorewin = score1
-                scorelose = score2
-            else:
-                scorewin = score2
-                scorelose = score1
-        """
+
         return Match(
             id=None,
             date=datetime.strptime(str(row["tourney_date"]), "%Y%m%d").date(),
@@ -92,8 +71,16 @@ class TennisMatchMenAdapter(BaseAdapter):
         )
 
     def to_row(self, match: Match) -> Dict[str, any]:
-        """
-        Reconvertit l'objet en dictionnaire pour l'export CSV.
+        """Reconvertit l'objet en dictionnaire pour l'export CSV.
+
+        Parameters
+        ----------
+        match : Match
+            objet à renvoyer
+
+        Returns
+        --------
+        dict : dictionnaire prêt pour la transition en csv
         """
         dico = {"tourney_date": match.date}
         for key, value in match.autres.items():

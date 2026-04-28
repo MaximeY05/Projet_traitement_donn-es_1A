@@ -1,4 +1,4 @@
-"Adapter pour les joueurs masculins de tennis"
+"Adapter pour les tennismen"
 from typing import Dict
 from pkg.adapter.base_adapter import BaseAdapter
 from pkg.models.joueur import Joueur
@@ -28,12 +28,12 @@ class TennisPlayerMenAdapter(BaseAdapter):
             )
 
     def to_row(self, joueur) -> Dict[str, str]:
-        """Converti notre objet Joueur en dictionnaire prêt à être remis en csv
+        """Reconvertit l'objet en dictionnaire pour l'export CSV.
 
         Parameters
         ----------
         joueur : Joueur
-            objet Joueur à renvoyer
+            objet à renvoyer
 
         Returns
         --------

@@ -1,14 +1,11 @@
+"Adapter pour les équipes de Champions League"
 from typing import Dict
-
 from pkg.adapter.base_adapter import BaseAdapter
 from pkg.models.equipe import Equipe
 
 
 class ChampionleagueEquipeAdapter(BaseAdapter):
-
-    def __init__(self):
-        super().__init__()
-
+    """Classe implémentant l'adapter pour les équipes de Champions League"""
     def adapt(self, row) -> Equipe:
         """Convertit une ligne provenant d'un fichier csv lu par pandas en objet python
 
@@ -30,6 +27,17 @@ class ChampionleagueEquipeAdapter(BaseAdapter):
         )
 
     def to_row(self, equipe) -> Dict[str, str]:
+        """Reconvertit l'objet en dictionnaire pour l'export CSV.
+
+        Parameters
+        ----------
+        equipe : Equipe
+            objet à renvoyer
+
+        Returns
+        --------
+        dict : dictionnaire prêt pour la transition en csv
+        """
         dico = {
             "short_name": equipe.nom,
             "city": equipe.localisation,

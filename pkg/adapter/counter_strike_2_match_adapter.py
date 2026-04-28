@@ -1,14 +1,12 @@
-import datetime
+"Adapter pour les matchs de Counter Strike 2"
+from datetime import datetime
 from typing import Dict
 from pkg.adapter.base_adapter import BaseAdapter
 from pkg.models.match import Match
 
 
 class CounterStrike2MatchAdapter(BaseAdapter):
-
-    def __init__(self):
-        super().__init__()
-
+    """Classe implémentant l'adapter pour les matchs de Counter Strike 2"""
     def adapt(self, row) -> Match:
         """Convertit une ligne provenant d'un fichier csv lu par pandas en objet python
 
@@ -35,8 +33,16 @@ class CounterStrike2MatchAdapter(BaseAdapter):
             )
 
     def to_row(self, match: Match) -> Dict[str, any]:
-        """
-        Reconvertit l'objet en dictionnaire pour l'export CSV.
+        """Reconvertit l'objet en dictionnaire pour l'export CSV.
+
+        Parameters
+        ----------
+        match : Match
+            objet à renvoyer
+
+        Returns
+        --------
+        dict : dictionnaire prêt pour la transition en csv
         """
         dico = {
                 "date": match.date,

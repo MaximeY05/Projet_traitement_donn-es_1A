@@ -1,14 +1,11 @@
+"Adapter pour les coachs de League of Legends"
 from typing import Dict
-
 from pkg.adapter.base_adapter import BaseAdapter
 from pkg.models.coach import Coach
 
 
 class LolCoachAdapter(BaseAdapter):
-
-    def __init__(self):
-        super().__init__()
-
+    """Classe implémentant l'adapter pour les coachs de League of Legends"""
     def adapt(self, row) -> Coach:
         """Convertit une ligne provenant d'un fichier csv lu par pandas en objet python
 
@@ -31,7 +28,18 @@ class LolCoachAdapter(BaseAdapter):
         )
 
     def to_row(self, coach) -> Dict[str, str]:
-        return {
+        """Reconvertit l'objet en dictionnaire pour l'export CSV.
+
+        Parameters
+        ----------
+        coach : Coach
+            objet à renvoyer
+
+        Returns
+        --------
+        dict : dictionnaire prêt pour la transition en csv
+        """
+        dico = {
             "pseudo": coach.pseudo,
             "name": coach.name,
             "country_of_birth": coach.country_birth,
@@ -39,3 +47,6 @@ class LolCoachAdapter(BaseAdapter):
             "role": coach.role,
             "team": coach.team
         }
+        for key, value in coach.autres.items():
+            dico[key] = value
+        return dico
