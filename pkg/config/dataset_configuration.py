@@ -7,6 +7,7 @@ from pkg.adapter.volley_player_woman_adapter import VolleyPlayerWomanAdapter
 from pkg.adapter.tennis_player_men_adapter import TennisPlayerMenAdapter
 from pkg.adapter.tennis_match_men_adapter import TennisMatchMenAdapter
 from pkg.adapter.tennis_match_women_adapter import TennisMatchWomenAdapter
+from pkg.adapter.basketball_match_adapter import BasketballMatchAdapter 
 """
 from pkg.adapter.lol_coach_adapter import LolCoachAdapter
 from pkg.adapter.lol_match_adapter import LolMatchAdapter
@@ -17,7 +18,6 @@ from pkg.adapter.foot_league_adapter import FootLeagueAdapter
 from pkg.adapter.foot_match_adapter import FootMatchAdapter
 from pkg.adapter.foot_player_adapter import FootPlayerAdapter
 from pkg.adapter.foot_team_adapter import FootTeamAdapter
-from pkg.adapter.basket_game_adapter import BasketGameAdapter
 from pkg.adapter.basket_player_adapter import BasketPlayerAdapter
 from pkg.adapter.basket_team_adapter import BasketTeamAdapter
 """
@@ -159,13 +159,13 @@ foot_team_configuration = DatasetConfiguration(
     dataset_sep=",",
     adapter=FootTeamAdapter
 )
-
-basket_game_configuration = DatasetConfiguration(
+"""
+basket_match_configuration = DatasetConfiguration(
     dataset_path="work/basketball/game.csv",
     dataset_sep=",",
-    adapter=BasketGameAdapter
+    adapter=BasketballMatchAdapter()
 )
-
+"""
 basket_player_configuration = DatasetConfiguration(
     dataset_path="work/basketball/player.csv",
     dataset_sep=",",

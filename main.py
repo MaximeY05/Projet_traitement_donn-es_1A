@@ -1,3 +1,6 @@
+import pkg.config.dataset_configuration as test
+print(dir(test))
+
 from pkg.repository.data_repository import DataRepository
 from pkg.services.matchs_service import MatchsService
 from pkg.services.joueurs_service import JoueurService
@@ -6,13 +9,14 @@ from pkg.config.dataset_configuration import (
     volleyball_player_men_configuration,
     tennis_player_men_configuration,
     tennis_match_men_configuration,
-    tennis_match_women_configuration
+    tennis_match_women_configuration,
+    basket_match_configuration
     )
 from pkg.services.stats_service import StatsService
 
 def main():
-    """
-    configuration: DatasetConfiguration = tennis_match_women_configuration
+
+    configuration: DatasetConfiguration = basket_match_configuration
 
     repository = DataRepository(
         file=configuration.dataset_path_match,
@@ -35,16 +39,18 @@ def main():
     JoueurService(
         adapter=configuration.adapter_match, repository=repository
     ).display_joueurs()
-    
+    """
     print()
-    j = repository.load()[0]
+    #j = repository.load()[0]
+    #dico = configuration.adapter_match.to_row(j)
+    #print(dico)
     #print((configuration.adapter_match).to_row(m))
-    print(StatsService(matches=None, joueurs=repository.load()).affiche_stat_joueurs())
+    #print(StatsService(matches=None, joueurs=repository.load()).affiche_stat_joueurs())
     #print(StatsService(matches=None, joueurs=repository.load()).affiche_stat_1_joueur(j[0]))
     # print(StatsService(matches=repository.load()).display_calendar())
     #print(StatsService(matches=repository.load(), joueurs=None).affiche_stat_match())
-    print((StatsService(matches=None, joueurs=repository.load()).affiche_stat_1_joueur()))
-    print((StatsService(matches=None, joueurs=repository.load()).affiche_stat_1_joueur()))
+    #print((StatsService(matches=None, joueurs=repository.load()).affiche_stat_1_joueur()))
+    #print((StatsService(matches=None, joueurs=repository.load()).affiche_stat_1_joueur()))
 
 if __name__ == "__main__":
     main()

@@ -10,7 +10,7 @@ class BasketballMatchAdapter(BaseAdapter):
 
     def __init__(self):
         super().__init__()
-        self.equipes_nom = {row["id"]: row["full_name"] for _, row in read_csv("Projet_traitement_donn-es_1A/work/basketball/team.csv", sep=",").iterrows()}
+        self.equipes_nom = {row["id"]: row["full_name"] for _, row in read_csv("work/basketball/team.csv", sep=",").iterrows()}
 
     def adapt(self, row) -> Match:
         """Converti une ligne provenant d'un fichier csv lu par pandas en objet python

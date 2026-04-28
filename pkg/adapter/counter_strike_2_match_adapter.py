@@ -1,4 +1,4 @@
-
+import datetime
 from typing import Dict
 from pkg.adapter.base_adapter import BaseAdapter
 from pkg.models.match import Match
@@ -15,13 +15,13 @@ class CounterStrike2MatchAdapter(BaseAdapter):
 
         return Match(
             id=None,
-            date=row["date"],
+            date=datetime.strptime(row["date"], "%Y-%m-%d").date(),
             team1=row["team_1"],
             team2=row["team_2"],
             score1=row["score_team_1"],
             score2=row["score_team_2"],
             autres={
-                  idx: row[idx] for idx in row.index 
+                  idx: row[idx] for idx in row.index
                   if idx not in ["date", "team_1", "team_2", "score_team_1", "score_team_2"]
                 }
             )
