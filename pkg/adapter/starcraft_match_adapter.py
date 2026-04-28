@@ -1,5 +1,3 @@
-from pandas import read_csv
-
 from typing import Dict
 from datetime import datetime
 from pkg.adapter.base_adapter import BaseAdapter
@@ -18,13 +16,13 @@ class StarcraftMatchAdapter(BaseAdapter):
 
         return Match(
             id=None,
-            date=row["date"],
+            date=datetime.strptime(str(row["date"]), "%Y-%m-%d").date(),
             team1=row["player_1"],
             team2=row["player_2"],
             score1=row["score_player_1"],
             score2=row["score_player_2"],
             autres={
-                  idx: row[idx] for idx in row.index 
+                  idx: row[idx] for idx in row.index
                   if idx not in ["date", "player_1", "player_2", "score_player_1", "score_player_2"]
                 }
             )
