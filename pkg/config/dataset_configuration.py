@@ -5,19 +5,21 @@ from pkg.adapter.volley_match_women_adapter import VolleyMatchWomenAdapter
 from pkg.adapter.volley_player_men_adapter import VolleyPlayerMenAdapter
 from pkg.adapter.volley_player_woman_adapter import VolleyPlayerWomanAdapter
 from pkg.adapter.tennis_player_men_adapter import TennisPlayerMenAdapter
+from pkg.adapter.tennis_player_women_adapter import TennisPlayerWomenAdapter
 from pkg.adapter.tennis_match_men_adapter import TennisMatchMenAdapter
 from pkg.adapter.tennis_match_women_adapter import TennisMatchWomenAdapter
 from pkg.adapter.basketball_match_adapter import BasketballMatchAdapter
 from pkg.adapter.basketball_player_adapter import BasketballPlayerAdapter
 from pkg.adapter.basketball_equipe_adapter import BasketballEquipeAdapter
-"""
-from pkg.adapter.lol_coach_adapter import LolCoachAdapter
+#from pkg.adapter.lol_coach_adapter import LolCoachAdapter
 from pkg.adapter.lol_match_adapter import LolMatchAdapter
 from pkg.adapter.lol_player_adapter import LolPlayerAdapter
 from pkg.adapter.lol_team_adapter import LolTeamAdapter
+
+from pkg.adapter.football_match_adapter import FootballMatchAdapter
+"""
 from pkg.adapter.foot_country_adapter import FootCountryAdapter
 from pkg.adapter.foot_league_adapter import FootLeagueAdapter
-from pkg.adapter.foot_match_adapter import FootMatchAdapter
 from pkg.adapter.foot_player_adapter import FootPlayerAdapter
 from pkg.adapter.foot_team_adapter import FootTeamAdapter
 """
@@ -99,62 +101,55 @@ tennis_player_men_configuration = DatasetConfiguration(
     dataset_sep=",",
     adapter=TennisPlayerMenAdapter()
 )
-"""
+
 tennis_player_women_configuration = DatasetConfiguration(
     dataset_path="work/tennis/wta_players_2024.csv",
     dataset_sep=",",
-    adapter=TennisPlayerAdapter
+    adapter=TennisPlayerWomenAdapter()
 )
 
-lol_coach_configuration = DatasetConfiguration(
-    dataset_path="work/league_of_legends/coach.csv",
-    dataset_sep=",",
-    adapter=LolCoachAdapter
-)
-
+#lol_coach_configuration = DatasetConfiguration(
+#    dataset_path="work/league_of_legends/coach.csv",
+#    dataset_sep=",",
+#    adapter=LolCoachAdapter
+#)
 lol_match_configuration = DatasetConfiguration(
     dataset_path="work/league_of_legends/match.csv",
     dataset_sep=",",
-    adapter=LolMatchAdapter
+    adapter=LolMatchAdapter()
 )
 
 lol_player_configuration = DatasetConfiguration(
     dataset_path="work/league_of_legends/player.csv",
     dataset_sep=",",
-    adapter=LolPlayerAdapter
+    adapter=LolPlayerAdapter()
 )
 
 lol_team_configuration = DatasetConfiguration(
     dataset_path="work/league_of_legends/team.csv",
     dataset_sep=",",
-    adapter=LolTeamAdapter
+    adapter=LolTeamAdapter()
 )
-
-foot_country_configuration = DatasetConfiguration(
-    dataset_path="work/football/country.csv",
-    dataset_sep=",",
-    adapter=FootCountryAdapter
-)
-
-foot_league_configuration = DatasetConfiguration(
+"""
+football_league_configuration = DatasetConfiguration(
     dataset_path="work/football/league.csv",
     dataset_sep=",",
     adapter=FootLeagueAdapter
 )
-
-foot_match_configuration = DatasetConfiguration(
+"""
+football_match_configuration = DatasetConfiguration(
     dataset_path="work/football/match.csv",
     dataset_sep=",",
-    adapter=FootMatchAdapter
+    adapter=FootballMatchAdapter()
 )
-
-foot_player_configuration = DatasetConfiguration(
+"""
+football_player_configuration = DatasetConfiguration(
     dataset_path="work/football/player.csv",
     dataset_sep=",",
     adapter=FootPlayerAdapter
 )
 
-foot_team_configuration = DatasetConfiguration(
+football_team_configuration = DatasetConfiguration(
     dataset_path="work/football/team.csv",
     dataset_sep=",",
     adapter=FootTeamAdapter
