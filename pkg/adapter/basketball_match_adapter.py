@@ -25,7 +25,7 @@ class BasketballMatchAdapter(BaseAdapter):
         date_vrai = datetime.strptime(row["game_date"], "%Y-%m-%d").date()
 
         id_home, id_away = row["team_id_home"], row["team_id_away"]
-        nom_home, nom_away = self.equipes_nom[id_home], self.equipes_nome[id_away]
+        nom_home, nom_away = self.equipes_nom[id_home], self.equipes_nom[id_away]
 
         return Match(
             id=row["game_id"],

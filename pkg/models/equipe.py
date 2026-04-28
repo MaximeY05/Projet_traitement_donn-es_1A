@@ -14,12 +14,14 @@ class Equipe:
         self,
         nom: str,
         localisation: str,
-        autres: list[str]
+        autres: list[str],
+        joueurs=None,
+        palmares=None
     ):
         self.nom = nom
         self.localisation = localisation
-        self.joueurs = None
-        self.palmares = None
+        self.joueurs = joueurs
+        self.palmares = palmares
         self.autres = autres
 
     def __str__(self) -> str:
