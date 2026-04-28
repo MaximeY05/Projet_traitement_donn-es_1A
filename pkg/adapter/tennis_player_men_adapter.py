@@ -1,14 +1,11 @@
+"Adapter pour les joueurs masculins de tennis"
 from typing import Dict
-
 from pkg.adapter.base_adapter import BaseAdapter
 from pkg.models.joueur import Joueur
 
 
 class TennisPlayerMenAdapter(BaseAdapter):
-
-    def __init__(self):
-        super().__init__()
-
+    """Classe implémentant l'adapter pour les tennismen"""
     def adapt(self, row) -> Joueur:
         """Converti une ligne provenant d'un fichier csv lu par pandas en objet python
 
@@ -29,6 +26,17 @@ class TennisPlayerMenAdapter(BaseAdapter):
             )
 
     def to_row(self, joueur) -> Dict[str, str]:
+        """Converti notre objet Joueur en dictionnaire prêt à être remis en csv
+
+        Parameters
+        ----------
+        joueur : Joueur
+            objet Joueur à renvoyer
+
+        Returns
+        --------
+        dict : dictionnaire prêt pour la transition en csv
+        """
         dico = {
             "player_id": joueur.id
         }

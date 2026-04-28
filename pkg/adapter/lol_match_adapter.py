@@ -20,6 +20,7 @@ class LolMatchAdapter(BaseAdapter):
             score1, score2 = 0, 1
 
         return Match(
+            id=None,
             date=datetime.strptime(row["date"], "%Y-%m-%d").date(),
             team1=row["team_blue"],
             team2=row["team_red"],
