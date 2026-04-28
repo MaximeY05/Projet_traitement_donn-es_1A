@@ -19,7 +19,7 @@ class ChessPlayerAdapter(BaseAdapter):
             date_naissance=row["birth_year"],
             sexe=row["gender"],
             autres={
-                idx: row[idx] for idx in row.index 
+                idx: row[idx] for idx in row.index
                 if idx not in ["name", "birth_year", "gender"]
             }
         )
@@ -30,7 +30,7 @@ class ChessPlayerAdapter(BaseAdapter):
         """
         dico = {
             "name": joueur.nom,
-            "birthdate": joueur.date_naissance,
+            "birth_year": joueur.date_naissance,
             "gender": joueur.sexe
         }
         for key, value in joueur.autres.items():

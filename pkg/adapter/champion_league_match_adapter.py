@@ -19,12 +19,10 @@ class ChampionleagueMatchAdapter(BaseAdapter):
         Returns:
             Match: _description_
         """
-        
-        date_vrai = datetime.strptime(row["date"], "%Y-%m-%d").date()
 
         return Match(
             id=None,
-            date=date_vrai,
+            date=datetime.strptime(row["date"], "%Y-%m-%d").date(),
             team1=row["team_home"],
             team2=row["team_away"],
             score1=row["score_team_home"],
@@ -37,7 +35,7 @@ class ChampionleagueMatchAdapter(BaseAdapter):
             }
         )
 
-    def to_row(self, match) -> Dict[str, str]: 
+    def to_row(self, match) -> Dict[str, str]:
         dico = {
             "date": match.date,
             "team_home": match.team1,
@@ -48,4 +46,3 @@ class ChampionleagueMatchAdapter(BaseAdapter):
         for key, value in match.autres.items():
             dico[key] = value
         return dico
-

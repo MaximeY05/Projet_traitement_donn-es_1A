@@ -19,7 +19,7 @@ class BadmintonPlayerAdapter(BaseAdapter):
             date_naissance=None,
             sexe="Femmme",
             autres={
-                idx: row[idx] for idx in row.index 
+                idx: row[idx] for idx in row.index
                 if idx not in ["name"]
             }
         )

@@ -20,7 +20,7 @@ class ChampionleaguePlayerAdapter(BaseAdapter):
         """
 
         return Joueur(
-            id= None,
+            id=None,
             nom=row["player_name"],
             date_naissance=None,
             sexe="Homme",

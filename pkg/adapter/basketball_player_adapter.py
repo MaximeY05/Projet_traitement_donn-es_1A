@@ -31,7 +31,7 @@ class BasketballPlayerAdapter(BaseAdapter):
     def to_row(self, joueur) -> Dict[str, str]:
         dico = {
             "person_id": joueur.id,
-            "birth_date": joueur.date_naissance,
+            "birthdate": joueur.date_naissance,
         }
         for key, value in joueur.autres.items():
             dico[key] = value
