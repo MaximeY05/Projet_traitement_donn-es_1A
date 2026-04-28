@@ -9,7 +9,7 @@ format:
       \usepackage{pgfplots}
       \setlist[itemize]{label=$\bullet$}
 lang: fr
-fontsize: 12pt
+fontsize: 13pt
 papersize: a4
 geometry: top=1.5cm, bottom=1.5cm, left=2.5cm, right=2.5cm
 link-citations: true 
@@ -99,13 +99,44 @@ Notre code est découpé en plusieurs parties qui communiquent entre elles.Nous 
 - "models" : dossier contenant les classes générales. Nous précisons générales car elles ne sont pas définies pour une certaine base de données conformément au cahier des charges. Elles sont au nombre de 4 : une classe "Competition", "Equipe", "Joueur" et "Match". Nous avons crée la classe "Compétition" car les bases de données contiennent des compétitions sportives et l'objectif du rapport est de gérer les résultats de ces compétitions sportives. Les classes "Equipe", "Joueur" et "Match" sont ensuite les composants essentiels de ces compétitions sportives et nous disposons de plus d'informations sur ces objets. \indent
 - "Repository" : dossier permettant la création d'un objet appelé "DataRepository" qui a pour but de charger les données d'une base de données en lui fournissant certaines informations, à savoir un séparateur, un chemin aboutissant à un fichier 
 
-
-
 ## difficultés rencontrées
+
+# Sport différent
+
+Malgrè la volonté d'uniformiser le traitement de base de donnée, certain sport ont un système de jeu très différent 
+des autres. Le traitement des scores à été complexe pour le tennis car il faut prendre en compte l'ensemble des sets et non juste le score final. De plus, la présence d'abandon ou de forfait entraine l'absence dans certain matchs d'un vainqueur. Pour régler ce problème nous avons ajouter le score -1 pour prendre en compte ces ca
+
+# Calendrier du projet
+
+Nous avions prévu de suivre ce calendrier : 
+
+[diagramme de Gant]
+
+# Format date de naissance
 
 ## assurance qualité
 
+Pour assurer la qualité de notre code, nous avons choisi le linter Pylint afin de vérifier notamment l'indentation et l'uniformité du style. Nous avons obtenu une note de [note] pour notre code. Il repère des problèmes tels que [exemple de problème].
+
+Nous avons effectué des tests sur les fonctionnalités statistiques principales, comme [exemple de test]. Nous avons également documenté chaque adaptateur afin de préciser ce qu'il prend en entrée et ce qu'il renvoie en sortie.
+
 # retour d'expérience
+
+## Maxime Yvano
+
+blabla
+
+## Corentin Lematte
+
+blabla
+
+## Cedric Martins
+
+blabla
+
+## Hugo Lhommeau
+
+blabla
 
 # conclusion
 
