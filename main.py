@@ -16,13 +16,15 @@ from pkg.config.dataset_configuration import (
     lol_player_configuration,
     lol_team_configuration,
     football_match_configuration,
-    football_equipe_configuration
+    football_equipe_configuration,
+    football_player_configuration,
+    champion_league_match_configuration
     )
 from pkg.services.stats_service import StatsService
 
 def main():
     
-    configuration: DatasetConfiguration = football_match_configuration
+    configuration: DatasetConfiguration = champion_league_match_configuration
 
     repository = DataRepository(
         file=configuration.dataset_path_match,
@@ -33,9 +35,9 @@ def main():
     MatchsService(
         adapter=configuration.adapter_match, repository=repository
     ).display_matchs()
-    
     """
-    configuration: DatasetConfiguration = lol_player_configuration
+    
+    configuration: DatasetConfiguration = football_player_configuration
     repository = DataRepository(
         file=configuration.dataset_path_match,
         adapter=configuration.adapter_match,
@@ -46,7 +48,7 @@ def main():
     ).display_joueurs()
 
     
-    configuration: DatasetConfiguration = lol_team_configuration
+    configuration: DatasetConfiguration = football_equipe_configuration
     repository = DataRepository(
         file=configuration.dataset_path_match,
         adapter=configuration.adapter_match,
@@ -63,7 +65,7 @@ def main():
     #dico = configuration.adapter_match.to_row(j)
     #print(dico)
     #print((configuration.adapter_match).to_row(j))
-    # print(StatsService(matches=None, joueurs=repository.load()).affiche_stat_joueurs())
+    #print(StatsService(matches=None, joueurs=repository.load()).affiche_stat_joueurs())
     #print(StatsService(matches=None, joueurs=repository.load()).affiche_stat_1_joueur(j[0]))
     # print(StatsService(matches=repository.load()).display_calendar())
     #print(StatsService(matches=repository.load(), joueurs=None).affiche_stat_match())

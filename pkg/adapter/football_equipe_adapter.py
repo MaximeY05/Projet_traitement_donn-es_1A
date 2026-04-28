@@ -9,10 +9,10 @@ class FootballEquipeAdapter(BaseAdapter):
 
     def __init__(self):
         super().__init__()
-        df_countries = read_csv("Projet_traitement_donn-es_1A/work/football/country.csv", sep=",")
+        df_countries = read_csv("work/football/country.csv", sep=",")
         pays_dict = df_countries.set_index('id')['name'].to_dict()
 
-        df_matches = read_csv("Projet_traitement_donn-es_1A/work/football/match.csv", sep=",")
+        df_matches = read_csv("work/football/match.csv", sep=",")
 
         self.team_to_country = {}
         for _, row in df_matches.iterrows():
