@@ -18,22 +18,18 @@ class StarcraftPlayerAdapter(BaseAdapter):
         Returns:
             Match: _description_
         """
-        nom_complet = row["name"].split()
-        name = nom_complet[0]
-        surname = nom_complet[1]
 
         return Joueur(
             id=None,
-            nom=name,
-            prenom=surname,
+            nom=row["pseudo"],
             date_naissance=row["birthdate"],
             sexe="Homme",
-            autres={idx: row[idx] for idx in row.index if idx not in ["name", "birthdate"]}
+            autres={idx: row[idx] for idx in row.index if idx not in ["pseudo", "birthdate"]}
             )
 
     def to_row(self, joueur) -> Dict[str, str]:
         dico = {
-            "name": joueur.nom + joueur.prenom,
+            "pseudo": joueur.pseudo,
             "birthdate": joueur.date_naissance,
         }
         for key, value in joueur.autres.items():

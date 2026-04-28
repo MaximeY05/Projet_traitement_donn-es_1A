@@ -77,7 +77,6 @@ class TennisMatchMenAdapter(BaseAdapter):
         """
         return Match(
             id=None,
-            # date=datetime.strptime(row["tourney_date"], "%Y-%m%d").date(),
             date=datetime.strptime(str(row["tourney_date"]), "%Y%m%d").date(),
             team1=self.joueurs[row["winner_id"]]["name_first"] + " " + self.joueurs[row["winner_id"]]["name_last"],
             team2=self.joueurs[row["loser_id"]]["name_first"] + " " + self.joueurs[row["loser_id"]]["name_last"],

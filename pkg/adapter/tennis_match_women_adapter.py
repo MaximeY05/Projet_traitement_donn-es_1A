@@ -50,9 +50,6 @@ class TennisMatchWomenAdapter(BaseAdapter):
 
             scorewin, scorelose = (score1, score2) if score1 >= score2 else (score2, score1)
 
-
-
-
         return Match(
             id=None,
             date=datetime.strptime(str(row["tourney_date"]), "%Y%m%d").date(),

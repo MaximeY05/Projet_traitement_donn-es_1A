@@ -79,4 +79,25 @@ Les Jeux Olympiques de Paris 2024 ont connu un succès retentissant. Par conséq
 Ce rapport compile les différents diagrammes définissant le fonctionnement de notre application. Le premier diagramme que nous introduirons est celui des cas d'utilisation pour présenter les actions que peuvent réaliser les différents utilisateurs dans l'application. Nous parlerons ensuite du diagramme des classes qui définit les différents objets que nous implementerons. Par la suite, nous présenterons le diagramme d'activité qui décrit le déroulement d'une des actions présentes dans le diagramme des cas d'utilisation . Pour finir, nous fournissons le diagramme de Gantt pour permettre de présenter les prochaines étapes du projet et la répartition du travail au fil des semaines.
 
 
+## caractéristiques fonctionelles
 
+La principale caractéristique est de permettre aux utilisateurs de récupérer des données provenant de bases de données sur le thème du sport. De plus, un administrateur doit pouvoir actualiser les bases de données depuis la même application. Nous avons fait le choix de ne pas implémenter de profil utilisateur et administrateur à ce stade du projet, car cela ne nous semble pas nécessaire.
+
+Pour respecter le cahier des charges, il est nécessaire de pouvoir récupérer des données d'une multitude de bases de données, indépendamment de leurs formes. Cela permet de rajouter une base de données sans refaire toute l'implémentation, ce qui facilite la maintenance de l'application.
+
+## caractéristiques techniques
+
+Nous allons expliquer en détails les caractéristiques techniques de notre projet permettant l'obtenir les caractéristiques fonctionnelles mentionnées dans la partie précédente. Nous commencerons par présenter l'architecture de notre code, avant d'expliquer les différentes parties de celui-ci. Nous nous aiderons du diagramme de classes de notre projet pour expliquer nos différents choix.
+
+# Architecture du code
+Notre code est découpé en plusieurs parties qui communiquent entre elles.Nous disposons de 5 dossiers différents ainsi que d'un fichier "main" qui regroupe ces parties. Ces parties sont : 
+- "config" : dossier contenant les classes générales. Nous précisons générales car elles ne sont pas définies pour une certaine base de données.
+
+
+# difficultés rencontrées
+
+# assurance qualité
+
+## retour d'expérience
+
+## conclusion

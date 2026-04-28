@@ -21,19 +21,17 @@ class Counterstrike2PlayerAdapter(BaseAdapter):
 
         return Joueur(
             id=None,
-            nom=row["name"],
+            nom=row["pseudo"],
             date_naissance=row["birthdate"],
             sexe="Homme",
-            autres={idx: row[idx] for idx in row.index if idx not in ["name", "birthdate"]}
+            autres={idx: row[idx] for idx in row.index if idx not in ["pseudo", "birthdate"]}
             )
 
     def to_row(self, joueur) -> Dict[str, str]:
         dico = {
-            "name": joueur.nom,
+            "pseudo": joueur.nom,
             "birthdate": joueur.date_naissance,
         }
         for key, value in joueur.autres.items():
             dico[key] = value
         return dico
-
-
