@@ -14,13 +14,15 @@ class BasketballMatchAdapter(BaseAdapter):
                             read_csv("work/basketball/team.csv", sep=",").iterrows()}
 
     def adapt(self, row) -> Match:
-        """Converti une ligne provenant d'un fichier csv lu par pandas en objet python
+        """Convertit une ligne provenant d'un fichier csv lu par pandas en objet python
 
-        Args:
-            row (_type_): _description_
+        Parameters
+        ----------
+        row: nos données lues par pandas
 
-        Returns:
-            Match: _description_
+        Returns
+        -------
+        Match: objet Match correspondant aux données
         """
 
         id_home, id_away = row["team_id_home"], row["team_id_away"]

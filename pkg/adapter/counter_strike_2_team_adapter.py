@@ -9,8 +9,15 @@ class Counterstrike2TeamAdapter(BaseAdapter):
         super().__init__()
 
     def adapt(self, row) -> Equipe:
-        """
-        Convertit une ligne de team.csv en objet Equipe.
+        """Convertit une ligne provenant d'un fichier csv lu par pandas en objet python
+
+        Parameters
+        ----------
+        row: nos données lues par pandas
+
+        Returns
+        -------
+        Equipe: objet Equipe correspondant aux données
         """
         return Equipe(
             nom=row["team"],

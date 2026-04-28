@@ -10,7 +10,15 @@ class CounterStrike2MatchAdapter(BaseAdapter):
         super().__init__()
 
     def adapt(self, row) -> Match:
-        """.
+        """Convertit une ligne provenant d'un fichier csv lu par pandas en objet python
+
+        Parameters
+        ----------
+        row: nos données lues par pandas
+
+        Returns
+        -------
+        Match: objet Match correspondant aux données
         """
 
         return Match(
