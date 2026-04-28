@@ -89,19 +89,23 @@ Il doit être également possible d'obtenir des statistiques sur chaque base de 
 
 Pour respecter le cahier des charges, il est nécessaire de pouvoir récupérer des données d'une multitude de bases de données, indépendamment de leurs formes. Cela permet de rajouter une base de données sans refaire toute l'implémentation, ce qui facilite la maintenance de l'application.
 
-## caractéristiques techniques
+# caractéristiques techniques
 
 Nous allons expliquer en détails les caractéristiques techniques de notre projet permettant l'obtenir les caractéristiques fonctionnelles mentionnées dans la partie précédente. Nous commencerons par présenter l'architecture de notre code, avant d'expliquer les différentes parties de celui-ci. Nous nous aiderons du diagramme de classes de notre projet pour expliquer nos différents choix.
 
-# Architecture du code
+## Architecture du code
 Notre code est découpé en plusieurs parties qui communiquent entre elles.Nous disposons de 5 dossiers différents ainsi que d'un fichier "main" qui regroupe ces parties. Ces parties sont : 
-- "config" : dossier contenant les classes générales. Nous précisons générales car elles ne sont pas définies pour une certaine base de données.
+\indent 
+- "models" : dossier contenant les classes générales. Nous précisons générales car elles ne sont pas définies pour une certaine base de données conformément au cahier des charges. Elles sont au nombre de 4 : une classe "Competition", "Equipe", "Joueur" et "Match". Nous avons crée la classe "Compétition" car les bases de données contiennent des compétitions sportives et l'objectif du rapport est de gérer les résultats de ces compétitions sportives. Les classes "Equipe", "Joueur" et "Match" sont ensuite les composants essentiels de ces compétitions sportives et nous disposons de plus d'informations sur ces objets. \indent
+- "Repository" : dossier permettant la création d'un objet appelé "DataRepository" qui a pour but de charger les données d'une base de données en lui fournissant certaines informations, à savoir un séparateur, un chemin aboutissant à un fichier 
 
 
-# difficultés rencontrées
 
-# assurance qualité
+## difficultés rencontrées
 
-## retour d'expérience
+## assurance qualité
 
-## conclusion
+# retour d'expérience
+
+# conclusion
+

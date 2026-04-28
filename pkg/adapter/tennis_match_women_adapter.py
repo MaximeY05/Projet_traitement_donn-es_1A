@@ -14,8 +14,15 @@ class TennisMatchWomenAdapter(BaseAdapter):
                         read_csv("work/tennis/wta_players_2024.csv", sep=",").iterrows()}
 
     def adapt(self, row) -> Match:
-        """
-        Convertit une ligne de atp_matches_2024.csv en objet TennisMatch.
+        """Convertit une ligne provenant d'un fichier csv lu par pandas en objet python
+
+        Parameters
+        ----------
+        row: nos données lues par pandas
+
+        Returns
+        -------
+        Match: objet Match correspondant aux données
         """
         score_raw = str(row["score"])
 

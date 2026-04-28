@@ -10,13 +10,15 @@ class LolCoachAdapter(BaseAdapter):
         super().__init__()
 
     def adapt(self, row) -> Coach:
-        """Converti une ligne provenant d'un fichier csv lu par pandas en objet python
+        """Convertit une ligne provenant d'un fichier csv lu par pandas en objet python
 
-        Args:
-            row (_type_): _description_
+        Parameters
+        ----------
+        row: nos données lues par pandas
 
-        Returns:
-            Coach: _description_
+        Returns
+        -------
+        Coach: objet Coach correspondant aux données
         """
 
         return Coach(

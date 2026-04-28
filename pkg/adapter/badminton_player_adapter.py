@@ -9,8 +9,15 @@ class BadmintonPlayerAdapter(BaseAdapter):
         super().__init__()
 
     def adapt(self, row) -> Joueur:
-        """
-        Convertit une ligne de player.csv en objet Player.
+        """Convertit une ligne provenant d'un fichier csv lu par pandas en objet python
+
+        Parameters
+        ----------
+        row: nos données lues par pandas
+
+        Returns
+        -------
+        Joueur: objet Joueur correspondant aux données
         """
 
         return Joueur(

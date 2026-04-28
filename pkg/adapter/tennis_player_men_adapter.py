@@ -7,13 +7,15 @@ from pkg.models.joueur import Joueur
 class TennisPlayerMenAdapter(BaseAdapter):
     """Classe implémentant l'adapter pour les tennismen"""
     def adapt(self, row) -> Joueur:
-        """Converti une ligne provenant d'un fichier csv lu par pandas en objet python
+        """Convertit une ligne provenant d'un fichier csv lu par pandas en objet python
 
-        Args:
-            row (_type_): _description_
+        Parameters
+        ----------
+        row: nos données lues par pandas
 
-        Returns:
-            Match: _description_
+        Returns
+        -------
+        Joueur: objet Joueur correspondant aux données
         """
         nom_complet = row["name_first"] + " " + row["name_last"]
 

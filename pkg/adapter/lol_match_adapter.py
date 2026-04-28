@@ -10,9 +10,15 @@ class LolMatchAdapter(BaseAdapter):
         super().__init__()
 
     def adapt(self, row) -> Match:
-        """
-        Convertit une ligne provenant du fichier match.csv (lu par pandas)
-        en un objet python Match.
+        """Convertit une ligne provenant d'un fichier csv lu par pandas en objet python
+
+        Parameters
+        ----------
+        row: nos données lues par pandas
+
+        Returns
+        -------
+        Match: objet Match correspondant aux données
         """
         if row["winner"] == row["team_blue"]:
             score1, score2 = 1, 0

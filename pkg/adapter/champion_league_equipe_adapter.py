@@ -10,13 +10,15 @@ class ChampionleagueEquipeAdapter(BaseAdapter):
         super().__init__()
 
     def adapt(self, row) -> Equipe:
-        """Converti une ligne provenant d'un fichier csv lu par pandas en objet python
+        """Convertit une ligne provenant d'un fichier csv lu par pandas en objet python
 
-        Args:
-            row (_type_): _description_
+        Parameters
+        ----------
+        row: nos données lues par pandas
 
-        Returns:
-            Equipe: _description_
+        Returns
+        -------
+        Equipe: objet Equipe correspondant aux données
         """
 
         return Equipe(
