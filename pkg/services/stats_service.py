@@ -55,10 +55,12 @@ class StatsService:
 
     def affiche_stat_1_joueur(self):
         nom_joueur = input("Entrez le nom du joueur pour voir ses stats :")
+        trouve = False
         for joueur in self.joueurs:
             if joueur.nom == nom_joueur:
                 print(f"Les statistiques de {nom_joueur} sont : {joueur.autres}")
-                return
+                trouve = True
+        if not trouve:
             print("Joueur non trouvé")
 
     def affiche_1_stat(self):

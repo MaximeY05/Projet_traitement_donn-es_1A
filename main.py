@@ -11,7 +11,7 @@ from pkg.config.dataset_configuration import (
 from pkg.services.stats_service import StatsService
 
 def main():
-    
+    """
     configuration: DatasetConfiguration = tennis_match_women_configuration
 
     repository = DataRepository(
@@ -35,16 +35,16 @@ def main():
     JoueurService(
         adapter=configuration.adapter_match, repository=repository
     ).display_joueurs()
-    """
+    
     print()
-    m = repository.load()[0]
-    print((configuration.adapter_match).to_row(m))
-    #print(StatsService(matches=None, joueurs=repository.load()).affiche_stat_joueurs())
+    j = repository.load()[0]
+    #print((configuration.adapter_match).to_row(m))
+    print(StatsService(matches=None, joueurs=repository.load()).affiche_stat_joueurs())
     #print(StatsService(matches=None, joueurs=repository.load()).affiche_stat_1_joueur(j[0]))
     # print(StatsService(matches=repository.load()).display_calendar())
     #print(StatsService(matches=repository.load(), joueurs=None).affiche_stat_match())
-    print()
-
+    print((StatsService(matches=None, joueurs=repository.load()).affiche_stat_1_joueur()))
+    print((StatsService(matches=None, joueurs=repository.load()).affiche_stat_1_joueur()))
 
 if __name__ == "__main__":
     main()
