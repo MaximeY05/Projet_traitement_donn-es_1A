@@ -81,8 +81,9 @@ Ce rapport compile les différents diagrammes définissant le fonctionnement de 
 
 ## caractéristiques fonctionelles
 
-Pour respecter le cahier des charges, il est nécessaire de pouvoir récuperer des données d'une multitude de base
-de donnée indépendamment de leurs formes.
+La principale caractéristique est de permettre aux utilisateurs de récupérer des données provenant de bases de données sur le thème du sport. De plus, un administrateur doit pouvoir actualiser les bases de données depuis la même application. Nous avons fait le choix de ne pas implémenter de profil utilisateur et administrateur à ce stade du projet, car cela ne nous semble pas nécessaire.
+
+Pour respecter le cahier des charges, il est nécessaire de pouvoir récupérer des données d'une multitude de bases de données, indépendamment de leurs formes. Cela permet de rajouter une base de données sans refaire toute l'implémentation, ce qui facilite la maintenance de l'application.
 
 ## caractéristiques techniques
 
