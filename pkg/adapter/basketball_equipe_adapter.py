@@ -17,10 +17,9 @@ class BasketballEquipeAdapter(BaseAdapter):
         -------
         Equipe: objet Equipe correspondant aux données
         """
-
         return Equipe(
-            nom=row["full_name"],
-            localisation=row["city"],
+            nom=row.get("full_name", "Inconnu"),
+            localisation=row.get("city", "Inconnue"),
             joueurs=None,
             palmares=None,
             autres={idx: row[idx] for idx in row.index if idx not in ["full_name", "city"]}

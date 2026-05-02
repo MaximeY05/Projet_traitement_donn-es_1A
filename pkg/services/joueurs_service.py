@@ -19,9 +19,10 @@ class JoueurService:
 
         joueur = Joueur(
             nom,
-            prenom,
             date_naissance,
             sexe,
+            None,
+            None
         )
         self.joueurs.append(joueur)
         self.repository.save(self.joueurs)

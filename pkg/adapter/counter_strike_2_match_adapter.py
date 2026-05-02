@@ -19,13 +19,28 @@ class CounterStrike2MatchAdapter(BaseAdapter):
         Match: objet Match correspondant aux données
         """
 
+        # 1. Sécurisation de la date
+        try:
+            date_str = str(row.get("date", "")).strip()
+            match_date = datetime.strptime(date_str, "%Y-%m-%d").date()
+        except (ValueError, TypeError):
+            match_date = None
+
+        # 2. Sécurisation des scores
+        try:
+            score1 = int(row["score_team_1"])
+            score2 = int(row["score_team_2"])
+        except (ValueError, TypeError, KeyError):
+            score1 = 0
+            score2 = 0
+
         return Match(
             id=None,
-            date=datetime.strptime(row["date"], "%Y-%m-%d").date(),
-            team1=row["team_1"],
-            team2=row["team_2"],
-            score1=row["score_team_1"],
-            score2=row["score_team_2"],
+            date=match_date,
+            team1=row.get("team_1", "Inconnu"),
+            team2=row.get("team_2", "Inconnu"),
+            score1=score1,
+            score2=score2,
             autres={
                   idx: row[idx] for idx in row.index
                   if idx not in ["date", "team_1", "team_2", "score_team_1", "score_team_2"]

@@ -20,7 +20,7 @@ class Joueur:
         date_naissance: str,
         sexe: str,
         id: int,
-        autres: list[str],
+        autres: dict,
             ):
         self.nom = nom
         self.date_naissance = date_naissance

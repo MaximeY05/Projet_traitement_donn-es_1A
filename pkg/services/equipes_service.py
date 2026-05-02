@@ -19,16 +19,13 @@ class EquipesService:
         joueurs: list[Joueur],
         palmares: dict[str, int],
     ):
-        self.nom = nom
-        self.localisation = localisation
-        self.joueurs = None
-        self.palmares = None
 
         equipe = Equipe(
             nom,
             localisation,
             joueurs,
             palmares,
+            None
         )
         self.equipes.append(equipe)
         self.repository.save(self.equipes)

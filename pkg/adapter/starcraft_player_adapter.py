@@ -18,11 +18,16 @@ class StarcraftPlayerAdapter(BaseAdapter):
         Joueur: objet Joueur correspondant aux données
         """
 
+        # Sécurisation du pseudo
+        pseudo = str(row.get("pseudo", "Inconnu")).strip()
+        if pseudo.lower() == "nan" or not pseudo:
+            pseudo = "Inconnu"
+
         return Joueur(
             id=None,
-            nom=row["pseudo"],
-            date_naissance=row["birthdate"],
-            sexe="Homme",
+            nom=pseudo,
+            date_naissance=row.get("birthdate"),
+            sexe="Inconnu",
             autres={idx: row[idx] for idx in row.index if idx not in ["pseudo", "birthdate"]}
             )
 
@@ -39,7 +44,7 @@ class StarcraftPlayerAdapter(BaseAdapter):
         dict : dictionnaire prêt pour la transition en csv
         """
         dico = {
-            "pseudo": joueur.pseudo,
+            "pseudo": joueur.nom,
             "birthdate": joueur.date_naissance,
         }
         for key, value in joueur.autres.items():

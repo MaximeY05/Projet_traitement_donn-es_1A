@@ -18,12 +18,27 @@ class VolleyMatchMenAdapter(BaseAdapter):
         -------
         Match: objet Match correspondant aux données
         """
-        score1 = int(row["set_country_1"])
-        score2 = int(row["set_country_2"])
+        # 1. Sécurisation des scores
+        try:
+            score1 = int(row["set_country_1"])
+            score2 = int(row["set_country_2"])
+        except (ValueError, TypeError):
+            # Si la case est vide ou contient du texte on met 0 par défaut
+            score1 = 0
+            score2 = 0
+
+        # 2. Sécurisation de la date
+        try:
+            # On s'assure que c'est bien une chaîne de caractères et on enlève les espaces parasites
+            date_str = str(row["date"]).strip()
+            match_date = datetime.strptime(date_str, "%Y-%m-%d").date()
+        except (ValueError, TypeError):
+            # Si le format n'est pas bon ou que la case est vide, on assigne None
+            match_date = None
 
         return Match(
-            id=None,  # ou généré si besoin
-            date=datetime.strptime(row["date"], "%Y-%m-%d").date(),
+            id=None,
+            date=match_date,
             team1=row["country_code_1"],
             team2=row["country_code_2"],
             score1=score1,

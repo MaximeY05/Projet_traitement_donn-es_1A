@@ -18,11 +18,16 @@ class ChessPlayerAdapter(BaseAdapter):
         Joueur: objet Joueur correspondant aux données
         """
 
+        # Sécurisation du nom pour éviter les crashs sur les NaN
+        nom_joueur = str(row.get("name", "Inconnu")).strip()
+        if nom_joueur.lower() == "nan":
+            nom_joueur = "Inconnu"
+
         return Joueur(
             id=None,
-            nom=row["name"],
-            date_naissance=row["birth_year"],
-            sexe=row["gender"],
+            nom=nom_joueur,
+            date_naissance=row.get("birth_year"),
+            sexe=row.get("gender", "Inconnu"),
             autres={
                 idx: row[idx] for idx in row.index
                 if idx not in ["name", "birth_year", "gender"]

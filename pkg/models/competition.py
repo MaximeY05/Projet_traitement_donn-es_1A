@@ -12,6 +12,7 @@ class Competition:
         matchs: list[Match],
         autres: list[str]
             ):
+        self.id = id,
         self.nom = nom
         self.equipes = equipes
         self.matchs = matchs

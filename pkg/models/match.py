@@ -1,6 +1,7 @@
 class Match:
 
     def __init__(self, id, date, team1, team2, score1, score2, autres):
+        self.id = id
         self.date = date
         self.team1 = team1
         self.team2 = team2

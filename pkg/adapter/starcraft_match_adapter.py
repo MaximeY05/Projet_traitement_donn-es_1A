@@ -18,14 +18,28 @@ class StarcraftMatchAdapter(BaseAdapter):
         -------
         Match: objet Match correspondant aux données
         """
+        # 1. Sécurisation de la date
+        try:
+            date_str = str(row.get("date", "")).split(" ")[0].strip()
+            match_date = datetime.strptime(date_str, "%Y-%m-%d").date()
+        except (ValueError, TypeError, IndexError):
+            match_date = None
+            
+        # 2. Sécurisation des scores
+        try:
+            score1 = int(row["score_player_1"])
+            score2 = int(row["score_player_2"])
+        except (ValueError, TypeError, KeyError):
+            score1 = 0
+            score2 = 0
 
         return Match(
             id=None,
-            date=datetime.strptime(str(row["date"]), "%Y-%m-%d").date(),
-            team1=row["player_1"],
-            team2=row["player_2"],
-            score1=row["score_player_1"],
-            score2=row["score_player_2"],
+            date=match_date,
+            team1=row.get("player_1", "Inconnu"),
+            team2=row.get("player_2", "Inconnu"),
+            score1=score1,
+            score2=score2,
             autres={
                   idx: row[idx] for idx in row.index
                   if idx not in ["date", "player_1", "player_2", "score_player_1", "score_player_2"]

@@ -3,14 +3,17 @@ from pkg.adapter.volley_match_women_adapter import VolleyMatchWomenAdapter
 # from pkg.adapter.volley_coach_adapter import VolleyCoachAdapter
 from pkg.adapter.volley_player_men_adapter import VolleyPlayerMenAdapter
 from pkg.adapter.volley_player_woman_adapter import VolleyPlayerWomanAdapter
+
 from pkg.adapter.tennis_player_men_adapter import TennisPlayerMenAdapter
 from pkg.adapter.tennis_player_women_adapter import TennisPlayerWomenAdapter
 from pkg.adapter.tennis_match_men_adapter import TennisMatchMenAdapter
 from pkg.adapter.tennis_match_women_adapter import TennisMatchWomenAdapter
+
 from pkg.adapter.basketball_match_adapter import BasketballMatchAdapter
 from pkg.adapter.basketball_player_adapter import BasketballPlayerAdapter
 from pkg.adapter.basketball_equipe_adapter import BasketballEquipeAdapter
-#from pkg.adapter.lol_coach_adapter import LolCoachAdapter
+
+# from pkg.adapter.lol_coach_adapter import LolCoachAdapter
 from pkg.adapter.lol_match_adapter import LolMatchAdapter
 from pkg.adapter.lol_player_adapter import LolPlayerAdapter
 from pkg.adapter.lol_team_adapter import LolTeamAdapter
@@ -18,9 +21,23 @@ from pkg.adapter.lol_team_adapter import LolTeamAdapter
 from pkg.adapter.football_match_adapter import FootballMatchAdapter
 from pkg.adapter.football_player_adapter import FootballPlayerAdapter
 from pkg.adapter.football_equipe_adapter import FootballEquipeAdapter
+
 from pkg.adapter.champion_league_match_adapter import ChampionleagueMatchAdapter
 from pkg.adapter.champion_league_player_adapter import ChampionleaguePlayerAdapter
 from pkg.adapter.champion_league_equipe_adapter import ChampionleagueEquipeAdapter
+
+from pkg.adapter.chess_match_adapter import ChessMatchAdapter
+from pkg.adapter.chess_player_adapter import ChessPlayerAdapter
+
+from pkg.adapter.counter_strike_2_match_adapter import CounterStrike2MatchAdapter
+from pkg.adapter.counter_strike_2_player_adapter import Counterstrike2PlayerAdapter
+from pkg.adapter.counter_strike_2_team_adapter import Counterstrike2TeamAdapter
+
+from pkg.adapter.badminton_match_adapter import BadmintonMatchAdapter
+from pkg.adapter.badminton_player_adapter import BadmintonPlayerAdapter
+
+from pkg.adapter.starcraft_match_adapter import StarcraftMatchAdapter
+from pkg.adapter.starcraft_player_adapter import StarcraftPlayerAdapter
 
 
 class DatasetConfiguration:
@@ -31,6 +48,7 @@ class DatasetConfiguration:
         self.adapter_match = adapter
 
 
+# --- VOLLEYBALL ---
 volleyball_match_men_configuration = DatasetConfiguration(
     dataset_path="work/volleyball/match_men.csv",
     dataset_sep=",",
@@ -42,19 +60,6 @@ volleyball_match_women_configuration = DatasetConfiguration(
     dataset_sep=",",
     adapter=VolleyMatchWomenAdapter(),
 )
-
-#volleyball_coach_men_configuration = DatasetConfiguration(
-#    dataset_path="work/volleyball/coach_men.csv",
-#    dataset_sep=",",
-#    adapter=VolleyCoachAdapter(),
-#)
-
-#volleyball_coach_women_configuration = DatasetConfiguration(
-#    dataset_path="work/volleyball/coach_women.csv",
-#    dataset_sep=",",
-#    adapter=VolleyCoachAdapter(),
-#)
-
 
 volleyball_player_men_configuration = DatasetConfiguration(
     dataset_path="work/volleyball/player_men.csv",
@@ -69,6 +74,7 @@ volleyball_player_women_configuration = DatasetConfiguration(
 )
 
 
+# --- TENNIS ---
 tennis_match_men_configuration = DatasetConfiguration(
     dataset_path="work/tennis/atp_matches_2024.csv",
     dataset_sep=",",
@@ -80,6 +86,7 @@ tennis_match_women_configuration = DatasetConfiguration(
     dataset_sep=",",
     adapter=TennisMatchWomenAdapter()
 )
+
 tennis_player_men_configuration = DatasetConfiguration(
     dataset_path="work/tennis/atp_players_2024.csv",
     dataset_sep=",",
@@ -92,11 +99,8 @@ tennis_player_women_configuration = DatasetConfiguration(
     adapter=TennisPlayerWomenAdapter()
 )
 
-#lol_coach_configuration = DatasetConfiguration(
-#    dataset_path="work/league_of_legends/coach.csv",
-#    dataset_sep=",",
-#    adapter=LolCoachAdapter
-#)
+
+# --- LEAGUE OF LEGENDS ---
 lol_match_configuration = DatasetConfiguration(
     dataset_path="work/league_of_legends/match.csv",
     dataset_sep=",",
@@ -115,6 +119,8 @@ lol_team_configuration = DatasetConfiguration(
     adapter=LolTeamAdapter()
 )
 
+
+# --- FOOTBALL ---
 football_match_configuration = DatasetConfiguration(
     dataset_path="work/football/match.csv",
     dataset_sep=",",
@@ -133,6 +139,8 @@ football_equipe_configuration = DatasetConfiguration(
     adapter=FootballEquipeAdapter()
 )
 
+
+# --- CHAMPIONS LEAGUE ---
 champion_league_match_configuration = DatasetConfiguration(
     dataset_path="work/football_champions_league/match.csv",
     dataset_sep=",",
@@ -151,6 +159,8 @@ champion_league_team_configuration = DatasetConfiguration(
     adapter=ChampionleagueEquipeAdapter()
 )
 
+
+# --- BASKETBALL ---
 basket_match_configuration = DatasetConfiguration(
     dataset_path="work/basketball/game.csv",
     dataset_sep=",",
@@ -170,3 +180,61 @@ basket_team_configuration = DatasetConfiguration(
 )
 
 
+# --- CHESS (ÉCHECS) ---
+chess_match_configuration = DatasetConfiguration(
+    dataset_path="work/chess/match.csv",
+    dataset_sep=",",
+    adapter=ChessMatchAdapter()
+)
+
+chess_player_configuration = DatasetConfiguration(
+    dataset_path="work/chess/player.csv",
+    dataset_sep=",",
+    adapter=ChessPlayerAdapter()
+)
+
+
+# --- COUNTER-STRIKE 2 ---
+cs2_match_configuration = DatasetConfiguration(
+    dataset_path="work/counter_strike_2/match.csv",
+    dataset_sep=",",
+    adapter=CounterStrike2MatchAdapter()
+)
+
+cs2_player_configuration = DatasetConfiguration(
+    dataset_path="work/counter_strike_2/player.csv",
+    dataset_sep=",",
+    adapter=Counterstrike2PlayerAdapter()
+)
+
+cs2_team_configuration = DatasetConfiguration(
+    dataset_path="work/counter_strike_2/team.csv",
+    dataset_sep=",",
+    adapter=Counterstrike2TeamAdapter()
+)
+
+
+# --- BADMINTON ---
+badminton_match_configuration = DatasetConfiguration(
+    dataset_path="work/badminton/match.csv",
+    dataset_sep=",",
+    adapter=BadmintonMatchAdapter()
+)
+
+badminton_player_configuration = DatasetConfiguration(
+    dataset_path="work/badminton/player.csv",
+    dataset_sep=",",
+    adapter=BadmintonPlayerAdapter()
+)
+
+starcraft_match_configuration = DatasetConfiguration(
+    dataset_path="work/starcraft_2/match.csv",
+    dataset_sep=",",
+    adapter=StarcraftMatchAdapter()
+)
+
+starcraft_player_configuration = DatasetConfiguration(
+    dataset_path="work/starcraft_2/player.csv",
+    dataset_sep=",",
+    adapter=StarcraftPlayerAdapter()
+)

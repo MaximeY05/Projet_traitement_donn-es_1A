@@ -58,13 +58,38 @@ class TennisMatchMenAdapter(BaseAdapter):
 
             scorewin, scorelose = (score1, score2) if score1 >= score2 else (score2, score1)
 
+        # 1. Sécurisation de la date
+        try:
+            date_str = str(row["tourney_date"]).strip()
+            match_date = datetime.strptime(date_str, "%Y%m%d").date()
+        except (ValueError, TypeError):
+            match_date = None
+
+        # 2. Sécurisation de la récupération des noms
+        winner_id = row["winner_id"]
+        loser_id = row["loser_id"]
+
+        # On utilise .get() pour éviter le KeyError. Si le joueur n'existe pas,
+        # on met un dico vide par défaut {}
+        winner_data = self.joueurs.get(winner_id, {})
+        loser_data = self.joueurs.get(loser_id, {})
+
+        # On sécurise la concaténation avec des f-strings pour éviter le crash sur les NaN
+        team1_name = (
+            f"{winner_data.get('name_first', 'Inconnu')} "
+            f"{winner_data.get('name_last', '')}"
+        ).strip()
+        
+        team2_name = (
+            f"{loser_data.get('name_first', 'Inconnu')} "
+            f"{loser_data.get('name_last', '')}"
+        ).strip()
+
         return Match(
             id=None,
-            date=datetime.strptime(str(row["tourney_date"]), "%Y%m%d").date(),
-            team1=self.joueurs[row["winner_id"]]["name_first"] +
-            " " + self.joueurs[row["winner_id"]]["name_last"],
-            team2=self.joueurs[row["loser_id"]]["name_first"] +
-            " " + self.joueurs[row["loser_id"]]["name_last"],
+            date=match_date,
+            team1=team1_name,
+            team2=team2_name,
             score1=scorewin,
             score2=scorelose,
             autres={idx: row[idx] for idx in row.index if idx not in ["tourney_date"]}

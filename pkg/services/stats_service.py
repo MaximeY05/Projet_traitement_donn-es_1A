@@ -39,7 +39,7 @@ class StatsService:
         dic = {}
         for match in self.matches:
             dic[f"{match.team1} vs {match.team2} du {match.date}"] = match.autres
-            return dic
+        return dic
  
     def display_stat_joueurs(self):
         dic = {}
@@ -62,7 +62,7 @@ class StatsService:
                 trouve = True
         if not trouve:
             print("Joueur non trouvé")
-
+    """
     def affiche_1_stat(self):
         nom_joueur = input("Entrez le nom du joueur pour voir ses stats : ")
         for joueur in self.joueurs:
@@ -93,4 +93,48 @@ class StatsService:
                 print("Erreur : Ce numéro est trop grand.")
         else:
             print("Erreur : Veuillez choisir un nombre positif.")
+    """
 
+    def affiche_1_stat(self):
+        nom_joueur = input("Entrez le nom du joueur pour voir ses stats : ")
+
+        dico_stats = None
+
+        for joueur in self.joueurs:
+            if joueur.nom == nom_joueur:
+                dico_stats = joueur.autres
+                break  # Si on a trouvé le joueur on arrête de chercher
+
+        if dico_stats is None:
+            print("Joueur non trouvé.")
+            return
+
+        nb_stats = len(dico_stats)
+
+        if nb_stats == 0:
+            print("Pas de statistiques pour ce joueur.")
+            return
+
+        print("Voici les stats disponibles :")
+        noms_des_stats = []
+        numero = 1
+        for nom_de_la_stat in dico_stats:
+            print(f"{numero} : {nom_de_la_stat}")
+            noms_des_stats.append(nom_de_la_stat)
+            numero += 1
+
+        choix_str = input("Entrez le numéro de la statistique : ")
+
+        try:
+            choix_int = int(choix_str)
+            if 0 < choix_int <= nb_stats:
+                indice = choix_int - 1
+                nom_choisi = noms_des_stats[indice]
+                valeur_stat = dico_stats[nom_choisi]
+                print(f"La statistique {nom_choisi} du joueur {nom_joueur} est : {valeur_stat}")
+            elif choix_int > nb_stats:
+                print("Erreur : Ce numéro est trop grand.")
+            else:
+                print("Erreur : Veuillez choisir un nombre strictement positif.")
+        except ValueError:
+            print("Erreur : Veuillez entrer un nombre valide.")

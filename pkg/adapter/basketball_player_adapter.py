@@ -17,15 +17,19 @@ class BasketballPlayerAdapter(BaseAdapter):
         -------
         Joueur: objet Joueur correspondant aux données
         """
-        nom_complet = row["last_name"] + " " + row["first_name"]
+        # Sécurisation avec les f-strings pour éviter le crash TypeError (str + float)
+        nom_complet = f"{row.get('first_name', '')} {row.get('last_name', '')}".strip()
+        if not nom_complet:
+            nom_complet = "Inconnu"
 
         return Joueur(
             nom=nom_complet,
-            date_naissance=row["birthdate"],
-            sexe="Homme",
-            id=row["person_id"],
-            autres={idx: row[idx] for idx in row.index if idx not in ["person_id", "birthdate"]}
-            )
+            date_naissance=row.get("birthdate"),
+            sexe="Inconnu",
+            id=row.get("person_id"),
+            autres={idx: row[idx] for idx in row.index if idx not
+                    in ["person_id", "birthdate", "first_name", "last_name"]}
+        )
 
     def to_row(self, joueur) -> Dict[str, str]:
         """Reconvertit l'objet en dictionnaire pour l'export CSV.

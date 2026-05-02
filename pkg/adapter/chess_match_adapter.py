@@ -18,13 +18,21 @@ class ChessMatchAdapter(BaseAdapter):
         Match: objet Match correspondant aux données
         """
 
+        # 1. Sécurisation des scores avec float() pour gérer les 0.5 des matchs nuls
+        try:
+            score1 = float(row["score_player_1"])
+            score2 = float(row["score_player_2"])
+        except (ValueError, TypeError, KeyError):
+            score1 = 0.0
+            score2 = 0.0
+
         return Match(
             id=None,
             date=None,
-            team1=row["player_1"],
-            team2=row["player_2"],
-            score1=row["score_player_1"],
-            score2=row["score_player_2"],
+            team1=str(row.get("player_1", "Inconnu")).strip(),
+            team2=str(row.get("player_2", "Inconnu")).strip(),
+            score1=score1,
+            score2=score2,
             autres={
                   idx: row[idx] for idx in row.index
                   if idx not in ["player_1", "player_2", "score_player_1", "score_player_2"]

@@ -24,18 +24,36 @@ class BasketballMatchAdapter(BaseAdapter):
         Match: objet Match correspondant aux données
         """
 
-        id_home, id_away = row["team_id_home"], row["team_id_away"]
-        nom_home, nom_away = self.equipes_nom[id_home], self.equipes_nom[id_away]
+        # 1. Sécurisation de la récupération des noms
+        id_home = row.get("team_id_home")
+        id_away = row.get("team_id_away")
+        nom_home = self.equipes_nom.get(id_home, "Équipe Inconnue")
+        nom_away = self.equipes_nom.get(id_away, "Équipe Inconnue")
+
+        # 2. Sécurisation de la date
+        try:
+            date_str = str(row.get("game_date", "")).split(" ")[0].strip()
+            match_date = datetime.strptime(date_str, "%Y-%m-%d").date()
+        except (ValueError, TypeError, IndexError):
+            match_date = None
+
+        # 3. Sécurisation des scores
+        try:
+            score1 = int(row["pts_home"])
+            score2 = int(row["pts_away"])
+        except (ValueError, TypeError, KeyError):
+            score1 = 0
+            score2 = 0
 
         return Match(
-            id=row["game_id"],
-            date=datetime.strptime(row["game_date"], "%Y-%m-%d").date(),
+            id=row.get("game_id"),
+            date=match_date,
             team1=nom_home,
             team2=nom_away,
-            score1=row["pts_home"],
-            score2=row["pts_away"],
-            autres={idx: row[idx] for idx in row.index if idx not in ["game_id", "game_date",
-                                                                      "pts_home", "pts_away"]}
+            score1=score1,
+            score2=score2,
+            autres={idx: row[idx] for idx in row.index if idx not 
+                    in ["game_id", "game_date", "pts_home", "pts_away"]}
         )
 
     def to_row(self, match) -> Dict[str, str]:

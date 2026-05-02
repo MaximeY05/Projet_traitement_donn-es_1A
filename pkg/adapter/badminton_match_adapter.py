@@ -18,34 +18,56 @@ class BadmintonMatchAdapter(BaseAdapter):
         -------
         Match: objet Match correspondant aux données
         """
-
         score1 = 0
         score2 = 0
 
-        game1 = row["game_1_score"].split("-")
-        if int(game1[0][0]) > int(game1[1][0]):
-            score1 += 1
-        else:
-            score2 += 1
+        # --- Gestion du Set 1 ---
+        score_game_1 = str(row.get("game_1_score", "")).strip()
+        if score_game_1 and score_game_1.lower() != "nan":
+            try:
+                game1 = score_game_1.split("-")
+                if int(game1[0]) > int(game1[1]):
+                    score1 += 1
+                else:
+                    score2 += 1
+            except (ValueError, IndexError):
+                pass
 
-        game2 = row["game_2_score"].split("-")
-        if int(game2[0][0]) > int(game2[1][0]):
-            score1 += 1
-        else:
-            score2 += 1
+        # Gestion du Set 2 
+        score_game_2 = str(row.get("game_2_score", "")).strip()
+        if score_game_2 and score_game_2.lower() != "nan":
+            try:
+                game2 = score_game_2.split("-")
+                if int(game2[0]) > int(game2[1]):
+                    score1 += 1
+                else:
+                    score2 += 1
+            except (ValueError, IndexError):
+                pass
 
-        if score1 == score2:
-            game3 = row["game_3_score"].split("-")
-            if int(game3[0][0]) > int(game3[1][0]):
-                score1 += 1
-            else:
-                score2 += 1
+        # Gestion du Set 3 (Seulement s'il a été joué et s'il y a égalité avant) 
+        score_game_3 = str(row.get("game_3_score", "")).strip()
+        if score1 == score2 and score_game_3 and score_game_3.lower() != "nan":
+            try:
+                game3 = score_game_3.split("-")
+                if int(game3[0]) > int(game3[1]):
+                    score1 += 1
+                else:
+                    score2 += 1
+            except (ValueError, IndexError):
+                pass
+
+        try:
+            date_str = str(row.get("date", "")).split(" ")[0].strip()
+            match_date = datetime.strptime(date_str, "%Y-%m-%d").date()
+        except (ValueError, TypeError, IndexError):
+            match_date = None
 
         return Match(
             id=None,
-            date=datetime.strptime(row["date"], "%Y-%m-%d").date(),
-            team1=row["player_1"],
-            team2=row["player_2"],
+            date=match_date,
+            team1=row.get("player_1", "Inconnu"),
+            team2=row.get("player_2", "Inconnu"),
             score1=score1,
             score2=score2,
             autres={

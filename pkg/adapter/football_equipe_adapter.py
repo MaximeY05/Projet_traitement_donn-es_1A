@@ -8,14 +8,14 @@ from pkg.models.equipe import Equipe
 class FootballEquipeAdapter(BaseAdapter):
     """Classe implémentant l'adapter pour les équipes de football"""
     def __init__(self):
-        df_countries = read_csv("work/football/country.csv", sep=",")     
+        df_countries = read_csv("work/football/country.csv", sep=",")
         pays_dict = df_countries.set_index('id')['name'].to_dict()
 
         df_matches = read_csv("work/football/match.csv", sep=",")
 
         self.team_to_country = {}
         for _, row in df_matches.iterrows():
-            country_name = pays_dict[row["country_id"]]
+            country_name = pays_dict.get(row["country_id"], "Inconnu") 
             self.team_to_country[row["home_team_api_id"]] = country_name
             self.team_to_country[row["away_team_api_id"]] = country_name
 
@@ -30,9 +30,10 @@ class FootballEquipeAdapter(BaseAdapter):
         -------
         Equipe: objet Equipe correspondant aux données
         """
-
         team_id = row["team_api_id"]
-        pays = self.team_to_country[team_id]
+        
+        # On utilise .get() pour éviter le KeyError si l'équipe n'a joué aucun match
+        pays = self.team_to_country.get(team_id, "Inconnu")
 
         return Equipe(
             nom=row["team_long_name"],

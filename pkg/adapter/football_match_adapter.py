@@ -24,18 +24,38 @@ class FootballMatchAdapter(BaseAdapter):
         -------
         Match: objet Match correspondant aux données
         """
-        date = row["date"].split(" ")[0]
+        
+        # 1. Sécurisation de la récupération des IDs et des noms d'équipes
+        id_home = row.get("home_team_api_id")
+        id_away = row.get("away_team_api_id")
+        
+        # Utilisation de .get() pour éviter l'erreur KeyError si l'équipe est introuvable
+        nom_home = self.equipes_nom.get(id_home, "Équipe Inconnue")
+        nom_away = self.equipes_nom.get(id_away, "Équipe Inconnue")
 
-        id_home, id_away = row["home_team_api_id"], row["away_team_api_id"]
-        nom_home, nom_away = self.equipes_nom[id_home], self.equipes_nom[id_away]
+        # 2. Sécurisation de la date avec try/except
+        try:
+            # On récupère la date, on nettoie, et on gère l'éventuelle heure collée à la date
+            date_str = str(row.get("date", "")).split(" ")[0].strip()
+            match_date = datetime.strptime(date_str, "%Y-%m-%d").date()
+        except (ValueError, TypeError, IndexError):
+            match_date = None
+
+        # 3. Sécurisation des scores
+        try:
+            score1 = int(row["home_team_goal"])
+            score2 = int(row["away_team_goal"])
+        except (ValueError, TypeError, KeyError):
+            score1 = 0
+            score2 = 0
 
         return Match(
-            id=row["id"],
-            date=datetime.strptime(date, "%Y-%m-%d").date(),
+            id=row.get("id"),
+            date=match_date,
             team1=nom_home,
             team2=nom_away,
-            score1=row["home_team_goal"],
-            score2=row["away_team_goal"],
+            score1=score1,
+            score2=score2,
             autres={idx: row[idx] for idx in row.index if idx not in ["id", "home_team_goal",
                                                                       "away_team_goal"]}
         )

@@ -10,7 +10,7 @@ class CompetitionService:
         self.competitions = repository.load()
 
     def create_competition(self, nom, equipes, matchs):
-        competition = Competition(nom, equipes, matchs)
+        competition = Competition(None, nom, equipes, matchs, None)
     
         self.competitions.append(competition)
         self.repository.save(self.competitions)

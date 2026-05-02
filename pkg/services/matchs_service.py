@@ -12,11 +12,13 @@ class MatchsService:
     # 🔹 CREATE
     def create_match(self, date, team1, team2, score1, score2):
         match = Match(
+            id=None,
             date=date,
             team1=team1,
             team2=team2,
             score1=score1,
             score2=score2,
+            autres=None
         )
 
         self.matches.append(match)
