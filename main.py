@@ -88,6 +88,53 @@ def main():
     # print((StatsService(matches=None, joueurs=repository.load()).affiche_stat_1_joueur()))
     # print((StatsService(matches=None, joueurs=repository.load()).affiche_stat_1_joueur()))
 
+    def menu_stats(stats_service):
+        print("\n--- MENU STATISTIQUES ---")
+        print("1. Voir le classement")
+        print("2. Voir le calendrier")
+        print("3. Chercher une stat précise sur un joueur")
+
+        choix = input("Votre choix : ")
+
+        if choix == "1":
+            classement = stats_service.compute_ranking()
+            print("\nCLASSEMENT ACTUEL :")
+            for i, (nom, points) in enumerate(classement.items(), 1):
+                print(f"{i}. {nom:20} | {points} pts")
+
+        elif choix == "2":
+            cal = stats_service.get_organized_calendar()
+            for date, matchs in cal.items():
+                print(f"\nDate : {date}")
+                for m in matchs:
+                    print(f"  {m.team1} vs {m.team2}")
+
+        elif choix == "3":
+            nom = input("Entrez le nom du joueur : ")
+            joueur = stats_service.get_player_by_name(nom)
+
+            if not joueur:
+                print("Joueur non trouvé.")
+                return
+
+            if not joueur.autres:
+                print("Aucune statistique disponible pour ce joueur.")
+                return
+
+            # Affichage de la liste des stats disponibles
+            stats_dispos = list(joueur.autres.keys())
+            print("\nStats disponibles :")
+            for i, nom_stat in enumerate(stats_dispos, 1):
+                print(f"{i}. {nom_stat}")
+
+            try:
+                num = int(input("Choisissez un numéro : "))
+                nom_stat_choisie = stats_dispos[num-1]
+                valeur = joueur.autres[nom_stat_choisie]
+                print(f"\n{nom_stat_choisie} de {joueur.nom} : {valeur}")
+            except (ValueError, IndexError):
+                print("Choix invalide.")
+
 
 if __name__ == "__main__":
     main()

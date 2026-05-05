@@ -1,6 +1,3 @@
-from datetime import datetime
-
-
 class StatsService:
 
     def __init__(self, matches=None, joueurs=None, equipes=None):
@@ -14,131 +11,27 @@ class StatsService:
             winner = match.winner()
             if winner:
                 ranking[winner] = ranking.get(winner, 0) + 3
-        return ranking
+        return dict(sorted(ranking.items(), key=lambda item: item[1], reverse=True))
 
-    def calendrier(self):
+    def get_organized_calendar(self):
         calendrier = {}
-        sorted_matches = sorted(self.matches, key=lambda m: m.date)
+        sorted_matches = sorted(self.matches, key=lambda m: str(m.date))
         for match in sorted_matches:
-            d = str(match.date).strip()
-            d = d.replace("-", "")
-            d = datetime.strptime(d, "%Y%m%d")
-            date_key = d.strftime("%Y/%m/%d")
+            date_key = str(match.date).replace("-", "/")
             if date_key not in calendrier:
                 calendrier[date_key] = []
             calendrier[date_key].append(match)
         return calendrier
 
-    def display_calendar(self):
-        calendrier = self.calendrier()
-        for date in calendrier:
-            print("Date : " + date)
-            for m in calendrier[date]:
-                print("  - " + str(m.team1) + " contre " + str(m.team2))
-
-    def affiche_stat_match(self):
-        dic = {}
-        for match in self.matches:
-            dic[f"{match.team1} vs {match.team2} du {match.date}"] = match.autres
-        return dic
-
-    def display_stat_joueurs(self):
-        dic = {}
+    def get_player_by_name(self, nom_joueur):
+        """Retourne l'objet Joueur complet ou None s'il n'existe pas."""
         for joueur in self.joueurs:
-            dic[joueur.nom] = joueur.date_naissance
-        return dic
+            if joueur.nom.lower() == nom_joueur.lower():
+                return joueur
+        return None
 
-    def affiche_stat_joueurs(self):
-        dic_stat = {}
-        for joueur in self.joueurs:
-            dic_stat[joueur.nom] = joueur.autres
-        return dic_stat
-
-    def affiche_stat_1_joueur(self):
-        nom_joueur = input("Entrez le nom du joueur pour voir ses stats :")
-        trouve = False
-        for joueur in self.joueurs:
-            if joueur.nom == nom_joueur:
-                print(f"Les statistiques de {nom_joueur} sont : {joueur.autres}")
-                trouve = True
-        if not trouve:
-            print("Joueur non trouvé")
-    """
-    def affiche_1_stat(self):
-        nom_joueur = input("Entrez le nom du joueur pour voir ses stats : ")
-        for joueur in self.joueurs:
-            if joueur.nom == nom_joueur:
-                dico_stats = joueur.autres
-        nb_stats = 0
-        for cle in dico_stats:
-            nb_stats = nb_stats + 1
-        if nb_stats == 0:
-            print("Pas de statistiques pour ce joueur.")
-            return
-        print("Voici les stats disponibles :")
-        noms_des_stats = []
-        numero = 1
-        for nom_de_la_stat in dico_stats:
-            print(numero, ":", nom_de_la_stat)
-            noms_des_stats.append(nom_de_la_stat)
-            numero = numero + 1
-        choix_str = input("Entrez le numéro de la statistique : ")
-        choix_int = int(choix_str)
-        if choix_int > 0:
-            if choix_int <= nb_stats:
-                indice = choix_int - 1
-                nom_choisi = noms_des_stats[indice]
-                valeur_stat = dico_stats[nom_choisi]
-                print(f"La statistique {nom_choisi} du joueur {nom_joueur} est : {valeur_stat}")
-            else:
-                print("Erreur : Ce numéro est trop grand.")
-        else:
-            print("Erreur : Veuillez choisir un nombre positif.")
-    """
-
-    def affiche_1_stat(self):
-        nom_joueur = input("Entrez le nom du joueur pour voir ses stats : ")
-
-        dico_stats = None
-
-        for joueur in self.joueurs:
-            if joueur.nom == nom_joueur:
-                dico_stats = joueur.autres
-                break  # Si on a trouvé le joueur on arrête de chercher
-
-        if dico_stats is None:
-            print("Joueur non trouvé.")
-            return
-
-        nb_stats = len(dico_stats)
-
-        if nb_stats == 0:
-            print("Pas de statistiques pour ce joueur.")
-            return
-
-        print("Voici les stats disponibles :")
-        noms_des_stats = []
-        numero = 1
-        for nom_de_la_stat in dico_stats:
-            print(f"{numero} : {nom_de_la_stat}")
-            noms_des_stats.append(nom_de_la_stat)
-            numero += 1
-
-        choix_str = input("Entrez le numéro de la statistique : ")
-
-        try:
-            choix_int = int(choix_str)
-            if 0 < choix_int <= nb_stats:
-                indice = choix_int - 1
-                nom_choisi = noms_des_stats[indice]
-                valeur_stat = dico_stats[nom_choisi]
-                print(f"La statistique {nom_choisi} du joueur {nom_joueur} est : {valeur_stat}")
-            elif choix_int > nb_stats:
-                print("Erreur : Ce numéro est trop grand.")
-            else:
-                print("Erreur : Veuillez choisir un nombre strictement positif.")
-        except ValueError:
-            print("Erreur : Veuillez entrer un nombre valide.")
+    def get_all_players_stats(self):
+        return {j.nom: j.autres for j in self.joueurs}
 
     def get_winrate(self, team: str) -> float:
         bons_matchs = [match for match in self.matches if team in [match.team1, match.team2]]
@@ -187,6 +80,14 @@ class StatsService:
         winrate = wins/len(bons_matchs)*100
         return winrate
 
+    def get_away_winrate(self, team: str) -> float:
+        bons_matchs = [match for match in self.matches if team == match.team2]
+        if not bons_matchs:
+            return 0.0
+        wins = sum(1 for match in bons_matchs if match.winner() == team)
+        winrate = wins/len(bons_matchs)*100
+        return winrate
+
     def get_efficacite_atk(self, team: str) -> float:
         bons_matchs = [match for match in self.matches if team in [match.team1, match.team2]]
         if not bons_matchs:
@@ -226,3 +127,35 @@ class StatsService:
                    (match.team1 == team and match.winner() == match.team2) or
                    (match.team2 == team and match.winner() == match.team1))
         return (ecart_win/wins*100, ecart_lose/lose*100)
+
+    # === STATS SPORT INDIVIDUEL ===
+    def get_set_winrate(self, team: str) -> float:
+        bons_matchs = [match for match in self.matches if team in [match.team1, match.team2]]
+        if not bons_matchs:
+            return 0.0
+        nb_sets_win, nb_sets = 0, 0
+        for match in bons_matchs:
+            if match.team1 == team:
+                nb_sets_win += match.score1
+                nb_sets += match.score1 + match.score2
+            else:
+                nb_sets_win += match.score2
+                nb_sets += match.score1 + match.score2
+        return nb_sets_win/nb_sets
+
+    # === STATS ECHECS ===
+    def get_win_higher_elo(self, player: str) -> int:
+        obj_joueur = self.get_player_by_name(player)
+        if not obj_joueur:
+            return 0
+        elo = float(obj_joueur.autres["rating_standard"])
+        bons_matchs = [match for match in self.matches if player == match.winner()]
+        if not bons_matchs:
+            return 0
+        nb_win = 0
+        for match in bons_matchs:
+            adversaire_nom = match.team2 if player == match.team1 else match.team1
+            adversaire = self.get_player_by_name(adversaire_nom)
+            if float(adversaire.autres["rating_standard"]) > elo:
+                nb_win += 1
+        return nb_win
