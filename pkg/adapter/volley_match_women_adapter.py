@@ -18,22 +18,18 @@ class VolleyMatchWomenAdapter(BaseAdapter):
         -------
         Match: objet Match correspondant aux données
         """
-        # 1. Sécurisation des scores
+
         try:
             score1 = int(row["set_country_1"])
             score2 = int(row["set_country_2"])
         except (ValueError, TypeError):
-            # Si la case est vide ou contient du texte, on met 0 par défaut
             score1 = 0
             score2 = 0
 
-        # 2. Sécurisation de la date
         try:
-            # On s'assure que c'est bien une chaîne de caractères et on enlève les espaces parasites
             date_str = str(row["date"]).strip()
             match_date = datetime.strptime(date_str, "%Y-%m-%d").date()
         except (ValueError, TypeError):
-            # Si le format n'est pas bon ou que la case est vide, on assigne None 
             match_date = None
 
         return Match(
@@ -47,12 +43,12 @@ class VolleyMatchWomenAdapter(BaseAdapter):
                     ["date", "country_1", "country_2", "set_country_1", "set_country_2"]}
         )
 
-    def to_row(self, match) -> Dict[str, str]:
+    def to_row(self, obj) -> Dict[str, str]:
         """Reconvertit l'objet en dictionnaire pour l'export CSV.
 
         Parameters
         ----------
-        match : Match
+        obj : Match
             objet à renvoyer
 
         Returns
@@ -60,12 +56,12 @@ class VolleyMatchWomenAdapter(BaseAdapter):
         dict : dictionnaire prêt pour la transition en csv
         """
         dico = {
-            "date": match.date,
-            "country_1": match.team1,
-            "country_2": match.team2,
-            "set_country_1": match.score1,
-            "set_country_2": match.score2,
+            "date": obj.date,
+            "country_1": obj.team1,
+            "country_2": obj.team2,
+            "set_country_1": obj.score1,
+            "set_country_2": obj.score2,
         }
-        for key, value in match.autres.items():
+        for key, value in obj.autres.items():
             dico[key] = value
         return dico

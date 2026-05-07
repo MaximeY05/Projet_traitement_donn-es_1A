@@ -19,19 +19,19 @@ class LolPlayerAdapter(BaseAdapter):
         """
 
         return Joueur(
-            id=None,
+            joueur_id=None,
             nom=row["name"],
             date_naissance=row["birthdate"],
             sexe="Homme",
             autres={idx: row[idx] for idx in row.index if idx not in ["name", "birthdate"]}
         )
 
-    def to_row(self, joueur: Joueur) -> Dict[str, str]:
+    def to_row(self, obj: Joueur) -> Dict[str, str]:
         """Reconvertit l'objet en dictionnaire pour l'export CSV.
 
         Parameters
         ----------
-        joueur : Joueur
+        obj : Joueur
             objet à renvoyer
 
         Returns
@@ -39,9 +39,9 @@ class LolPlayerAdapter(BaseAdapter):
         dict : dictionnaire prêt pour la transition en csv
         """
         dico = {
-            "name": joueur.nom,
-            "birthdate": joueur.date_naissance
+            "name": obj.nom,
+            "birthdate": obj.date_naissance
         }
-        for key, value in joueur.autres.items():
+        for key, value in obj.autres.items():
             dico[key] = value
         return dico

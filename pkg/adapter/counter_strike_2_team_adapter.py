@@ -23,12 +23,12 @@ class Counterstrike2TeamAdapter(BaseAdapter):
             autres={idx: row[idx] for idx in row.index if idx not in ["team", "location"]}
         )
 
-    def to_row(self, equipe: Equipe) -> Dict[str, str]:
+    def to_row(self, obj: Equipe) -> Dict[str, str]:
         """Reconvertit l'objet en dictionnaire pour l'export CSV.
 
         Parameters
         ----------
-        equipe : Equipe
+        obj : Equipe
             objet à renvoyer
 
         Returns
@@ -36,9 +36,9 @@ class Counterstrike2TeamAdapter(BaseAdapter):
         dict : dictionnaire prêt pour la transition en csv
         """
         dico = {
-            "team": equipe.nom,
-            "location": equipe.localisation
+            "team": obj.nom,
+            "location": obj.localisation
         }
-        for key, value in equipe.autres.items():
+        for key, value in obj.autres.items():
             dico[key] = value
         return dico

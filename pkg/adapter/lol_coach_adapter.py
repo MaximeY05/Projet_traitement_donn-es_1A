@@ -27,12 +27,12 @@ class LolCoachAdapter(BaseAdapter):
             team=row["team"]
         )
 
-    def to_row(self, coach) -> Dict[str, str]:
+    def to_row(self, obj) -> Dict[str, str]:
         """Reconvertit l'objet en dictionnaire pour l'export CSV.
 
         Parameters
         ----------
-        coach : Coach
+        obj : Coach
             objet à renvoyer
 
         Returns
@@ -40,13 +40,13 @@ class LolCoachAdapter(BaseAdapter):
         dict : dictionnaire prêt pour la transition en csv
         """
         dico = {
-            "pseudo": coach.pseudo,
-            "name": coach.name,
-            "country_of_birth": coach.country_birth,
-            "birthdate": coach.birthdate,
-            "role": coach.role,
-            "team": coach.team
+            "pseudo": obj.pseudo,
+            "name": obj.name,
+            "country_of_birth": obj.country_birth,
+            "birthdate": obj.birthdate,
+            "role": obj.role,
+            "team": obj.team
         }
-        for key, value in coach.autres.items():
+        for key, value in obj.autres.items():
             dico[key] = value
         return dico

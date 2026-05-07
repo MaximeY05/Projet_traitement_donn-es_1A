@@ -1,6 +1,9 @@
-# Implémentation de la classe Joueur
+"""Implémentation de la classe Joueur"""
+from dataclasses import dataclass, field
+from typing import Any
 
 
+@dataclass
 class Joueur:
     """
     La classe Joueur permet de modéliser un joueur
@@ -8,25 +11,17 @@ class Joueur:
     Atributes
     ----------
     nom : str
-    nationalite : str
     date_naissance : str
     sexe : str
-    id : int
+    joueur_id : int
+    autres : {str: Any}
     """
 
-    def __init__(
-        self,
-        nom: str,
-        date_naissance: str,
-        sexe: str,
-        id: int,
-        autres: dict,
-            ):
-        self.nom = nom
-        self.date_naissance = date_naissance
-        self.sexe = sexe
-        self.id = id
-        self.autres = autres
+    nom: str
+    date_naissance: str
+    sexe: str
+    joueur_id: int
+    autres: dict[str, Any] = field(default_factory=dict)
 
     def __str__(self) -> str:
         return f"{self.nom}"

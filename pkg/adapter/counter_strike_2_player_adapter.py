@@ -18,25 +18,24 @@ class Counterstrike2PlayerAdapter(BaseAdapter):
         Joueur: objet Joueur correspondant aux données
         """
 
-        # Sécurisation du pseudo
         pseudo = str(row.get("pseudo", "Inconnu")).strip()
         if pseudo.lower() == "nan" or not pseudo:
             pseudo = "Inconnu"
 
         return Joueur(
-            id=None,
+            joueur_id=None,
             nom=pseudo,
             date_naissance=row.get("birthdate"),
             sexe="Inconnu",
             autres={idx: row[idx] for idx in row.index if idx not in ["pseudo", "birthdate"]}
             )
 
-    def to_row(self, joueur) -> Dict[str, str]:
+    def to_row(self, obj) -> Dict[str, str]:
         """Reconvertit l'objet en dictionnaire pour l'export CSV.
 
         Parameters
         ----------
-        joueur : Joueur
+        obj : Joueur
             objet à renvoyer
 
         Returns
@@ -44,9 +43,9 @@ class Counterstrike2PlayerAdapter(BaseAdapter):
         dict : dictionnaire prêt pour la transition en csv
         """
         dico = {
-            "pseudo": joueur.nom,
-            "birthdate": joueur.date_naissance,
+            "pseudo": obj.nom,
+            "birthdate": obj.date_naissance,
         }
-        for key, value in joueur.autres.items():
+        for key, value in obj.autres.items():
             dico[key] = value
         return dico

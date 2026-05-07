@@ -8,57 +8,28 @@ from pkg.models.match import Match
 class BadmintonMatchAdapter(BaseAdapter):
     """Classe implémentant l'adapter pour les matchs de badminton"""
     def adapt(self, row) -> Match:
-        """Convertit une ligne provenant d'un fichier csv lu par pandas en objet python
-
-        Parameters
-        ----------
-        row: nos données lues par pandas
-
-        Returns
-        -------
-        Match: objet Match correspondant aux données
-        """
+        """Convertit une ligne provenant d'un fichier csv en objet Match."""
         score1 = 0
         score2 = 0
 
-        # --- Gestion du Set 1 ---
-        score_game_1 = str(row.get("game_1_score", "")).strip()
-        if score_game_1 and score_game_1.lower() != "nan":
-            try:
-                game1 = score_game_1.split("-")
-                if int(game1[0]) > int(game1[1]):
-                    score1 += 1
-                else:
-                    score2 += 1
-            except (ValueError, IndexError):
-                pass
+        for i in range(1, 4):
+            score_game = str(row.get(f"game_{i}_score", "")).strip().lower()
 
-        # Gestion du Set 2 
-        score_game_2 = str(row.get("game_2_score", "")).strip()
-        if score_game_2 and score_game_2.lower() != "nan":
-            try:
-                game2 = score_game_2.split("-")
-                if int(game2[0]) > int(game2[1]):
-                    score1 += 1
-                else:
-                    score2 += 1
-            except (ValueError, IndexError):
-                pass
+            if i == 3 and score1 != score2:
+                break
 
-        # Gestion du Set 3 (Seulement s'il a été joué et s'il y a égalité avant) 
-        score_game_3 = str(row.get("game_3_score", "")).strip()
-        if score1 == score2 and score_game_3 and score_game_3.lower() != "nan":
-            try:
-                game3 = score_game_3.split("-")
-                if int(game3[0]) > int(game3[1]):
-                    score1 += 1
-                else:
-                    score2 += 1
-            except (ValueError, IndexError):
-                pass
+            if score_game and score_game != "nan":
+                try:
+                    p1_set, p2_set = map(int, score_game.split("-"))
+                    if p1_set > p2_set:
+                        score1 += 1
+                    else:
+                        score2 += 1
+                except (ValueError, IndexError):
+                    continue
 
         try:
-            date_str = str(row.get("date", "")).split(" ")[0].strip()
+            date_str = str(row.get('date', '')).split(' ', maxsplit=1)[0]
             match_date = datetime.strptime(date_str, "%Y-%m-%d").date()
         except (ValueError, TypeError, IndexError):
             match_date = None
@@ -70,18 +41,16 @@ class BadmintonMatchAdapter(BaseAdapter):
             team2=row.get("player_2", "Inconnu"),
             score1=score1,
             score2=score2,
-            autres={
-                  idx: row[idx] for idx in row.index
-                  if idx not in ["date", "player_1", "player_2"]
-                }
-            )
+            autres={idx: row[idx] for idx in row.index if idx not in ["date",
+                                                                      "player_1", "player_2"]}
+        )
 
-    def to_row(self, match: Match) -> Dict[str, any]:
+    def to_row(self, obj: Match) -> Dict[str, any]:
         """Reconvertit l'objet en dictionnaire pour l'export CSV.
 
         Parameters
         ----------
-        match : Match
+        obj : Match
             objet à renvoyer
 
         Returns
@@ -89,10 +58,10 @@ class BadmintonMatchAdapter(BaseAdapter):
         dict : dictionnaire prêt pour la transition en csv
         """
         dico = {
-                "player_1": match.team1,
-                "player_2": match.team2,
-                "date": match.date
+                "player_1": obj.team1,
+                "player_2": obj.team2,
+                "date": obj.date
                 }
-        for key, value in match.autres.items():
+        for key, value in obj.autres.items():
             dico[key] = value
         return dico

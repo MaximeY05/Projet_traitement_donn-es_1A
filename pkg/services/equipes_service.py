@@ -1,30 +1,23 @@
-from pkg.adapter.base_adapter import BaseAdapter
+"""Implémentation d'une classe permettant la gestion d'équipes"""
 from pkg.models.equipe import Equipe
-from pkg.models.joueur import Joueur
 from pkg.repository.data_repository import DataRepository
-
-# A TESTER
 
 
 class EquipesService:
-
-    def __init__(self, repository: DataRepository, adapter: BaseAdapter):
+    """Permet la gestion d'équipes"""
+    def __init__(self, repository: DataRepository):
         self.repository = repository
         self.equipes = repository.load()
 
     def create_equipe(
         self,
         nom: str,
-        localisation: str,
-        joueurs: list[Joueur],
-        palmares: dict[str, int],
+        localisation: str
     ):
-
+        """Permet de créer une équipe"""
         equipe = Equipe(
             nom,
             localisation,
-            joueurs,
-            palmares,
             None
         )
         self.equipes.append(equipe)
@@ -33,5 +26,6 @@ class EquipesService:
         return equipe
 
     def display_equipes(self):
+        """Permet d'afficher les équipes"""
         equipes = self.repository.load()
         print(equipes)

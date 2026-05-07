@@ -1,3 +1,4 @@
+"Donne les configurations pour toutes nos bases de données"
 from pkg.adapter.volley_match_men_adapter import VolleyMatchMenAdapter
 from pkg.adapter.volley_match_women_adapter import VolleyMatchWomenAdapter
 # from pkg.adapter.volley_coach_adapter import VolleyCoachAdapter
@@ -40,8 +41,8 @@ from pkg.adapter.starcraft_match_adapter import StarcraftMatchAdapter
 from pkg.adapter.starcraft_player_adapter import StarcraftPlayerAdapter
 
 
-class DatasetConfiguration:
-
+class DatasetConfiguration:  # pylint: disable=too-few-public-methods
+    """Classe permettant la définition de nos configurations pour nos bases de données"""
     def __init__(self, dataset_path, dataset_sep, adapter):
         self.dataset_path_match = dataset_path
         self.dataset_sep_match = dataset_sep

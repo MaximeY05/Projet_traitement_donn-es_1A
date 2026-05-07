@@ -24,24 +24,19 @@ class FootballMatchAdapter(BaseAdapter):
         -------
         Match: objet Match correspondant aux données
         """
-        
-        # 1. Sécurisation de la récupération des IDs et des noms d'équipes
+
         id_home = row.get("home_team_api_id")
         id_away = row.get("away_team_api_id")
-        
-        # Utilisation de .get() pour éviter l'erreur KeyError si l'équipe est introuvable
+
         nom_home = self.equipes_nom.get(id_home, "Équipe Inconnue")
         nom_away = self.equipes_nom.get(id_away, "Équipe Inconnue")
 
-        # 2. Sécurisation de la date avec try/except
         try:
-            # On récupère la date, on nettoie, et on gère l'éventuelle heure collée à la date
-            date_str = str(row.get("date", "")).split(" ")[0].strip()
+            date_str = str(row.get('date', '')).split(' ', maxsplit=1)[0]
             match_date = datetime.strptime(date_str, "%Y-%m-%d").date()
         except (ValueError, TypeError, IndexError):
             match_date = None
 
-        # 3. Sécurisation des scores
         try:
             score1 = int(row["home_team_goal"])
             score2 = int(row["away_team_goal"])
@@ -60,12 +55,12 @@ class FootballMatchAdapter(BaseAdapter):
                                                                       "away_team_goal"]}
         )
 
-    def to_row(self, match) -> Dict[str, str]:
+    def to_row(self, obj) -> Dict[str, str]:
         """Reconvertit l'objet en dictionnaire pour l'export CSV.
 
         Parameters
         ----------
-        match : Match
+        obj : Match
             objet à renvoyer
 
         Returns
@@ -73,10 +68,10 @@ class FootballMatchAdapter(BaseAdapter):
         dict : dictionnaire prêt pour la transition en csv
         """
         dico = {
-            "id": match.id,
-            "home_team_goal": match.score1,
-            "away_team_goal": match.score2
+            "id": obj.id,
+            "home_team_goal": obj.score1,
+            "away_team_goal": obj.score2
         }
-        for key, value in match.autres.items():
+        for key, value in obj.autres.items():
             dico[key] = value
         return dico

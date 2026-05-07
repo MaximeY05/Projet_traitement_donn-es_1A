@@ -18,7 +18,6 @@ class ChessMatchAdapter(BaseAdapter):
         Match: objet Match correspondant aux données
         """
 
-        # 1. Sécurisation des scores avec float() pour gérer les 0.5 des matchs nuls
         try:
             score1 = float(row["score_player_1"])
             score2 = float(row["score_player_2"])
@@ -39,12 +38,12 @@ class ChessMatchAdapter(BaseAdapter):
                 }
             )
 
-    def to_row(self, match: Match) -> Dict[str, any]:
+    def to_row(self, obj: Match) -> Dict[str, any]:
         """Reconvertit l'objet en dictionnaire pour l'export CSV.
 
         Parameters
         ----------
-        match : Match
+        obj : Match
             objet à renvoyer
 
         Returns
@@ -52,11 +51,11 @@ class ChessMatchAdapter(BaseAdapter):
         dict : dictionnaire prêt pour la transition en csv
         """
         dico = {
-                "player_1": match.team1,
-                "player_2": match.team2,
-                "score_player_1": match.score1,
-                "score_player_2": match.score2,
+                "player_1": obj.team1,
+                "player_2": obj.team2,
+                "score_player_1": obj.score1,
+                "score_player_2": obj.score2,
                 }
-        for key, value in match.autres.items():
+        for key, value in obj.autres.items():
             dico[key] = value
         return dico

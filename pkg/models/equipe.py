@@ -1,6 +1,9 @@
 """Implémentation de la classe Equipe."""
+from dataclasses import dataclass, field
+from typing import Any
 
 
+@dataclass
 class Equipe:
     """
     La classe Equipe permet de modéliser une équipe.
@@ -8,22 +11,18 @@ class Equipe:
     Atributes
     ----------
     nom : str
+    localisation : str
+    autres : {str: Any}
     """
-
-    def __init__(
-        self,
-        nom: str,
-        localisation: str,
-        autres: list[str],
-        joueurs=None,
-        palmares=None
-    ):
-        self.nom = nom
-        self.localisation = localisation
-        self.joueurs = joueurs
-        self.palmares = palmares
-        self.autres = autres
+    nom: str
+    localisation: str
+    autres: dict[str, Any] = field(default_factory=dict)
 
     def __str__(self) -> str:
-        """Renvoie le nom de l'équipe."""
+        """Renvoie le nom de l'équipe.
+
+        Returns
+        --------
+        str : Nom de l'équipe
+        """
         return f"{self.nom}"

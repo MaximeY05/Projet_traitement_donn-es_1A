@@ -10,6 +10,6 @@ class BaseAdapter(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def to_row(self, match):
+    def to_row(self, obj):
         """Méthode abstraite pour reconvertir les objets python afin de les remettre en csv"""
         raise NotImplementedError

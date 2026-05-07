@@ -18,13 +18,12 @@ class ChessPlayerAdapter(BaseAdapter):
         Joueur: objet Joueur correspondant aux données
         """
 
-        # Sécurisation du nom pour éviter les crashs sur les NaN
         nom_joueur = str(row.get("name", "Inconnu")).strip()
         if nom_joueur.lower() == "nan":
             nom_joueur = "Inconnu"
 
         return Joueur(
-            id=None,
+            joueur_id=None,
             nom=nom_joueur,
             date_naissance=row.get("birth_year"),
             sexe=row.get("gender", "Inconnu"),
@@ -34,12 +33,12 @@ class ChessPlayerAdapter(BaseAdapter):
             }
         )
 
-    def to_row(self, joueur: Joueur) -> Dict[str, str]:
+    def to_row(self, obj: Joueur) -> Dict[str, str]:
         """Reconvertit l'objet en dictionnaire pour l'export CSV.
 
         Parameters
         ----------
-        joueur : Joueur
+        obj : Joueur
             objet à renvoyer
 
         Returns
@@ -47,10 +46,10 @@ class ChessPlayerAdapter(BaseAdapter):
         dict : dictionnaire prêt pour la transition en csv
         """
         dico = {
-            "name": joueur.nom,
-            "birth_year": joueur.date_naissance,
-            "gender": joueur.sexe
+            "name": obj.nom,
+            "birth_year": obj.date_naissance,
+            "gender": obj.sexe
         }
-        for key, value in joueur.autres.items():
+        for key, value in obj.autres.items():
             dico[key] = value
         return dico

@@ -19,14 +19,12 @@ class ChampionleagueMatchAdapter(BaseAdapter):
         Match: objet Match correspondant aux données
         """
 
-        # 1. Sécurisation de la date
         try:
             date_str = str(row.get("date", "")).strip()
             match_date = datetime.strptime(date_str, "%Y-%m-%d").date()
         except (ValueError, TypeError):
             match_date = None
 
-        # 2. Sécurisation des scores
         try:
             score1 = int(row["score_team_home"])
             score2 = int(row["score_team_away"])
@@ -49,12 +47,12 @@ class ChampionleagueMatchAdapter(BaseAdapter):
             }
         )
 
-    def to_row(self, match) -> Dict[str, str]:
+    def to_row(self, obj) -> Dict[str, str]:
         """Reconvertit l'objet en dictionnaire pour l'export CSV.
 
         Parameters
         ----------
-        match : Match
+        obj : Match
             objet à renvoyer
 
         Returns
@@ -62,12 +60,12 @@ class ChampionleagueMatchAdapter(BaseAdapter):
         dict : dictionnaire prêt pour la transition en csv
         """
         dico = {
-            "date": match.date,
-            "team_home": match.team1,
-            "team_away": match.team2,
-            "score_team_home": match.score1,
-            "score_team_away": match.score2,
+            "date": obj.date,
+            "team_home": obj.team1,
+            "team_away": obj.team2,
+            "score_team_home": obj.score1,
+            "score_team_away": obj.score2,
         }
-        for key, value in match.autres.items():
+        for key, value in obj.autres.items():
             dico[key] = value
         return dico

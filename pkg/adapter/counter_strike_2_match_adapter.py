@@ -19,14 +19,12 @@ class CounterStrike2MatchAdapter(BaseAdapter):
         Match: objet Match correspondant aux données
         """
 
-        # 1. Sécurisation de la date
         try:
             date_str = str(row.get("date", "")).strip()
             match_date = datetime.strptime(date_str, "%Y-%m-%d").date()
         except (ValueError, TypeError):
             match_date = None
 
-        # 2. Sécurisation des scores
         try:
             score1 = int(row["score_team_1"])
             score2 = int(row["score_team_2"])
@@ -47,12 +45,12 @@ class CounterStrike2MatchAdapter(BaseAdapter):
                 }
             )
 
-    def to_row(self, match: Match) -> Dict[str, any]:
+    def to_row(self, obj: Match) -> Dict[str, any]:
         """Reconvertit l'objet en dictionnaire pour l'export CSV.
 
         Parameters
         ----------
-        match : Match
+        obj : Match
             objet à renvoyer
 
         Returns
@@ -60,12 +58,12 @@ class CounterStrike2MatchAdapter(BaseAdapter):
         dict : dictionnaire prêt pour la transition en csv
         """
         dico = {
-                "date": match.date,
-                "team_1": match.team1,
-                "team_2": match.team2,
-                "score_team_1": match.score1,
-                "score_team_2": match.score2,
+                "date": obj.date,
+                "team_1": obj.team1,
+                "team_2": obj.team2,
+                "score_team_1": obj.score1,
+                "score_team_2": obj.score2,
                 }
-        for key, value in match.autres.items():
+        for key, value in obj.autres.items():
             dico[key] = value
         return dico

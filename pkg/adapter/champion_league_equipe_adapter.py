@@ -21,17 +21,15 @@ class ChampionleagueEquipeAdapter(BaseAdapter):
         return Equipe(
             nom=row["short_name"],
             localisation=row["city"],
-            joueurs=None,
-            palmares=None,
             autres={idx: row[idx] for idx in row.index if idx not in ["short_name", "city"]}
         )
 
-    def to_row(self, equipe) -> Dict[str, str]:
+    def to_row(self, obj) -> Dict[str, str]:
         """Reconvertit l'objet en dictionnaire pour l'export CSV.
 
         Parameters
         ----------
-        equipe : Equipe
+        obj : Equipe
             objet à renvoyer
 
         Returns
@@ -39,9 +37,9 @@ class ChampionleagueEquipeAdapter(BaseAdapter):
         dict : dictionnaire prêt pour la transition en csv
         """
         dico = {
-            "short_name": equipe.nom,
-            "city": equipe.localisation,
+            "short_name": obj.nom,
+            "city": obj.localisation,
         }
-        for key, value in equipe.autres.items():
+        for key, value in obj.autres.items():
             dico[key] = value
         return dico

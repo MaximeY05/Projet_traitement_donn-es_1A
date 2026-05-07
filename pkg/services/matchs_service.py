@@ -1,16 +1,16 @@
-from pkg.adapter.base_adapter import BaseAdapter
+"""Implémentation d'une classe permettant la gestion de matchs"""
 from pkg.models.match import Match
 from pkg.repository.data_repository import DataRepository
 
 
 class MatchsService:
-
-    def __init__(self, repository: DataRepository, adapter: BaseAdapter):
+    """Permet la gestion de matchs"""
+    def __init__(self, repository: DataRepository):
         self.repository = repository
         self.matches = repository.load()
 
-    # 🔹 CREATE
     def create_match(self, date, team1, team2, score1, score2):
+        """Permet de créer un match"""
         match = Match(
             id=None,
             date=date,
@@ -27,5 +27,6 @@ class MatchsService:
         return match
 
     def display_matchs(self):
+        """Permet d'afficher les matchs"""
         matchs = self.repository.load()
         print(matchs)

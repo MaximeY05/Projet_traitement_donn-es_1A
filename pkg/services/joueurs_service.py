@@ -1,22 +1,21 @@
-from pkg.adapter.base_adapter import BaseAdapter
+"""Implémentation d'une classe permettant la gestion de joueurs"""
 from pkg.models.joueur import Joueur
 from pkg.repository.data_repository import DataRepository
 
 
 class JoueurService:
-
-    def __init__(self, repository: DataRepository, adapter: BaseAdapter):
+    """Permet la gestion de joueurs"""
+    def __init__(self, repository: DataRepository):
         self.repository = repository
         self.joueurs = repository.load()
 
     def create_joueur(
         self,
         nom: str,
-        prenom: str,
         date_naissance: str,
         sexe: str,
             ):
-
+        """Permet de créer un joueur"""
         joueur = Joueur(
             nom,
             date_naissance,
@@ -30,5 +29,6 @@ class JoueurService:
         return joueur
 
     def display_joueurs(self):
+        """Permet d'afficher les joueurs"""
         joueurs = self.repository.load()
-        #print(joueurs)
+        print(joueurs)

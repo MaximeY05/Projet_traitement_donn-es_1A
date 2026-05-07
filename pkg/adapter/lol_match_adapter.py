@@ -18,7 +18,7 @@ class LolMatchAdapter(BaseAdapter):
         -------
         Match: objet Match correspondant aux données
         """
-        # 1. Déduction du score sécurisée (au cas où la case winner est vide)
+
         winner = str(row.get("winner", ""))
         team_blue = str(row.get("team_blue", ""))
 
@@ -27,7 +27,6 @@ class LolMatchAdapter(BaseAdapter):
         else:
             score1, score2 = 0, 1
 
-        # 2. Sécurisation de la date
         try:
             date_str = str(row["date"]).strip()
             match_date = datetime.strptime(date_str, "%Y-%m-%d").date()
@@ -41,32 +40,27 @@ class LolMatchAdapter(BaseAdapter):
             team2=row.get("team_red"),
             score1=score1,
             score2=score2,
-            # On exclut "winner" de "autres" pour éviter les conflits lors de la sauvegarde
             autres={idx: row[idx] for idx in row.index if idx not in
-                    ["date", "team_blue", "team_red", "winner"]}
+                    ["date", "team_blue", "team_red"]}
         )
 
-    def to_row(self, match: Match) -> Dict[str, any]:
+    def to_row(self, obj: Match) -> Dict[str, any]:
         """Reconvertit l'objet en dictionnaire pour l'export CSV.
 
         Parameters
         ----------
-        match : Match
+        obj : Match
             objet à renvoyer
 
         Returns
         --------
         dict : dictionnaire prêt pour la transition en csv
         """
-        # On recrée dynamiquement le nom du vainqueur selon le score actuel
-        current_winner = match.team1 if match.score1 > match.score2 else match.team2
-
         dico = {
-            "date": match.date,
-            "team_blue": match.team1,
-            "team_red": match.team2,
-            "winner": current_winner
+            "date": obj.date,
+            "team_blue": obj.team1,
+            "team_red": obj.team2
         }
-        for key, value in match.autres.items():
+        for key, value in obj.autres.items():
             dico[key] = value
         return dico

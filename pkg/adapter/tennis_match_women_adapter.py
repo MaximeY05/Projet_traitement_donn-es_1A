@@ -25,8 +25,6 @@ class TennisMatchWomenAdapter(BaseAdapter):
         """
         score_raw = str(row["score"])
 
-        # 1. Gestion des cas particuliers (Abandon, Forfait, etc.)
-        # On regarde si l'un des mots clés est présent n'importe où dans le score
         special_cases = ["W/O", "RET", "DEF", "WALK"]
         if any(case in score_raw.upper() for case in special_cases):
             scorewin = 0
@@ -34,17 +32,12 @@ class TennisMatchWomenAdapter(BaseAdapter):
         else:
             score1 = 0
             score2 = 0
-            # On nettoie les espaces et on sépare les sets
             sets = score_raw.strip().split(" ")
 
             for s in sets:
                 if "-" in s:
-                    # On sépare le score du set (ex: "6-4")
                     parts = s.split("-")
                     try:
-                        # On utilise isdigit() pour être sûr, ou on gère l'exception
-                        # Note : on prend l'élément complet parts[0], pas juste [0][0]
-                        # pour gérer les scores comme 10-8
                         s1 = int("".join(filter(str.isdigit, parts[0])))
                         s2 = int("".join(filter(str.isdigit, parts[1])))
 
@@ -53,7 +46,7 @@ class TennisMatchWomenAdapter(BaseAdapter):
                         elif s2 > s1:
                             score2 += 1
                     except (ValueError, IndexError):
-                        continue  # Si un set est mal formé, on passe au suivant
+                        continue
 
             scorewin, scorelose = (score1, score2) if score1 >= score2 else (score2, score1)
 
@@ -69,19 +62,19 @@ class TennisMatchWomenAdapter(BaseAdapter):
             autres={idx: row[idx] for idx in row.index if idx not in ["tourney_date"]}
         )
 
-    def to_row(self, match: Match) -> Dict[str, any]:
+    def to_row(self, obj: Match) -> Dict[str, any]:
         """Reconvertit l'objet en dictionnaire pour l'export CSV.
 
         Parameters
         ----------
-        match : Match
+        obj : Match
             objet à renvoyer
 
         Returns
         --------
         dict : dictionnaire prêt pour la transition en csv
         """
-        dico = {"tourney_date": match.date}
-        for key, value in match.autres.items():
+        dico = {"tourney_date": obj.date}
+        for key, value in obj.autres.items():
             dico[key] = value
         return dico

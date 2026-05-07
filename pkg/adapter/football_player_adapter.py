@@ -19,7 +19,7 @@ class FootballPlayerAdapter(BaseAdapter):
         """
 
         return Joueur(
-            id=row["player_api_id"],
+            joueur_id=row["player_api_id"],
             nom=row["player_name"],
             date_naissance=row["birthday"],
             sexe="Homme",
@@ -27,12 +27,12 @@ class FootballPlayerAdapter(BaseAdapter):
                     ["player_api_id", "player_name", "birthday"]}
             )
 
-    def to_row(self, joueur) -> Dict[str, str]:
+    def to_row(self, obj) -> Dict[str, str]:
         """Reconvertit l'objet en dictionnaire pour l'export CSV.
 
         Parameters
         ----------
-        joueur : Joueur
+        obj : Joueur
             objet à renvoyer
 
         Returns
@@ -40,10 +40,10 @@ class FootballPlayerAdapter(BaseAdapter):
         dict : dictionnaire prêt pour la transition en csv
         """
         dico = {
-            "player_api_id": joueur.id,
-            "player_name": joueur.nom,
-            "birth_date": joueur.date_naissance
+            "player_api_id": obj.joueur_id,
+            "player_name": obj.nom,
+            "birth_date": obj.date_naissance
         }
-        for key, value in joueur.autres.items():
+        for key, value in obj.autres.items():
             dico[key] = value
         return dico

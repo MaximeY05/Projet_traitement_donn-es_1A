@@ -1,24 +1,18 @@
-import Equipe
-import Match
+"""Implémentation d'une classe Compétition"""
+from dataclasses import dataclass, field
+from typing import Any
+from pkg.models.equipe import Equipe
+from pkg.models.match import Match
 
 
+@dataclass
 class Competition:
-
-    def __init__(
-        self,
-        id: int,
-        nom: str,
-        equipes: list[Equipe],
-        matchs: list[Match],
-        autres: list[str]
-            ):
-        self.id = id,
-        self.nom = nom
-        self.equipes = equipes
-        self.matchs = matchs
-        self.autres = autres
+    """Représente une compétition"""
+    id: int
+    nom: str
+    equipes: list[Equipe]
+    matchs: list[Match]
+    autres: dict[str, Any] = field(default_factory=dict)
 
     def __str__(self) -> str:
         return f"{self.nom}"
-
-    

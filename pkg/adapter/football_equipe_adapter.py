@@ -15,7 +15,7 @@ class FootballEquipeAdapter(BaseAdapter):
 
         self.team_to_country = {}
         for _, row in df_matches.iterrows():
-            country_name = pays_dict.get(row["country_id"], "Inconnu") 
+            country_name = pays_dict.get(row["country_id"], "Inconnu")
             self.team_to_country[row["home_team_api_id"]] = country_name
             self.team_to_country[row["away_team_api_id"]] = country_name
 
@@ -31,8 +31,7 @@ class FootballEquipeAdapter(BaseAdapter):
         Equipe: objet Equipe correspondant aux données
         """
         team_id = row["team_api_id"]
-        
-        # On utilise .get() pour éviter le KeyError si l'équipe n'a joué aucun match
+
         pays = self.team_to_country.get(team_id, "Inconnu")
 
         return Equipe(
@@ -41,12 +40,12 @@ class FootballEquipeAdapter(BaseAdapter):
             autres={idx: row[idx] for idx in row.index if idx not in ["team_long_name"]}
         )
 
-    def to_row(self, equipe) -> Dict[str, str]:
+    def to_row(self, obj) -> Dict[str, str]:
         """Reconvertit l'objet en dictionnaire pour l'export CSV.
 
         Parameters
         ----------
-        equipe : Equipe
+        obj : Equipe
             objet à renvoyer
 
         Returns
@@ -54,8 +53,8 @@ class FootballEquipeAdapter(BaseAdapter):
         dict : dictionnaire prêt pour la transition en csv
         """
         dico = {
-            "team_long_name": equipe.nom
+            "team_long_name": obj.nom
         }
-        for key, value in equipe.autres.items():
+        for key, value in obj.autres.items():
             dico[key] = value
         return dico

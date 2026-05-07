@@ -1,18 +1,42 @@
-class Match:
+"""Implémentation de la classe Match"""
+from dataclasses import dataclass, field
+from typing import Any
+from datetime import datetime
 
-    def __init__(self, id, date, team1, team2, score1, score2, autres):
-        self.id = id
-        self.date = date
-        self.team1 = team1
-        self.team2 = team2
-        self.score1 = score1
-        self.score2 = score2
-        self.autres = autres
+
+@dataclass
+class Match:
+    """
+    La classe Match permet de modéliser un match
+
+    Atributes
+    ----------
+    id : int
+    date : datetime
+    team1 : str
+    team2 : str
+    score1 : int
+    score2 : int
+    autres : {str: Any}
+    """
+    id: int
+    date: datetime
+    team1: str
+    team2: str
+    score1: int
+    score2: int
+    autres: dict[str, Any] = field(default_factory=dict)
 
     def winner(self):
+        """Donne le gagnant d'un match
+
+        Returns
+        --------
+        str : Gagnant du match
+        """
         if self.score1 > self.score2:
             return self.team1
-        elif self.score2 > self.score1:
+        if self.score2 > self.score1:
             return self.team2
         return None
 
