@@ -58,21 +58,36 @@ class StatsService:
         winrate = wins/len(bons_matchs)*100
         return winrate
 
-    def get_streak(self, team: str) -> [int]:
+    def get_streak(self, team: str) -> list[str]:
         """Donne le résultat des 5 derniers matchs pour l'équipe team"""
         bons_matchs = [match for match in self.matches if team in [match.team1, match.team2]]
         if not bons_matchs:
             return []
-        tri_match = sorted(bons_matchs, key=lambda m: m.date, reverse=True)
+
+        tri_match = sorted(bons_matchs, key=lambda m: str(m.date), reverse=True)
+
         streak = []
         for i in range(min(5, len(tri_match))):
-            if tri_match[i].winner() == team:
-                streak.append(1)
-            elif tri_match[i].winner() is None:
-                streak.append(0)
+            m = tri_match[i]
+
+            if m.team1 == team:
+                score_team = m.score1
+                score_opp = m.score2
             else:
-                streak.append(-1)
-        return streak
+                score_team = m.score2
+                score_opp = m.score1
+
+            if score_team > score_opp:
+                streak.append("V")   # Victoire
+            elif score_team == score_opp:
+                streak.append("N")   # Nul
+            else:
+                streak.append("D")   # Défaite
+
+        return streak[::-1]
+
+        # On inverse la liste pour la lire de gauche (ancien) à droite (récent)
+        return streak[::-1]
 
     def get_clean_win(self, team: str) -> float:
         """Donne le pourcentage de victoire sans que l'adversaire n'ait de points"""
@@ -120,7 +135,7 @@ class StatsService:
                 nb_pts += match.score1
             else:
                 nb_pts += match.score2
-        return nb_pts/len(bons_matchs)*100
+        return nb_pts/len(bons_matchs)
 
     def get_efficacite_def(self, team: str) -> float:
         """Donne le nombre moyen de points encaissés dans les matchs"""
@@ -133,7 +148,7 @@ class StatsService:
                 nb_pts += match.score2
             else:
                 nb_pts += match.score1
-        return nb_pts/len(bons_matchs)*100
+        return nb_pts/len(bons_matchs)
 
     def get_ecart_pts(self, team: str) -> {str: float}:
         """Donne les moyennes des nombres de points d'écart avec l'adversaire
@@ -141,19 +156,23 @@ class StatsService:
         bons_matchs = [match for match in self.matches if team in [match.team1, match.team2]]
         if not bons_matchs:
             return {"Ecart_victoire": 0.0, "Ecart_defaite": 0.0}
+
         ecart_win, ecart_lose = 0, 0
         for match in bons_matchs:
             if match.winner() == team:
                 ecart_win += abs(match.score1 - match.score2)
             else:
                 ecart_lose += abs(match.score1 - match.score2)
+
         wins = sum(1 for match in bons_matchs if match.winner() == team)
         lose = sum(1 for match in bons_matchs if
                    (match.team1 == team and match.winner() == match.team2) or
                    (match.team2 == team and match.winner() == match.team1))
-        winrate = ecart_win/wins*100 if wins > 0 else 0.0
-        loserate = ecart_lose/lose*100 if lose > 0 else 0.0
-        return {"Ecart_victoire": winrate, "Ecart_defaite": loserate}
+
+        moy_win = ecart_win / wins if wins > 0 else 0.0
+        moy_lose = ecart_lose / lose if lose > 0 else 0.0
+
+        return {"Ecart_victoire": moy_win, "Ecart_defaite": moy_lose}
 
     # === STATS SPORT INDIVIDUEL ===
     def get_set_winrate(self, team: str) -> float:
