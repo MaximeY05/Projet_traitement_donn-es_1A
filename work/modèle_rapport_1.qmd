@@ -81,14 +81,18 @@ Le rapport est structuré autour de plusieurs grandes parties. Pour commencer, n
 
 # Caractéristiques fonctionelles
 
-La principale caractéristique est de permettre aux utilisateurs de récupérer des données provenant de bases de données sur le thème du sport. Par exemple, ils doivent pouvoir récupérer pour chaque sport les joueurs, les matchs ou les équipes si ces données sont présentes dans la base considérée. De plus, un administrateur doit pouvoir actualiser les bases de données depuis la même application. Nous avons fait le choix de ne pas implémenter de profil utilisateur et administrateur à ce stade du projet, car cela ne nous semble pas nécessaire.
+La principale fonctionnalité de l'application est de permettre aux utilisateurs de consulter des données issues de bases de données sportives, et à l'administrateur d'en ajouter de nouvelles. Par exemple, l'utilisateur doit pouvoir récupérer, pour chaque sport, les informations relatives aux joueurs, aux matchs ou aux équipes, si ces données sont disponibles dans la base considérée. Pour ce faire, il sélectionne le sport et l'objet qu'il recherche par son nom via le terminal. De même, l'administrateur doit pouvoir actualiser ces caractéristiques depuis la même application, en renseignant toutes les données nécessaires. Nous avons fait le choix de ne pas implémenter de profils "utilisateur" et "administrateur" distincts à ce stade du projet, car cela ne nous semblait pas indispensable.
 
-Il doit être également possible d'obtenir des statistiques sur chaque base de données, comme le nombre de matchs gagnés par un joueur, le calendrier des matchs ou la liste des joueurs pour une équipe...
+Il est également possible d'obtenir des statistiques sur chaque base de données, celles-ci se divisant en deux catégories. D'une part, les statistiques générales, c'est-à-dire celles pouvant être calculées pour tous les sports (comme le taux de victoire d'une équipe). D'autre part, les statistiques dites "spécifiques", qui n'ont de sens que pour certains sports (comme le classement ELO aux échecs ou le taux de victoire selon la surface du terrain au tennis). Nous avons d'ailleurs privilégié le calcul de statistiques pour les joueurs et les équipes, car cela nous a semblé le plus pertinent au regard des attentes du projet.
 
-![Diagramme de cas d'utilisation](images/diag_cas.pdf){width="105%" fig-align="left"}
+Toutes ces fonctionnalités sont synthétisées dans le diagramme de cas d'utilisation sur la page suivante.
 
-Pour respecter le cahier des charges, il est nécessaire de pouvoir récupérer des données d'une multitude de bases de données, indépendamment de leurs formes. Cela permet de rajouter une base de données sans refaire toute l'implémentation, ce qui facilite la maintenance de l'application.
+Afin de respecter le cahier des charges, il est nécessaire de pouvoir extraire des données provenant d'une multitude de bases de données, indépendamment de leur format. Cette approche permet d'ajouter une nouvelle base sans avoir à refaire toute l'implémentation, facilitant ainsi la maintenance de l'application. En effet l'administrateur n'aura qu'à modifier ou rajouter uniquement un module uniformisant la nouvelle base de donnée selon un standart sans modifier toutes la chaines de traitement de l'information. Pour permettre la mise en œuvre de ces fonctionnalités et garantir leur universalité, nous avons mis en place les caractéristiques techniques suivantes.
 
+\newpage
+\vspace*{4cm}
+
+![Diagramme de cas d'utilisation](images/diagramme_utilisation.drawio.pdf){width="115%" fig-align="left"}
 
 # Caractéristiques techniques
 
@@ -131,9 +135,9 @@ Dans les différentes bases de données, les dates de naissance et les noms comp
 
 # Assurance qualité
 
-Pour assurer la qualité de notre code, nous avons choisi le linter Pylint afin de vérifier notamment l'indentation et l'uniformité du style. Nous avons obtenu une note de [note] pour notre code. Il repère des problèmes tels que [exemple de problème].
+Pour assurer la qualité de notre code, nous avons choisi le linter Pylint afin de vérifier notamment l'indentation et l'uniformité du style. Nous avons obtenu une note de 9.5 pour l'intégralité de notre code, ce qui est une note acceptable.
 
-Nous avons effectué des tests sur les fonctionnalités statistiques principales, comme [exemple de test]. Nous avons également documenté chaque adaptateur afin de préciser ce qu'il prend en entrée et ce qu'il renvoie en sortie.
+Nous avons effectué des tests sur les fonctionnalités statistiques principales, comme la création des statistiques pour les joueurs ou équipes. Par exemple, on vérifie que le calcul du taux de victoire selon le choix du terrain au tennis est conforme avec la réalité. Nous avons également documenté chaque adaptateur et chaque classe afin de préciser ce qu'il implémente comme objet et ce qu'effectue les principals fonctions associées.
 
 # Retour d'expérience
 
@@ -147,7 +151,9 @@ Je trouve que ce projet de traitement de données s'est bien passé pour moi, ma
 
 ## Cedric Martins
 
-"Ce projet de traitement de données a été une expérience très formatrice, en particulier sur l'aspect architectural. J'ai trouvé très intéressant de devoir concevoir un système capable de s'adapter à différentes sources de données, ce qui m'a permis de mieux comprendre l'importance de l'abstraction en programmation. Bien que l'absence de bases de données concrètes au départ ait rendu la phase de conception initiale assez abstraite et parfois incertaine, cela nous a forcés à être plus rigoureux dans notre logique de développement. La collaboration au sein du groupe a été fluide, et la liberté d'ajouter des fonctionnalités personnalisées a été un vrai moteur pour s'investir dans le projet. Au final, je repars avec une meilleure maîtrise de la gestion des flux de données et une vision plus claire de la structuration d'une application complexe."
+Ce projet a été intéressant pour pratiquer la programmation orientée objet. Le côté le plus difficile mais aussi le plus intéressant était de structurer les différentes classes pour avoir un code le plus général possible afin de s’adapter à tous les jeux de données.
+C’était aussi l’occasion de travailler en équipe, ce qui n’a pas été simple. Il était difficile de coder à plusieurs sans se gêner. Même si je trouve que nous nous sommes plutôt bien réparti les tâches nous avons perdu beaucoup de temps à repasser sur le code des uns les autres; comme tout est interconnecté il fallait comprendre et parfois corriger ce qu’à coder le collègue pour pouvoir l’utiliser.
+De manière générale ce projet ne m’a pas particulièrement passionné, surement à cause du format je pense.
 
 
 \newpage
@@ -158,6 +164,6 @@ Pour ma part, le projet s'est bien déroulé dans l'ensemble. Le projet m'a perm
 
 # Conclusion
 
-En définitive, ce projet nous a permis de mettre en pratique la théorie vue dans le cours de programmation orientée objet, ainsi que le travail d'équipe dans le cadre d'un projet informatique. En effet, l'application se voulant la plus adaptable possible, les diagrammes UML nous ont aidés à bien identifier les fonctionnalités que nous voulions implémenter. La programmation orientée objet a été essentielle pour définir clairement, grâce aux classes, les objets que nous allions manipuler. Concernant le travail d'équipe, l'usage de Git et des messageries électroniques nous a permis un partage de l'information sûr, rapide et efficace.
+En définitive, ce projet nous a permis de mettre en pratique la théorie vue dans le cours de programmation orientée objet, ainsi que le travail d'équipe dans le cadre d'un projet informatique. En effet, l'application se voulant la plus adaptable possible, les diagrammes UML nous ont aidés à bien identifier les fonctionnalités que nous voulions implémenter. La programmation orientée objet a été essentielle pour définir clairement, grâce aux classes, les objets que nous allions manipuler. Concernant le travail d'équipe, l'usage de Git et des messageries électroniques nous a permis un partage de l'information sûr, rapide et efficace. Tout cela nous as permis de répondre à la demande de l'état en remplissant le cahier des charges.
 
 De plus, le projet pourra être amélioré à l'avenir par l'ajout de plusieurs fonctionnalités. On peut envisager un système d'identification pour séparer les droits de l'utilisateur de ceux de l'administrateur, ou encore permettre de garder en mémoire les recherches de l'utilisateur. De même, une interface graphique permettrait une meilleure lisibilité des résultats et des actions possibles.
