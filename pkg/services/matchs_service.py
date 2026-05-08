@@ -1,4 +1,4 @@
-"""Implémentation d'une classe permettant la gestion de matchs"""
+# Implémentation d'une classe permettant la gestion de matchs
 from pkg.models.match import Match
 from pkg.repository.data_repository import DataRepository
 

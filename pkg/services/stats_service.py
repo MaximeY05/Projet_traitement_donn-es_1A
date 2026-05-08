@@ -1,4 +1,5 @@
 """Implémentation d'une classe permettant la gestion de statistiques sur nos données"""
+import difflib
 
 
 class StatsService:
@@ -7,6 +8,43 @@ class StatsService:
         self.matches = matches
         self.joueurs = joueurs
         self.equipes = equipes
+
+    def trouver_vrai_nom(self, recherche: str):
+        """
+        Cherche le nom exact, une sous-chaîne (avec gestion des doublons),
+        ou propose les noms les plus proches (tolérance stricte).
+        """
+        noms_possibles = set()
+        if self.joueurs:
+            noms_possibles.update([j.nom for j in self.joueurs])
+        if self.matches:
+            noms_possibles.update([m.team1 for m in self.matches])
+            noms_possibles.update([m.team2 for m in self.matches])
+
+        noms_liste = list(noms_possibles)
+        recherche_min = recherche.lower().strip()
+
+        # Test : Correspondance exacte
+        for nom in noms_liste:
+            if nom.lower() == recherche_min:
+                return nom
+
+        # Test : Sous-chaîne (ex: taper "Silva" trouve tous les Silva)
+        correspondances = [nom for nom in noms_liste if recherche_min in nom.lower()]
+
+        if len(correspondances) == 1:
+            return correspondances[0]  # Un seul match, on le renvoie
+        elif len(correspondances) > 1:
+            # S'il y a trop de résultats on limite à 10 pour ne pas casser l'affichage
+            return correspondances[:10]
+
+        # 3. Test : Fautes de frappe (Fuzzy matching)
+        # On passe le cutoff à 0.6 pour que "dsdsd" ne soit plus accepté
+        proches = difflib.get_close_matches(recherche, noms_liste, n=5, cutoff=0.6)
+        if proches:
+            return proches
+
+        return None  # Aucun nom trouvé, la saisie est trop éloignée
 
     # === STATS GENERALES ===
     def compute_ranking(self) -> dict:
