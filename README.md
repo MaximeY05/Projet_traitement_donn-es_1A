@@ -46,6 +46,7 @@ Voici une liste des dépendances de notre code :
         typing  
         abc  
         dataclasses  
+        
     pandas==2.3.3  
     pytest==9.0.3  
     pylint==4.0.5  
