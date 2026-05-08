@@ -102,7 +102,7 @@ Nous allons expliquer en détails les caractéristiques techniques de notre proj
 
 Notre code est découpé en plusieurs parties qui communiquent entre elles.Nous disposons de 5 dossiers différents ainsi que d'un fichier "main" qui regroupe ces parties. Ces parties sont :  \
 
-- "models" : dossier contenant les classes générales. Nous précisons générales car elles ne sont pas définies pour une certaine base de données conformément au cahier des charges. Elles sont au nombre de 4 : une classe "Competition", "Equipe", "Joueur" et "Match". Nous avons crée la classe "Compétition" car les bases de données contiennent des compétitions sportives et l'objectif du rapport est de gérer les résultats de ces compétitions sportives. Les classes "Equipe", "Joueur" et "Match" sont ensuite les composants essentiels de ces compétitions sportives et nous disposons de plus d'informations sur ces objets; \
+- "models" : dossier contenant les classes générales. Nous précisons générales car elles ne sont pas définies pour une certaine base de données conformément au cahier des charges. Elles sont au nombre de 3 : une classe "Equipe", "Joueur" et "Match". Nous avons les avons créées car les classes "Equipe", "Joueur" et "Match" sont les composantes essentielles des compétitions sportives et nous disposons en plus d'informations sur ces objets; \
 
 - “Adapter” : dossier contenant ce qu’on a appelé des “adapters”. Ce sont des classes qui permettent de faire le lien entre nos classes générales et les bases de données. Pour cela, nous mettons en correspondance les colonnes d’une base de données avec les attributs des classes. On adapte finalement les variables de la base de données aux attributs de nos classes générales afin de pouvoir respecter l’adaptabilité de notre code exigé dans le cahier des charges; \
 
@@ -112,7 +112,16 @@ Notre code est découpé en plusieurs parties qui communiquent entre elles.Nous 
 
 - “services” : Il s’agit des différentes fonctionnalités proposées pour chacune de nos classes générales ainsi que pour leurs statistiques respectives. On crée pour ce faire différentes classes services. 
 
+## Diagramme de classes
 
+\newpage
+\vspace*{4cm}
+
+![Diagramme de classes](images/diagramme_de_classe_final.pdf){width="90%"}
+
+\newpage
+
+On peut lire sur le diagramme de classes les différentes classes générales "Equipe", "Joueur" et "Match" ainsi que toute l'architecture précédemment présentée avec les Adapters, les classes de configuration, la classe DataRepository et les classes de service.
 
 # Difficultés rencontrées
 
