@@ -1,7 +1,6 @@
 "Donne les configurations pour toutes nos bases de données"
 from pkg.adapter.volley_match_men_adapter import VolleyMatchMenAdapter
 from pkg.adapter.volley_match_women_adapter import VolleyMatchWomenAdapter
-# from pkg.adapter.volley_coach_adapter import VolleyCoachAdapter
 from pkg.adapter.volley_player_men_adapter import VolleyPlayerMenAdapter
 from pkg.adapter.volley_player_woman_adapter import VolleyPlayerWomanAdapter
 
@@ -14,7 +13,6 @@ from pkg.adapter.basketball_match_adapter import BasketballMatchAdapter
 from pkg.adapter.basketball_player_adapter import BasketballPlayerAdapter
 from pkg.adapter.basketball_equipe_adapter import BasketballEquipeAdapter
 
-# from pkg.adapter.lol_coach_adapter import LolCoachAdapter
 from pkg.adapter.lol_match_adapter import LolMatchAdapter
 from pkg.adapter.lol_player_adapter import LolPlayerAdapter
 from pkg.adapter.lol_team_adapter import LolTeamAdapter

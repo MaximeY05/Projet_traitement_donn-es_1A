@@ -24,27 +24,22 @@ class StatsService:
         noms_liste = list(noms_possibles)
         recherche_min = recherche.lower().strip()
 
-        # Test : Correspondance exacte
         for nom in noms_liste:
             if nom.lower() == recherche_min:
                 return nom
 
-        # Test : Sous-chaîne (ex: taper "Silva" trouve tous les Silva)
         correspondances = [nom for nom in noms_liste if recherche_min in nom.lower()]
 
         if len(correspondances) == 1:
-            return correspondances[0]  # Un seul match, on le renvoie
+            return correspondances[0]
         elif len(correspondances) > 1:
-            # S'il y a trop de résultats on limite à 10 pour ne pas casser l'affichage
             return correspondances[:10]
 
-        # 3. Test : Fautes de frappe (Fuzzy matching)
-        # On passe le cutoff à 0.6 pour que "dsdsd" ne soit plus accepté
         proches = difflib.get_close_matches(recherche, noms_liste, n=5, cutoff=0.6)
         if proches:
             return proches
 
-        return None  # Aucun nom trouvé, la saisie est trop éloignée
+        return None
 
     # === STATS GENERALES ===
     def compute_ranking(self) -> dict:
@@ -116,15 +111,14 @@ class StatsService:
                 score_opp = m.score1
 
             if score_team > score_opp:
-                streak.append("V")   # Victoire
+                streak.append("V")
             elif score_team == score_opp:
-                streak.append("N")   # Nul
+                streak.append("N")
             else:
-                streak.append("D")   # Défaite
+                streak.append("D")
 
         return streak[::-1]
 
-        # On inverse la liste pour la lire de gauche (ancien) à droite (récent)
         return streak[::-1]
 
     def get_clean_win(self, team: str) -> float:
