@@ -1,4 +1,7 @@
 from pkg.repository.data_repository import DataRepository
+from pkg.models.match import Match
+from datetime import datetime
+from pkg.models.joueur import Joueur
 from pkg.config.dataset_configuration import (
     volleyball_match_men_configuration,
     volleyball_match_women_configuration,
@@ -105,7 +108,7 @@ def main():
     service_stats = StatsService(matches=liste_matchs, joueurs=liste_joueurs)
 
     # --- FONCTION POUR LE MENU ---
-    def menu_stats(stats_service, id_sport):
+    def menu_stats(stats_service, id_sport, repo_m, repo_j):
 
         # PERMET D'ACCEPTER DES NOMS RENSEIGNES PRESQUE CORRECTS
         def demander_et_valider_nom(message):
@@ -130,12 +133,13 @@ def main():
             return resultat
         # ----------------------------------------
 
-        print("\n--- MENU STATISTIQUES ---")
+        print("\n--- ACTIONS ---")
         print("1. Voir le classement global")
         print("2. Voir le calendrier des matchs")
         print("3. Chercher les données brutes d'un joueur")
         print("4. Statistiques Générales (Winrate, Streak, etc.)")
         print("5. Statistiques Spécifiques (Expertise par sport)")
+        print("6. Ajouter/supprimer un joueur/une équipe/un match  ")
 
         choix = input("\nVotre choix : ")
 
@@ -215,8 +219,107 @@ def main():
                 if nom:
                     print(f"Réussite à 3 pts : {stats_service.get_3pts_efficiency(nom):.2f}%")
 
+        elif choix == "6":
+            print()
+            print("Attention la fonctionnalité n'est implémenté que pour le volley masculin")
+            print("1. Ajouter un joueur")
+            print("2. Ajouter un match")
+            print("3. Supprimer un joueur")
+            print("4. Supprimer un match")
+            choix_2 = input("\nVotre choix : ")
+
+            if choix_2 == "2":
+                print("Complétez ces informations :")
+                ind = input("\nIndex (ID) : ")
+                d_str = input("\nDate (AAAA-MM-JJ) : ")
+                st = input("\nStage (ex: Group Stage) : ")
+                c1 = input("\nJoueur/Équipe 1 : ")
+                c2 = input("\nJoueur/Équipe 2 : ")
+                s1_str = input("\nScore 1 : ")
+                s2_str = input("\nScore 2 : ")
+
+                try:
+                    # 1. Conversion des types pour correspondre aux attentes des modèles
+                    date_obj = datetime.strptime(d_str, "%Y-%m-%d").date()
+                    score1 = int(s1_str)
+                    score2 = int(s2_str)
+
+                    # 2. Création du dictionnaire 'autres'
+                    dico = {"stage": st}
+
+                    # 3. Création de l'objet Match
+                    m = Match(
+                        id=ind,
+                        date=date_obj,
+                        team1=c1,
+                        team2=c2,
+                        score1=score1,
+                        score2=score2,
+                        autres=dico
+                    )
+
+                    # 4. Chargement, ajout et SAUVEGARDE (avec l'argument !)
+                    lst_matchs = repo_m.load()
+                    lst_matchs.append(m)
+                    repo_m.save(lst_matchs)
+
+                    print("\n✅ Match ajouté et fichier CSV mis à jour !")
+
+                except ValueError:
+                    print("\n❌ Erreur : Format de date invalide ou scores non numériques.")
+
+            if choix_2 == "1":  # Ajout joueur
+                print("Complétez ces informations :")
+                ind = input("\nIndex (ID) : ")
+                name = input("\n(NOM Prenom): ")
+                c = input("\ncountry_code : ")
+                height = input("\nheight : ")
+                birth_d = input("\nbirth_date: ")
+                b_p = input("\nbirth_place : ")
+                nc = input("\nnickname : ")
+                try:
+                    # 1. Conversion des types pour correspondre aux attentes des modèles
+                    date_obj = datetime.strptime(birth_d, "%Y-%m-%d").date()
+                    height = int(height)
+
+                    # 2. Création du dictionnaire 'autres'
+                    dico = {"height": height, "birth_place": b_p, "nickname": nc, "country_code": c}
+
+                    # 3. Création de l'objet Joueur
+                    j = Joueur(
+                        nom=name,
+                        date_naissance=date_obj,
+                        sexe="Homme",
+                        joueur_id=ind,
+                        autres=dico
+                    )
+
+                    # 4. Chargement, ajout et SAUVEGARDE (avec l'argument !)
+                    lst_joueurs = repo_j.load()
+                    lst_joueurs.append(j)
+                    repo_j.save(lst_joueurs)
+
+                    print("\n✅ Joueur ajouté et fichier CSV mis à jour !")
+
+                except ValueError:
+                    print("\n❌ Erreur : Format de date invalide ou scores non numériques.")
+
+            if choix_2 == "3":
+                input("Quel joueur supprimer ? Entrer son nom : ")
+                lst_joueurs = repo_j.load()
+                lst_joueurs.pop()  # Supprime le dernier joueur du fichier par défaut, à modifier
+                repo_j.save(lst_joueurs)
+                print("\n✅ Joueur supprimé, CSV mis à jour !")
+
+            if choix_2 == "4":
+                input("Quel match supprimer ? Entrer Equipe1-Equipe2 : ")
+                lst_matchs = repo_m.load()
+                lst_matchs.pop()  # Supprime le dernier match du fichier par défaut, à modifier
+                repo_m.save(lst_matchs)
+                print("\n✅ Match supprimé, CSV mis à jour !")
+
     # Appel du menu
-    menu_stats(service_stats, choix_sport)
+    menu_stats(service_stats, choix_sport, repo_m, repo_j)
     print()
 
 

@@ -56,12 +56,17 @@ class VolleyMatchMenAdapter(BaseAdapter):
         dict : dictionnaire prêt pour la transition en csv
         """
         dico = {
+            "index": obj.id,
             "date": obj.date,
+            "stage": "",
             "country_code_1": obj.team1,
             "country_code_2": obj.team2,
             "set_country_1": obj.score1,
             "set_country_2": obj.score2,
         }
+        # Partie à adapter selon les noms de colonnes des fichiers csv
+        dico["stage"] = obj.autres["stage"]
+
         for key, value in obj.autres.items():
             dico[key] = value
         return dico
