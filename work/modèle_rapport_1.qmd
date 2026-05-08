@@ -32,7 +32,7 @@ nocite: "@*"
 
 \rule{\textwidth}{0.5mm}\\
 \vspace{0.8cm}
-{\huge\bfseries Rapport du projet}\\ 
+{\huge\bfseries Rapport du projet informatique}\\ 
 \vspace{0.8cm}
 \rule{\textwidth}{0.5mm}\\
 
@@ -85,7 +85,7 @@ La principale caractéristique est de permettre aux utilisateurs de récupérer 
 
 Il doit être également possible d'obtenir des statistiques sur chaque base de données, comme le nombre de matchs gagnés par un joueur, le calendrier des matchs ou la liste des joueurs pour une équipe...
 
-(diagramme cas d'utilisation)
+![Diagramme de cas d'utilisation](images/diag_cas.pdf){width="105%" fig-align="left"}
 
 Pour respecter le cahier des charges, il est nécessaire de pouvoir récupérer des données d'une multitude de bases de données, indépendamment de leurs formes. Cela permet de rajouter une base de données sans refaire toute l'implémentation, ce qui facilite la maintenance de l'application.
 
@@ -114,16 +114,20 @@ Notre code est découpé en plusieurs parties qui communiquent entre elles.Nous 
 
 ## Sport différent
 
-Malgrè la volonté d'uniformiser le traitement de base de donnée, certain sport ont un système de jeu très différent 
-des autres. Le traitement des scores à été complexe pour le tennis car il faut prendre en compte l'ensemble des sets et non juste le score final. De plus, la présence d'abandon ou de forfait entraine l'absence dans certain matchs d'un vainqueur. Pour régler ce problème nous avons ajouter le score -1 pour prendre en compte ces ca
+En cherchant à uniformiser le traitement des bases de données, nous nous sommes rendu compte que certains sports ont un système de jeu très différent des autres. Par exemple, le traitement des scores a été complexe pour le tennis, car il faut prendre en compte l'ensemble des sets et non juste le score final. De plus, la présence d'abandons ou de forfaits entraîne, dans certains matchs, l'absence d'un vainqueur désigné par le score. Pour régler ce problème, nous avons ajouté la valeur -1 afin de prendre en compte ces cas particuliers.
 
 ## Calendrier du projet
 
-Nous avions prévu de suivre ce calendrier : 
+Initialement, nous avions prévu de suivre le diagramme de Gantt réalisé au début de notre projet.
 
-[diagramme de Gant]
+![Diagramme de Gantt](images/bon_gantt.png){width="100%" fig-pos="H"}
+Cependant, plusieurs événements nous ont contraints à décaler la rédaction du rapport et du code en lui-même. Tout d'abord, l'accumulation des rendus de projets extérieurs à celui-ci et les obligations personnelles ont rendu compliqué de se rendre tous disponibles pour les réunions de projet. Nous avons alors utilisé des plateformes en ligne pour communiquer sur l'avancement de chacun et pouvoir échanger sur les tâches à accomplir. Grâce à cela, nous avons pu finir les rendus dans les délais demandés
 
-## Format date de naissance
+\newpage
+\vspace*{1cm}
+## Format date de naissance/nom complet
+
+Dans les différentes bases de données, les dates de naissance et les noms complets n'avaient pas du tout la même forme, ce qui a compliqué leur traitement. Concernant les noms, soit le nom et le prénom étaient séparés, soit ils étaient réunis, ou bien nous n'avions qu'un des deux. De plus, certaines personnes ont des noms en plusieurs parties, ce qui rend complexe l'identification. Pour les dates de naissance, nous avons rencontré le même problème, mais l'ordre des éléments était ici encore plus critique en raison de la coexistence des formats américain (mm/dd/yyyy) et français (dd/mm/yyyy). Nous avons donc décidé d'uniformiser ces données dans le format le plus commun pour chacune d'elles.
 
 # Assurance qualité
 
@@ -135,19 +139,25 @@ Nous avons effectué des tests sur les fonctionnalités statistiques principales
 
 ## Maxime Yvano
 
-blabla
+Le projet s'est bien passé dans l'ensemble personnellement. Le sujet était intéressant et nous permettait d'imaginer des fonctionnalités qu'on utilise nous-mêmes sur des applications déjà existantes. La partie la plus difficile du projet est l'organisation du code et la méthode à appliquer pour avoir un code général et qui reste propre. Réfléchir sur cette structure dès les premières séances aurait été mieux que de faire des schémas qui ne se basent que sur des hypothèses de comment les bases de données seront. Le projet a un grand potentiel d'approfondissement si on passe beaucoup plus de temps dessus.
 
 ## Corentin Lematte
 
-blabla
+Je trouve que ce projet de traitement de données s'est bien passé pour moi, malgré quelques difficultés de compréhension concernant la logique de l'implémentation. Par exemple, le fait de devoir travailler directement avec des fichiers CSV via des bibliothèques dédiées pour récupérer et envoyer des données m'a paru complexe dans un premier temps. De plus, le fait que les bases de données n'aient pas été données dès le début nous a fait perdre du temps au démarrage du projet, car nous ne savions pas vraiment sur quoi nous travaillions. Cependant, grâce à un bon travail de groupe, j'ai apprécié la liberté qui nous a été accordée dans le choix des fonctionnalités à implémenter.
 
 ## Cedric Martins
 
-blabla
+"Ce projet de traitement de données a été une expérience très formatrice, en particulier sur l'aspect architectural. J'ai trouvé très intéressant de devoir concevoir un système capable de s'adapter à différentes sources de données, ce qui m'a permis de mieux comprendre l'importance de l'abstraction en programmation. Bien que l'absence de bases de données concrètes au départ ait rendu la phase de conception initiale assez abstraite et parfois incertaine, cela nous a forcés à être plus rigoureux dans notre logique de développement. La collaboration au sein du groupe a été fluide, et la liberté d'ajouter des fonctionnalités personnalisées a été un vrai moteur pour s'investir dans le projet. Au final, je repars avec une meilleure maîtrise de la gestion des flux de données et une vision plus claire de la structuration d'une application complexe."
 
+
+\newpage
+\vspace*{1cm} 
 ## Hugo Lhommeau
 
-blabla
+Pour ma part, le projet s'est bien déroulé dans l'ensemble. Le projet m'a permis de mettre en pratique la programmation objet et l'élaboration d'un rapport avec notamment la confection de diagrammes UML. De plus, le caractère reproductible du projet pour différentes bases de données est un bon réflexe à acquérir pour les futurs projets informatiques et notamment en attachant un soin particulier à leur logique et structure interne. Toutefois, il n'était pas évident de trouver la bonne manière de faire, ce qui a fait que j'ai eu le sentiment d'être un peu perdu au début du projet. Enfin, le projet nous laissait suffisamment de liberté pour décider des fonctionnalités que l'on voulait intégrer.
 
 # Conclusion
 
+En définitive, ce projet nous a permis de mettre en pratique la théorie vue dans le cours de programmation orientée objet, ainsi que le travail d'équipe dans le cadre d'un projet informatique. En effet, l'application se voulant la plus adaptable possible, les diagrammes UML nous ont aidés à bien identifier les fonctionnalités que nous voulions implémenter. La programmation orientée objet a été essentielle pour définir clairement, grâce aux classes, les objets que nous allions manipuler. Concernant le travail d'équipe, l'usage de Git et des messageries électroniques nous a permis un partage de l'information sûr, rapide et efficace.
+
+De plus, le projet pourra être amélioré à l'avenir par l'ajout de plusieurs fonctionnalités. On peut envisager un système d'identification pour séparer les droits de l'utilisateur de ceux de l'administrateur, ou encore permettre de garder en mémoire les recherches de l'utilisateur. De même, une interface graphique permettrait une meilleure lisibilité des résultats et des actions possibles.
