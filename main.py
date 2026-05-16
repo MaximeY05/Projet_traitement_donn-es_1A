@@ -13,26 +13,21 @@ from pkg.config.dataset_configuration import (
     tennis_match_women_configuration,
     basket_match_configuration,
     basket_player_configuration,
-    # basket_team_configuration,  Pas de stats sur les équipes pour le moment
     lol_match_configuration,
     lol_player_configuration,
-    # lol_team_configuration,
     football_match_configuration,
-    # football_equipe_configuration,
     football_player_configuration,
     champion_league_match_configuration,
     champion_league_player_configuration,
-    # champion_league_team_configuration,
     chess_match_configuration,
     chess_player_configuration,
     cs2_match_configuration,
     cs2_player_configuration,
-    # cs2_team_configuration,
     badminton_match_configuration,
     badminton_player_configuration,
     starcraft_match_configuration,
     starcraft_player_configuration
-    )
+)
 from pkg.services.stats_service import StatsService
 
 
@@ -108,7 +103,7 @@ def main():
     service_stats = StatsService(matches=liste_matchs, joueurs=liste_joueurs)
 
     # --- FONCTION POUR LE MENU ---
-    def menu_stats(stats_service, id_sport, repo_m, repo_j):
+    def menu_stats(stats_service, id_sport, repository_m, repository_j):
 
         # PERMET D'ACCEPTER DES NOMS RENSEIGNES PRESQUE CORRECTS
         def demander_et_valider_nom(message):
@@ -133,190 +128,225 @@ def main():
             return resultat
         # ----------------------------------------
 
-        print("\n--- ACTIONS ---")
-        print("1. Voir le classement global")
-        print("2. Voir le calendrier des matchs")
-        print("3. Chercher les données brutes d'un joueur")
-        print("4. Statistiques Générales (Winrate, Streak, etc.)")
-        print("5. Statistiques Spécifiques (Expertise par sport)")
-        print("6. Ajouter/supprimer un joueur/une équipe/un match  ")
-
-        choix = input("\nVotre choix : ")
-
-        if choix == "1":
-            classement = stats_service.compute_ranking()
-            print("\nCLASSEMENT ACTUEL :")
-            for i, (nom, points) in enumerate(classement.items(), 1):
-                print(f"{i}. {nom:20} | {points} pts")
-
-        elif choix == "2":
-            cal = stats_service.get_organized_calendar()
-            for date, matchs in cal.items():
-                print(f"\nDate : {date}")
-                for m in matchs:
-                    print(f"  {m.team1} {m.score1} - {m.score2} {m.team2}")
-
-        elif choix == "3":
-            nom = demander_et_valider_nom("Entrez le nom du joueur : ")
-            if not nom:
-                return
-
-            joueur = stats_service.get_player_by_name(nom)
-            if not joueur or not joueur.autres:
-                print("Aucune donnée brute pour ce joueur.")
-                return
-
-            print(f"\nDonnées pour {joueur.nom} :")
-            stats_dispos = list(joueur.autres.keys())
-            for i, n_stat in enumerate(stats_dispos, 1):
-                print(f"{i}. {n_stat}")
-
-            try:
-                num = int(input("Choisissez un numéro : "))
-                nom_stat = stats_dispos[num-1]
-                print(f"\n{nom_stat} : {joueur.autres[nom_stat]}")
-            except (ValueError, IndexError):
-                print("Choix invalide.")
-
-        elif choix == "4":
-            nom = demander_et_valider_nom("Entrez le nom de l'équipe ou du joueur : ")
-            if not nom:
-                return
-
-            print(f"\n--- STATS GENERALES : {nom} ---")
-            print(f"Winrate : {stats_service.get_winrate(nom):.2f}%")
-            print(f"Série : {' - '.join(stats_service.get_streak(nom))}")
-            print(f"Atq (moy) : {stats_service.get_efficacite_atk(nom):.2f} pts")
-            print(f"Def (moy) : {stats_service.get_efficacite_def(nom):.2f} pts")
-
-        elif choix == "5":
-            print("\n--- STATS EXPERTES ---")
-
-            if id_sport in ["3", "4"]:  # Tennis
-                nom = demander_et_valider_nom("Nom du joueur : ")
-                if nom:
-                    s = stats_service.get_surface_winrate(nom)
-                    print(
-                        f"Dur: {s['Dur']:.1f}% | "
-                        f"Terre: {s['Terre battue']:.1f}% | "
-                        f"Gazon: {s['Gazon']:.1f}%"
-                    )
-
-            elif id_sport == "9":  # Échecs
-                nom = demander_et_valider_nom("Nom du joueur : ")
-                if nom:
-                    print(f"Victoires vs Meilleur Elo : {stats_service.get_win_higher_elo(nom)}")
-
-            elif id_sport == "6":  # LoL
-                print(f"Temps moyen partie : {stats_service.get_average_game_time()}")
-                nom = demander_et_valider_nom("Nom de l'équipe : ")
-                if nom:
-                    t = stats_service.get_win_average_time(nom)
-                    print(f"Winrate (Parties longues) : {t['Plus que moyenne']:.1f}%")
-
-            elif id_sport == "5":  # Basket
-                nom = demander_et_valider_nom("Nom de l'équipe : ")
-                if nom:
-                    print(f"Réussite à 3 pts : {stats_service.get_3pts_efficiency(nom):.2f}%")
-
-        elif choix == "6":
+        # --- ÉTAPE DE LA BOUCLE INFINIE ---
+        while True:
             print()
-            print("Attention la fonctionnalité n'est implémenté que pour le volley masculin")
-            print("1. Ajouter un joueur")
-            print("2. Ajouter un match")
-            print("3. Supprimer un joueur")
-            print("4. Supprimer un match")
-            choix_2 = input("\nVotre choix : ")
+            print("\n================ ACTIONS ================")
+            print("1. Voir le classement global")
+            print("2. Voir le calendrier des matchs")
+            print("3. Chercher les données brutes d'un joueur")
+            print("4. Statistiques Générales (Winrate, Streak, etc.)")
+            print("5. Statistiques Spécifiques (Expertise par sport)")
+            print("6. Ajouter/supprimer un joueur/une équipe/un match")
+            print("7. Quitter l'application")
+            print("=========================================")
 
-            if choix_2 == "2":
-                print("Complétez ces informations :")
-                ind = input("\nIndex (ID) : ")
-                d_str = input("\nDate (AAAA-MM-JJ) : ")
-                st = input("\nStage (ex: Group Stage) : ")
-                c1 = input("\nJoueur/Équipe 1 : ")
-                c2 = input("\nJoueur/Équipe 2 : ")
-                s1_str = input("\nScore 1 : ")
-                s2_str = input("\nScore 2 : ")
+            choix = input("\nVotre choix : ")
+
+            if choix == "1":
+                classement = stats_service.compute_ranking()
+                print("\nCLASSEMENT ACTUEL :")
+                for i, (nom, points) in enumerate(classement.items(), 1):
+                    print(f"{i}. {nom:20} | {points} pts")
+
+            elif choix == "2":
+                cal = stats_service.get_organized_calendar()
+                for date, matchs in cal.items():
+                    print(f"\nDate : {date}")
+                    for m in matchs:
+                        print(f"  {m.team1} {m.score1} - {m.score2} {m.team2}")
+
+            elif choix == "3":
+                nom = demander_et_valider_nom("Entrez le nom du joueur : ")
+                if not nom:
+                    continue
+
+                joueur = stats_service.get_player_by_name(nom)
+                if not joueur or not joueur.autres:
+                    print("Aucune donnée brute pour ce joueur.")
+                    continue
+
+                print(f"\nDonnées pour {joueur.nom} :")
+                stats_dispos = list(joueur.autres.keys())
+                for i, n_stat in enumerate(stats_dispos, 1):
+                    print(f"{i}. {n_stat}")
 
                 try:
-                    # 1. Conversion des types pour correspondre aux attentes des modèles
-                    date_obj = datetime.strptime(d_str, "%Y-%m-%d").date()
-                    score1 = int(s1_str)
-                    score2 = int(s2_str)
+                    num = int(input("Choisissez un numéro : "))
+                    nom_stat = stats_dispos[num-1]
+                    print(f"\n{nom_stat} : {joueur.autres[nom_stat]}")
+                except (ValueError, IndexError):
+                    print("Choix invalide.")
 
-                    # 2. Création du dictionnaire 'autres'
-                    dico = {"stage": st}
+            elif choix == "4":
+                nom = demander_et_valider_nom("Entrez le nom de l'équipe ou du joueur : ")
+                if not nom:
+                    continue
 
-                    # 3. Création de l'objet Match
-                    m = Match(
-                        id=ind,
-                        date=date_obj,
-                        team1=c1,
-                        team2=c2,
-                        score1=score1,
-                        score2=score2,
-                        autres=dico
-                    )
+                print(f"\n--- STATS GENERALES : {nom} ---")
+                print(f"Winrate : {stats_service.get_winrate(nom):.2f}%")
+                print(f"Série : {' - '.join(stats_service.get_streak(nom))}")
+                print(f"Atq (moy) : {stats_service.get_efficacite_atk(nom):.2f} pts")
+                print(f"Def (moy) : {stats_service.get_efficacite_def(nom):.2f} pts")
 
-                    # 4. Chargement, ajout et SAUVEGARDE (avec l'argument !)
-                    lst_matchs = repo_m.load()
-                    lst_matchs.append(m)
-                    repo_m.save(lst_matchs)
+            elif choix == "5":
+                print("\n--- STATS EXPERTES ---")
 
-                    print("\n✅ Match ajouté et fichier CSV mis à jour !")
+                if id_sport in ["3", "4"]:  # Tennis
+                    nom = demander_et_valider_nom("Nom du joueur : ")
+                    if nom:
+                        s = stats_service.get_surface_winrate(nom)
+                        print(
+                            f"Dur: {s['Dur']:.1f}% | "
+                            f"Terre: {s['Terre battue']:.1f}% | "
+                            f"Gazon: {s['Gazon']:.1f}%"
+                        )
 
-                except ValueError:
-                    print("\n❌ Erreur : Format de date invalide ou scores non numériques.")
+                elif id_sport == "9":  # Échecs
+                    nom = demander_et_valider_nom("Nom du joueur : ")
+                    if nom:
+                        print(f"Victoires vs Meilleur Elo : {stats_service.get_win_higher_elo(nom)}")
 
-            if choix_2 == "1":  # Ajout joueur
-                print("Complétez ces informations :")
-                ind = input("\nIndex (ID) : ")
-                name = input("\n(NOM Prenom): ")
-                c = input("\ncountry_code : ")
-                height = input("\nheight : ")
-                birth_d = input("\nbirth_date: ")
-                b_p = input("\nbirth_place : ")
-                nc = input("\nnickname : ")
-                try:
-                    # 1. Conversion des types pour correspondre aux attentes des modèles
-                    date_obj = datetime.strptime(birth_d, "%Y-%m-%d").date()
-                    height = int(height)
+                elif id_sport == "6":  # LoL
+                    print(f"Temps moyen partie : {stats_service.get_average_game_time()}")
+                    nom = demander_et_valider_nom("Nom de l'équipe : ")
+                    if nom:
+                        t = stats_service.get_win_average_time(nom)
+                        print(f"Winrate (Parties longues) : {t['Plus que moyenne']:.1f}%")
 
-                    # 2. Création du dictionnaire 'autres'
-                    dico = {"height": height, "birth_place": b_p, "nickname": nc, "country_code": c}
+                elif id_sport == "5":  # Basket
+                    nom = demander_et_valider_nom("Nom de l'équipe : ")
+                    if nom:
+                        print(f"Réussite à 3 pts : {stats_service.get_3pts_efficiency(nom):.2f}%")
 
-                    # 3. Création de l'objet Joueur
-                    j = Joueur(
-                        nom=name,
-                        date_naissance=date_obj,
-                        sexe="Homme",
-                        joueur_id=ind,
-                        autres=dico
-                    )
+            elif choix == "6":
+                print("\nAttention la fonctionnalité n'est implémentée que pour le volley masculin")
+                print("1. Ajouter un joueur")
+                print("2. Ajouter un match")
+                print("3. Supprimer un joueur ciblé")
+                print("4. Supprimer un match ciblé")
+                choix_2 = input("\nVotre choix : ")
 
-                    # 4. Chargement, ajout et SAUVEGARDE (avec l'argument !)
-                    lst_joueurs = repo_j.load()
-                    lst_joueurs.append(j)
-                    repo_j.save(lst_joueurs)
+                if choix_2 == "1":  # Ajout joueur
+                    print("Complétez ces informations :")
+                    ind = input("\nIndex (ID) : ")
+                    name = input("\n(NOM Prenom): ")
+                    c = input("\ncountry_code : ")
+                    height = input("\nheight : ")
+                    birth_d = input("\nbirth_date: ")
+                    b_p = input("\nbirth_place : ")
+                    nc = input("\nnickname : ")
+                    try:
+                        date_obj = datetime.strptime(birth_d, "%Y-%m-%d").date()
+                        height = int(height)
+                        dico = {"height": height, "birth_place": b_p,
+                                "nickname": nc, "country_code": c}
 
-                    print("\n✅ Joueur ajouté et fichier CSV mis à jour !")
+                        j = Joueur(
+                            nom=name,
+                            date_naissance=date_obj,
+                            sexe="Homme",
+                            joueur_id=ind,
+                            autres=dico
+                        )
 
-                except ValueError:
-                    print("\n❌ Erreur : Format de date invalide ou scores non numériques.")
+                        lst_joueurs = repository_j.load()
+                        lst_joueurs.append(j)
+                        repository_j.save(lst_joueurs)
 
-            if choix_2 == "3":
-                input("Quel joueur supprimer ? Entrer son nom : ")
-                lst_joueurs = repo_j.load()
-                lst_joueurs.pop()  # Supprime le dernier joueur du fichier par défaut, à modifier
-                repo_j.save(lst_joueurs)
-                print("\n✅ Joueur supprimé, CSV mis à jour !")
+                        # Mettre à jour l'état de l'application en mémoire
+                        stats_service.joueurs = lst_joueurs
+                        print("\n✅ Joueur ajouté et fichier CSV mis à jour !")
 
-            if choix_2 == "4":
-                input("Quel match supprimer ? Entrer Equipe1-Equipe2 : ")
-                lst_matchs = repo_m.load()
-                lst_matchs.pop()  # Supprime le dernier match du fichier par défaut, à modifier
-                repo_m.save(lst_matchs)
-                print("\n✅ Match supprimé, CSV mis à jour !")
+                    except ValueError:
+                        print("\n❌ Erreur : Format de date invalide ou taille non numérique.")
+
+                elif choix_2 == "2":  # Ajout match
+                    print("Complétez ces informations :")
+                    ind = input("\nIndex (ID) : ")
+                    d_str = input("\nDate (AAAA-MM-JJ) : ")
+                    st = input("\nStage (ex: Group Stage) : ")
+                    c1 = input("\nJoueur/Équipe 1 : ")
+                    c2 = input("\nJoueur/Équipe 2 : ")
+                    s1_str = input("\nScore 1 : ")
+                    s2_str = input("\nScore 2 : ")
+
+                    try:
+                        date_obj = datetime.strptime(d_str, "%Y-%m-%d").date()
+                        score1 = int(s1_str)
+                        score2 = int(s2_str)
+                        dico = {"stage": st}
+
+                        m = Match(
+                            id=ind,
+                            date=date_obj,
+                            team1=c1,
+                            team2=c2,
+                            score1=score1,
+                            score2=score2,
+                            autres=dico
+                        )
+
+                        lst_matchs = repository_m.load()
+                        lst_matchs.append(m)
+                        repository_m.save(lst_matchs)
+
+                        # Mettre à jour l'état de l'application en mémoire
+                        stats_service.matches = lst_matchs
+                        print("\n✅ Match ajouté et fichier CSV mis à jour !")
+
+                    except ValueError:
+                        print("\n❌ Erreur : Format de date invalide ou scores non numériques.")
+
+                elif choix_2 == "3":  # Supprimer joueur ciblé
+                    nom_cible = demander_et_valider_nom("Quel joueur souhaitez-vous supprimer ? Entrez son nom : ")
+                    if nom_cible:
+                        lst_joueurs = repository_j.load()
+                        # Filtrage : On garde tous les joueurs SAUF celui ciblé
+                        nouvelle_liste = [j for j in lst_joueurs if j.nom.lower() != nom_cible.lower()]
+
+                        if len(nouvelle_liste) < len(lst_joueurs):
+                            repository_j.save(nouvelle_liste)
+                            stats_service.joueurs = nouvelle_liste
+                            print(f"\n✅ Joueur '{nom_cible}' supprimé, CSV mis à jour !")
+                        else:
+                            print("\n❌ Aucun joueur supprimé.")
+
+                elif choix_2 == "4":  # Supprimer match ciblé
+                    print("Pour cibler un match, vous devez renseigner le nom d'une équipe.")
+                    team_cible = demander_et_valider_nom("Entrez le nom d'une équipe du match à supprimer : ")
+                    if team_cible:
+                        lst_matchs = repository_m.load()
+                        # On cherche les matchs impliquant cette équipe pour proposer un choix précis
+                        matchs_equipe = [m for m in lst_matchs if team_cible in [m.team1, m.team2]]
+
+                        if not matchs_equipe:
+                            print(f"Aucun match trouvé pour l'équipe {team_cible}.")
+                            continue
+
+                        print("\nMatchs trouvés :")
+                        for idx, m in enumerate(matchs_equipe, 1):
+                            print(f"{idx}. [{m.date}] {m.team1} {m.score1} - {m.score2} {m.team2}")
+                        print("0. Annuler")
+
+                        try:
+                            idx_choix = int(input("Sélectionnez le numéro du match à supprimer : "))
+                            if 1 <= idx_choix <= len(matchs_equipe):
+                                match_a_supprimer = matchs_equipe[idx_choix - 1]
+                                # On reconstruit la liste complète sans le match sélectionné
+                                nouvelle_liste = [m for m in lst_matchs if m != match_a_supprimer]
+
+                                repository_m.save(nouvelle_liste)
+                                stats_service.matches = nouvelle_liste
+                                print("\n✅ Match sélectionné supprimé, CSV mis à jour !")
+                        except (ValueError, IndexError):
+                            print("Choix invalide, action annulée.")
+
+            elif choix == "7":
+                break
+
+            else:
+                print("Choix invalide. Veuillez entrer un numéro entre 1 et 7.")
 
     # Appel du menu
     menu_stats(service_stats, choix_sport, repo_m, repo_j)
