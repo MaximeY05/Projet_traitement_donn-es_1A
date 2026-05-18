@@ -220,7 +220,7 @@ def main():
                         print(f"Réussite à 3 pts : {stats_service.get_3pts_efficiency(nom):.2f}%")
 
             elif choix == "6":
-                print("\nAttention la fonctionnalité n'est implémentée que pour le volley masculin")
+                # print("\nAttention la fonctionnalité n'est implémentée que pour le volley masculin")
                 print("1. Ajouter un joueur")
                 print("2. Ajouter un match")
                 print("3. Supprimer un joueur ciblé")
