@@ -39,7 +39,7 @@ class TennisMatchWomenAdapter(BaseAdapter):
                     parts = s.split("-")
                     try:
                         s1 = int("".join(filter(str.isdigit, parts[0])))
-                        s2 = int("".join(filter(str.isdigit, parts[1])))
+                        s2 = int("".join(filter(str.isdigit, parts[1][0])))
 
                         if s1 > s2:
                             score1 += 1

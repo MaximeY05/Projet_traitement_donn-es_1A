@@ -34,7 +34,7 @@ class TennisMatchMenAdapter(BaseAdapter):
                     try:
                         p = s.split("-")
                         v1 = int("".join(filter(str.isdigit, p[0])))
-                        v2 = int("".join(filter(str.isdigit, p[1])))
+                        v2 = int("".join(filter(str.isdigit, p[1][0])))
                         if v1 > v2:
                             s1 += 1
                         elif v2 > v1:
